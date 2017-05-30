@@ -352,6 +352,8 @@ namespace Eisenbahnsimulator {
 	}
 	private: System::Void überToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
+		MessageBox::Show("Eisenbahnsimulator\nVersion 1.0.0\nCopyright by Samuel Dressel, Hannes Krumbiegel, Johannes Bley und Florian Köhler");
+
 	}
 	};
 }
