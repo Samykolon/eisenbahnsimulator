@@ -135,26 +135,26 @@ namespace Eisenbahnsimulator {
 			// neuToolStripMenuItem
 			// 
 			this->neuToolStripMenuItem->Name = L"neuToolStripMenuItem";
-			this->neuToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->neuToolStripMenuItem->Size = System::Drawing::Size(126, 22);
 			this->neuToolStripMenuItem->Text = L"Neu";
 			this->neuToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::neuToolStripMenuItem_Click);
 			// 
 			// speichernToolStripMenuItem
 			// 
 			this->speichernToolStripMenuItem->Name = L"speichernToolStripMenuItem";
-			this->speichernToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->speichernToolStripMenuItem->Size = System::Drawing::Size(126, 22);
 			this->speichernToolStripMenuItem->Text = L"Speichern";
 			// 
 			// ladenToolStripMenuItem
 			// 
 			this->ladenToolStripMenuItem->Name = L"ladenToolStripMenuItem";
-			this->ladenToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->ladenToolStripMenuItem->Size = System::Drawing::Size(126, 22);
 			this->ladenToolStripMenuItem->Text = L"Laden";
 			// 
 			// schließenToolStripMenuItem
 			// 
 			this->schließenToolStripMenuItem->Name = L"schließenToolStripMenuItem";
-			this->schließenToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->schließenToolStripMenuItem->Size = System::Drawing::Size(126, 22);
 			this->schließenToolStripMenuItem->Text = L"Schließen";
 			this->schließenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::schließenToolStripMenuItem_Click);
 			// 
@@ -182,7 +182,7 @@ namespace Eisenbahnsimulator {
 			// überToolStripMenuItem
 			// 
 			this->überToolStripMenuItem->Name = L"überToolStripMenuItem";
-			this->überToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->überToolStripMenuItem->Size = System::Drawing::Size(108, 22);
 			this->überToolStripMenuItem->Text = L"Über...";
 			this->überToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::überToolStripMenuItem_Click);
 			// 
@@ -311,11 +311,11 @@ namespace Eisenbahnsimulator {
 			this->listBox1->TabIndex = 9;
 			this->listBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MainFrame::listBox1_SelectedIndexChanged);
 			// 
-			// MyForm
+			// MainFrame
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1309, 920);
+			this->ClientSize = System::Drawing::Size(1309, 741);
 			this->Controls->Add(this->listBox1);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->comboBox2);
@@ -324,7 +324,8 @@ namespace Eisenbahnsimulator {
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
-			this->Name = L"MyForm";
+			this->MinimumSize = System::Drawing::Size(200, 100);
+			this->Name = L"MainFrame";
 			this->ShowIcon = false;
 			this->Text = L"Eisenbahnsimulator";
 			this->menuStrip1->ResumeLayout(false);
