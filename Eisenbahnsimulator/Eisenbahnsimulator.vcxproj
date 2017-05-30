@@ -142,6 +142,7 @@
     <ClInclude Include="MainFrame.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Toolbox.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainFrame.resx">
