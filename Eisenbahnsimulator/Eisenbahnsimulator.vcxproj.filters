@@ -23,5 +23,13 @@
     <ClInclude Include="MainFrame.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Toolbox.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainFrame.resx">
+      <Filter>Ressourcendateien</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
