@@ -324,7 +324,7 @@ namespace Eisenbahnsimulator {
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
-			this->MinimumSize = System::Drawing::Size(200, 100);
+			this->MinimumSize = System::Drawing::Size(800, 600);
 			this->Name = L"MainFrame";
 			this->ShowIcon = false;
 			this->Text = L"Eisenbahnsimulator";
