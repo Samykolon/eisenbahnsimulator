@@ -335,6 +335,7 @@ namespace Eisenbahnsimulator {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
+			int i = 0;
 
 		}
 #pragma endregion
