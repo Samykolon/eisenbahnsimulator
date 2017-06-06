@@ -13,3 +13,9 @@ void Main(array<String^>^ args)
 	Eisenbahnsimulator::MainFrame form;
 	Application::Run(%form);
 }
+
+
+void justAfunction()
+{
+	// This does nothing
+}
