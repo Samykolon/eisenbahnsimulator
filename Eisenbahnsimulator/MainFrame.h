@@ -107,10 +107,8 @@ namespace Eisenbahnsimulator {
 			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
-			//this->listView1 = (gcnew System::Windows::Forms::ListView());
 			this->menuStrip1->SuspendLayout();
 			this->panel1->SuspendLayout();
-			this->groupBox1->SuspendLayout();
 			this->groupBox3->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar2))->BeginInit();
 			this->SuspendLayout();
@@ -125,7 +123,7 @@ namespace Eisenbahnsimulator {
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
 			this->menuStrip1->Padding = System::Windows::Forms::Padding(8, 2, 0, 2);
-			this->menuStrip1->Size = System::Drawing::Size(1745, 28);
+			this->menuStrip1->Size = System::Drawing::Size(1902, 28);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -195,16 +193,19 @@ namespace Eisenbahnsimulator {
 			// 
 			// panel1
 			// 
+			this->panel1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel1->Controls->Add(this->groupBox5);
-			this->panel1->Location = System::Drawing::Point(293, 34);
+			this->panel1->Location = System::Drawing::Point(296, 34);
 			this->panel1->Margin = System::Windows::Forms::Padding(4);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(1435, 814);
+			this->panel1->Size = System::Drawing::Size(1593, 668);
 			this->panel1->TabIndex = 1;
 			// 
 			// groupBox5
 			// 
-			this->groupBox5->Location = System::Drawing::Point(1112, 609);
+			this->groupBox5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->groupBox5->Location = System::Drawing::Point(1284, 477);
 			this->groupBox5->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox5->Name = L"groupBox5";
 			this->groupBox5->Padding = System::Windows::Forms::Padding(4);
@@ -215,25 +216,27 @@ namespace Eisenbahnsimulator {
 			// 
 			// groupBox1
 			// 
-			//this->groupBox1->Controls->Add(listView1);
+			this->groupBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left));
 			this->groupBox1->Location = System::Drawing::Point(17, 34);
 			this->groupBox1->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox1->Name = L"groupBox1";
 			this->groupBox1->Padding = System::Windows::Forms::Padding(4);
-			this->groupBox1->Size = System::Drawing::Size(268, 814);
+			this->groupBox1->Size = System::Drawing::Size(268, 700);
 			this->groupBox1->TabIndex = 2;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Elemente";
 			// 
 			// groupBox3
 			// 
+			this->groupBox3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->groupBox3->Controls->Add(this->radioButton4);
 			this->groupBox3->Controls->Add(this->radioButton2);
 			this->groupBox3->Controls->Add(this->button4);
 			this->groupBox3->Controls->Add(this->button2);
 			this->groupBox3->Controls->Add(this->label2);
 			this->groupBox3->Controls->Add(this->trackBar2);
-			this->groupBox3->Location = System::Drawing::Point(293, 906);
+			this->groupBox3->Location = System::Drawing::Point(293, 742);
 			this->groupBox3->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox3->Name = L"groupBox3";
 			this->groupBox3->Padding = System::Windows::Forms::Padding(4);
@@ -268,6 +271,8 @@ namespace Eisenbahnsimulator {
 			// 
 			// button4
 			// 
+			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left));
 			this->button4->Location = System::Drawing::Point(13, 139);
 			this->button4->Margin = System::Windows::Forms::Padding(4);
 			this->button4->Name = L"button4";
@@ -278,6 +283,7 @@ namespace Eisenbahnsimulator {
 			// 
 			// button2
 			// 
+			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->button2->Location = System::Drawing::Point(12, 175);
 			this->button2->Margin = System::Windows::Forms::Padding(4);
 			this->button2->Name = L"button2";
@@ -306,8 +312,9 @@ namespace Eisenbahnsimulator {
 			// 
 			// comboBox2
 			// 
+			this->comboBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->comboBox2->FormattingEnabled = true;
-			this->comboBox2->Location = System::Drawing::Point(295, 868);
+			this->comboBox2->Location = System::Drawing::Point(296, 710);
 			this->comboBox2->Margin = System::Windows::Forms::Padding(4);
 			this->comboBox2->Name = L"comboBox2";
 			this->comboBox2->Size = System::Drawing::Size(265, 24);
@@ -316,41 +323,35 @@ namespace Eisenbahnsimulator {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(571, 868);
+			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->textBox1->Location = System::Drawing::Point(569, 708);
 			this->textBox1->Margin = System::Windows::Forms::Padding(4);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(1156, 249);
+			this->textBox1->Size = System::Drawing::Size(1320, 246);
 			this->textBox1->TabIndex = 8;
 			this->textBox1->Text = L"MessageBox/Konsole";
 			// 
 			// listBox1
 			// 
+			this->listBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->listBox1->FormattingEnabled = true;
 			this->listBox1->ItemHeight = 16;
 			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(1) { L"Liste der vorhandenen Züge" });
-			this->listBox1->Location = System::Drawing::Point(17, 868);
+			this->listBox1->Location = System::Drawing::Point(17, 742);
 			this->listBox1->Margin = System::Windows::Forms::Padding(4);
 			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(267, 260);
+			this->listBox1->Size = System::Drawing::Size(267, 212);
 			this->listBox1->TabIndex = 9;
-			this->listBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MainFrame::listBox1_SelectedIndexChanged);
-			// 
-			// listView1
-			// 
-			/*this->listView1->Location = System::Drawing::Point(8, 23);
-			this->listView1->Name = L"Elements";
-			this->listView1->Size = System::Drawing::Size(253, 784);
-			this->listView1->TabIndex = 0;
-			this->listView1->UseCompatibleStateImageBehavior = false; */
 			// 
 			// MainFrame
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1745, 912);
-			this->Controls->Add(this->listBox1);
+			this->ClientSize = System::Drawing::Size(1902, 963);
 			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->listBox1);
 			this->Controls->Add(this->comboBox2);
 			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->groupBox1);
@@ -361,10 +362,10 @@ namespace Eisenbahnsimulator {
 			this->Name = L"MainFrame";
 			this->ShowIcon = false;
 			this->Text = L"Eisenbahnsimulator";
+			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->panel1->ResumeLayout(false);
-			this->groupBox1->ResumeLayout(false);
 			this->groupBox3->ResumeLayout(false);
 			this->groupBox3->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar2))->EndInit();
@@ -375,8 +376,7 @@ namespace Eisenbahnsimulator {
 #pragma endregion
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
 	}
-	private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
-	}
+
 	private: System::Void ansichtToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
 	private: System::Void neuToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -389,5 +389,7 @@ namespace Eisenbahnsimulator {
 		MessageBox::Show("Eisenbahnsimulator\nVersion 1.0.0\nCopyright by Samuel Dressel, Hannes Krumbiegel, Johannes Bley und Florian Köhler");
 
 	}
-	};
+
+
+};
 }
