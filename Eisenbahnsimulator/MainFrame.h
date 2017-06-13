@@ -19,7 +19,7 @@ namespace Eisenbahnsimulator {
 		MainFrame(void)
 		{
 			InitializeComponent();
-			toolbox();
+			toolbox(listView1);
 			//
 			//TODO: Add the constructor code here
 			//
@@ -69,7 +69,8 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::ListBox^  listBox1;
 	private: System::Windows::Forms::ToolStripMenuItem^  überToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  einstellungenToolStripMenuItem;
-	//private: System::Windows::Forms::ListView^  listView1;
+	private: System::Windows::Forms::ListView^  listView1;
+			 //private: System::Windows::Forms::ListView^  listView1;
 
 	private:
 		/// <summary>
@@ -107,8 +108,10 @@ namespace Eisenbahnsimulator {
 			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
+			this->listView1 = (gcnew System::Windows::Forms::ListView());
 			this->menuStrip1->SuspendLayout();
 			this->panel1->SuspendLayout();
+			this->groupBox1->SuspendLayout();
 			this->groupBox3->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar2))->BeginInit();
 			this->SuspendLayout();
@@ -218,6 +221,7 @@ namespace Eisenbahnsimulator {
 			// 
 			this->groupBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
+			this->groupBox1->Controls->Add(this->listView1);
 			this->groupBox1->Location = System::Drawing::Point(17, 34);
 			this->groupBox1->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox1->Name = L"groupBox1";
@@ -345,6 +349,14 @@ namespace Eisenbahnsimulator {
 			this->listBox1->Size = System::Drawing::Size(267, 212);
 			this->listBox1->TabIndex = 9;
 			// 
+			// listView1
+			// 
+			this->listView1->Location = System::Drawing::Point(8, 23);
+			this->listView1->Name = L"listView1";
+			this->listView1->Size = System::Drawing::Size(253, 677);
+			this->listView1->TabIndex = 0;
+			this->listView1->UseCompatibleStateImageBehavior = false;
+			// 
 			// MainFrame
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -366,6 +378,7 @@ namespace Eisenbahnsimulator {
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->panel1->ResumeLayout(false);
+			this->groupBox1->ResumeLayout(false);
 			this->groupBox3->ResumeLayout(false);
 			this->groupBox3->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar2))->EndInit();

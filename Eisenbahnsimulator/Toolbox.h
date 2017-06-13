@@ -7,13 +7,32 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
-void toolbox(void)
+void toolbox(System::Windows::Forms::ListView^  listViewToolbox)
 {
-	System::Windows::Forms::ListView^  listView1;
-	listView1 = (gcnew System::Windows::Forms::ListView());
-	listView1->Location = System::Drawing::Point(8, 23);
-	listView1->Name = L"Elements";
-	listView1->Size = System::Drawing::Size(253, 784);
-	listView1->TabIndex = 0;
-	listView1->UseCompatibleStateImageBehavior = false;
+	listViewToolbox->FullRowSelect = true;
+	listViewToolbox->View = View::Details;
+	listViewToolbox->Sorting = SortOrder::Ascending;
+	listViewToolbox->GridLines = true;
+	listViewToolbox->LabelEdit = true;
+	ListViewItem^ item1 = gcnew ListViewItem("Schiene", 0);
+	item1->SubItems->Add("");
+	ListViewItem^ item2 = gcnew ListViewItem("Schienenkurve", 1);
+	item2->SubItems->Add("");
+	ListViewItem^ item3 = gcnew ListViewItem("Weiche", 2);
+	item3->SubItems->Add("");
+
+
+	// Create columns for the items and subitems.
+	listViewToolbox->Columns->Add("Element", -2, HorizontalAlignment::Left);
+	listViewToolbox->Columns->Add("", -2, HorizontalAlignment::Left);
+	
+	
+
+	array<ListViewItem^>^temp1 = { item1,item2,item3 };
+	listViewToolbox->Items->AddRange(temp1);
+
+	ImageList^ imageListSmall = gcnew ImageList;
+	
+	
+	
 }
