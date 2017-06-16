@@ -167,6 +167,16 @@
     <Image Include="..\..\..\..\Desktop\Rails\Rail_Normal_Vert.bmp" />
     <Image Include="..\..\..\..\Desktop\Rail_Normal_Hor.bmp" />
     <Image Include="..\..\..\..\Desktop\Rail_Normal_Vert.bmp" />
+    <Image Include="Rails\Rail_Curve_LeftBottom.bmp" />
+    <Image Include="Rails\Rail_Curve_LeftBottomC.bmp" />
+    <Image Include="Rails\Rail_Curve_LeftTop.bmp" />
+    <Image Include="Rails\Rail_Curve_LeftTopC.bmp" />
+    <Image Include="Rails\Rail_Curve_RightBottom.bmp" />
+    <Image Include="Rails\Rail_Curve_RightBottomC.bmp" />
+    <Image Include="Rails\Rail_Curve_RightTop.bmp" />
+    <Image Include="Rails\Rail_Curve_RightTopC.bmp" />
+    <Image Include="Rails\Rail_Normal_Hor.bmp" />
+    <Image Include="Rails\Rail_Normal_Vert.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
