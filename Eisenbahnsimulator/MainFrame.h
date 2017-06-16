@@ -20,6 +20,7 @@ namespace Eisenbahnsimulator {
 		{
 			InitializeComponent();
 			toolbox(listView1);
+			rm = gcnew System::Resources::ResourceManager("Eisenbahnsimulator.MainFrame", System::Reflection::Assembly::GetExecutingAssembly());
 			//
 			//TODO: Add the constructor code here
 			//
@@ -387,6 +388,7 @@ namespace Eisenbahnsimulator {
 
 		}
 #pragma endregion
+		System::Resources::ResourceManager^ rm;
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
 	}
 
