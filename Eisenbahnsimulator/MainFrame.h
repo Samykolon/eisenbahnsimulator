@@ -1,5 +1,6 @@
 #pragma once
 #include "Toolbox.h"
+#include "Train.h"
 
 namespace Eisenbahnsimulator {
 
@@ -71,13 +72,15 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::ToolStripMenuItem^  überToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  einstellungenToolStripMenuItem;
 	private: System::Windows::Forms::ListView^  listView1;
+	private: System::Windows::Forms::Timer^  timer;
+	private: System::ComponentModel::IContainer^  components;
 			 //private: System::Windows::Forms::ListView^  listView1;
 
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -86,6 +89,7 @@ namespace Eisenbahnsimulator {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->dateiToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->neuToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -110,6 +114,7 @@ namespace Eisenbahnsimulator {
 			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
+			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->menuStrip1->SuspendLayout();
 			this->panel1->SuspendLayout();
 			this->groupBox1->SuspendLayout();
@@ -212,7 +217,7 @@ namespace Eisenbahnsimulator {
 			this->groupBox5->Size = System::Drawing::Size(229, 152);
 			this->groupBox5->TabIndex = 0;
 			this->groupBox5->TabStop = false;
-			this->groupBox5->Text = L"Ausgwähltes Objekt bearbeiten";
+			this->groupBox5->Text = L"Ausgewähltes Objekt bearbeiten";
 			// 
 			// groupBox1
 			// 
