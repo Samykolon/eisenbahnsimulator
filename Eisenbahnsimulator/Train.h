@@ -2,7 +2,7 @@
 using namespace System;
 
 public ref class Train {
-	enum Direction { East, North, West, South };
+	enum class Direction { East, North, West, South };
 public:
 	property String^ Name;
 	property double Speed;
