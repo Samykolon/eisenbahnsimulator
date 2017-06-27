@@ -16,17 +16,16 @@ namespace Eisenbahnsimulator {
 	/// </summary>
 	public ref class MainFrame : public System::Windows::Forms::Form
 	{
+		
+
+
 	public:
 		MainFrame(void)
 		{
 			InitializeComponent();
-			ImageList^ imageListAlle = gcnew ImageList;
-			ImageList^ imageListSchienen = gcnew ImageList;
-			array<ListViewItem^>^Alle = gcnew array<ListViewItem^>(10);
-			array<ListViewItem^>^Schienen = gcnew array<ListViewItem^>(6);;
 			ResManager = gcnew System::Resources::ResourceManager("Eisenbahnsimulator.Pictures", System::Reflection::Assembly::GetExecutingAssembly());
-			toolbox(listView1, ResManager, ComboToolbox, imageListAlle, imageListSchienen, Alle, Schienen );
-			updateToolbox(listView1, ComboToolbox, imageListAlle, imageListSchienen, Alle, Schienen);
+			toolbox(listView1, ResManager, ComboToolbox, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
+			updateToolbox(listView1, ComboToolbox, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
 			
 			
 			//
@@ -424,6 +423,19 @@ namespace Eisenbahnsimulator {
 		}
 #pragma endregion
 		System::Resources::ResourceManager^ ResManager;
+		ImageList^ imageListSchienen = gcnew ImageList;
+		ImageList^ imageListSignale = gcnew ImageList;
+		ImageList^ imageListHaltepunkte = gcnew ImageList;
+		ImageList^ imageListUmgebung = gcnew ImageList;
+		ImageList^ imageListZuege = gcnew ImageList;
+		ImageList^ imageListAlle = gcnew ImageList;
+		array<ListViewItem^>^Schienen = gcnew array<ListViewItem^>(6);
+		array<ListViewItem^>^Signale = gcnew array<ListViewItem^>(10);
+		array<ListViewItem^>^Haltepunkte = gcnew array<ListViewItem^>(2);
+		array<ListViewItem^>^Umgebung = gcnew array<ListViewItem^>(4);
+		array<ListViewItem^>^Zuege = gcnew array<ListViewItem^>(3);
+		array<ListViewItem^>^Alle = gcnew array<ListViewItem^>(24);
+		
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
 	}
 
@@ -443,7 +455,8 @@ namespace Eisenbahnsimulator {
 
 private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, System::EventArgs^  e) {
 	
-	//updateToolbox(listView1, ComboToolbox, imageListAlle, imageListSchienen, Alle, Schienen);
+	updateToolbox(listView1, ComboToolbox, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
+	
 	
 	
 	
