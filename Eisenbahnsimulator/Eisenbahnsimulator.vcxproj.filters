@@ -35,6 +35,9 @@
     <ClInclude Include="Train.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainFrame.resx">

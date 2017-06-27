@@ -144,6 +144,7 @@
     <ClInclude Include="MainFrame.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Toolbox.h" />
     <ClInclude Include="Train.h" />
   </ItemGroup>
