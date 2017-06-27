@@ -3,23 +3,15 @@
 using namespace System;
 using namespace System::Collections::Generic;
 
-
-ref class signal;
-ref class TileObject;
-ref class rail;
-
-
 public ref class TileObject abstract
 {
 public:
-	int posX;
-	int posY;
-	int width;
-	int height;
+	int PosX;
+	int PosY;
 };
 
 
-public ref class signal
+public ref class Signal
 {
 private:
 
@@ -31,43 +23,43 @@ enum Direction {
 	NorthWest = 2, WestNorth = 2, EastSouth = 3, SouthEast = 3,
 	EastWest = 4, WestEast = 4, SouthWest = 5, WestSouth = 5
 };
-public ref class rail : TileObject
+public ref class Rail : TileObject
 {
 private:
-	signal ^Signal;
+	Signal ^signal;
 
 public:
-	rail(Direction _dir)
+	Rail(Direction _dir)
 	{
 		dir = _dir;
-		Signal = nullptr;
+		signal = nullptr;
 	}
-	void setSignal(signal ^_sig)
+	void setSignal(Signal ^_sig)
 	{
-		Signal = _sig;
+		signal = _sig;
 	}
-	signal ^setSignal()
+	Signal ^setSignal()
 	{
-		return Signal;
+		return signal;
 	}
 	Direction dir;
 };
 
 
 
-public ref class map
+public ref class Map
 {
 private:
-	int height;
-	int width;
-	List<TileObject^>^_map;
+	int Height;
+	int Width;
+	List<TileObject^>^ _map;
 
 public:
 
-	map(int _height, int _width)
+	Map(int _height, int _width)
 	{
-		height = _height;
-		width = _width;
+		Height = _height;
+		Width = _width;
 	}
 
 	// returns Object at position x, y	
@@ -77,7 +69,7 @@ public:
 
 		for (int i = 0; i < count; i++)
 		{
-			if (_map[i]->posX == posX && _map[i]->posY == posY)
+			if (_map[i]->PosX == posX && _map[i]->PosY == posY)
 			{
 				return _map[i];
 			}
@@ -87,8 +79,8 @@ public:
 
 	TileObject^ setTile(int posX, int posY, TileObject^ obj)
 	{
-		obj->posY = posY;
-		obj->posX = posX;
+		obj->PosY = posY;
+		obj->PosX = posX;
 		_map->Add(obj);
 		return obj;
 	}

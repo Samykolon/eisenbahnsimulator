@@ -32,6 +32,8 @@ namespace Eisenbahnsimulator {
 			//
 			//TODO: Add the constructor code here
 			//
+			Trains = gcnew List<Train^>();
+
 		}
 
 	protected:
@@ -83,6 +85,7 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::Timer^  timer;
 	private: System::ComponentModel::IContainer^  components;
 			 //private: System::Windows::Forms::ListView^  listView1;
+	private: List<Train^>^ Trains;
 
 	private:
 		/// <summary>
