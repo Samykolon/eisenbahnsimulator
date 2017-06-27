@@ -82,6 +82,7 @@ public:
 				return _map[i];
 			}
 		}
+		return nullptr;
 	}
 
 	TileObject^ setTile(int posX, int posY, TileObject^ obj)
@@ -89,5 +90,6 @@ public:
 		obj->posY = posY;
 		obj->posX = posX;
 		_map->Add(obj);
+		return obj;
 	}
 };
