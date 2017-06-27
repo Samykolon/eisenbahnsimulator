@@ -21,7 +21,7 @@ namespace Eisenbahnsimulator {
 		{
 			InitializeComponent();
 			toolbox(listView1, ResManager, ComboToolbox);
-			ResManager = gcnew System::Resources::ResourceManager("Eisenbahnsimulator.MainFrame", System::Reflection::Assembly::GetExecutingAssembly());
+			ResManager = gcnew System::Resources::ResourceManager("Eisenbahnsimulator.Pictures", System::Reflection::Assembly::GetExecutingAssembly());
 			//
 			//TODO: Add the constructor code here
 			//
@@ -53,6 +53,7 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::GroupBox^  groupBox3;
 
 	private: System::Windows::Forms::ComboBox^  comboBox2;
+	private: System::Windows::Forms::ComboBox^ ComboToolbox;
 
 
 	private: System::Windows::Forms::Label^  label2;
@@ -431,7 +432,10 @@ namespace Eisenbahnsimulator {
 
 
 private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, System::EventArgs^  e) {
+	listView1->Items->Clear();
 	listView1->Clear();
+	
+	
 	
 
 }

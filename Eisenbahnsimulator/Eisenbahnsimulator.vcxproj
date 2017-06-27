@@ -137,17 +137,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="Train.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrame.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Toolbox.h" />
+    <ClInclude Include="Train.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainFrame.resx">
       <DependentUpon>MainFrame.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pictures.resx" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\Desktop\Kurve_linksoben.bmp" />
