@@ -10,26 +10,26 @@ using namespace System::Drawing;
 
 
 
-void updateToolbox(System::Windows::Forms::ListView^ listViewToolbox, System::Windows::Forms::ComboBox^ Combo)
+void updateToolbox(System::Windows::Forms::ListView^ listViewToolbox, System::Windows::Forms::ComboBox^ Combo, System::Windows::Forms::ImageList^ I1, System::Windows::Forms::ImageList^ I2, array<System::Windows::Forms::ListViewItem^>^A1, array<System::Windows::Forms::ListViewItem^>^A2)
 {
 	listViewToolbox->Items->Clear();
 	listViewToolbox->Clear();
 	switch (Combo->SelectedIndex)
 	{
 	case 0:
-		listViewToolbox->LargeImageList = imageListSchienen;
-		listViewToolbox->Items->AddRange(Schienen);
+		listViewToolbox->LargeImageList = I1;
+		listViewToolbox->Items->AddRange(A1);
 
 	default:
-		listViewToolbox->LargeImageList = imageListAlle;
-		listViewToolbox->Items->AddRange(Alle);
+		listViewToolbox->LargeImageList = I2;
+		listViewToolbox->Items->AddRange(A2);
 
 	}
 	
 	
 }
 
-void toolbox(System::Windows::Forms::ListView^  listViewToolbox, System::Resources::ResourceManager^ rm, System::Windows::Forms::ComboBox^  Combo)
+void toolbox(System::Windows::Forms::ListView^  listViewToolbox, System::Resources::ResourceManager^ rm, System::Windows::Forms::ComboBox^  Combo, System::Windows::Forms::ImageList^ I1, System::Windows::Forms::ImageList^ I2, array<System::Windows::Forms::ListViewItem^>^A1, array<System::Windows::Forms::ListViewItem^>^A2)
 {
 	Combo->Items->Add("Schienen");
 	Combo->Items->Add("Signale und Weichen");
@@ -71,29 +71,42 @@ void toolbox(System::Windows::Forms::ListView^  listViewToolbox, System::Resourc
 	Image ^Rail_Curve_RightBottom = safe_cast<Image^> (rm->GetObject("Rail_Curve_RightBottomC"));
 	Image ^Rail_Curve_LeftBottom = safe_cast<Image^> (rm->GetObject("Rail_Curve_LeftBottomC"));
 	
-	ImageList^ imageListAlle = gcnew ImageList;
-	imageListAlle->ImageSize = Size(48, 48);
-	imageListAlle->Images->Add(Rail_Normal_Vert);
-	imageListAlle->Images->Add(Rail_Normal_Hor);
-	imageListAlle->Images->Add(Rail_Curve_LeftTop);
-	imageListAlle->Images->Add(Rail_Curve_RightTop);
-	imageListAlle->Images->Add(Rail_Curve_RightBottom);
-	imageListAlle->Images->Add(Rail_Curve_LeftBottom);
 	
-	ImageList^ imageListSchienen = gcnew ImageList;
-	imageListSchienen->ImageSize = Size(48, 48);
-	imageListSchienen->Images->Add(Rail_Normal_Vert);
-	imageListSchienen->Images->Add(Rail_Normal_Hor);
-	imageListSchienen->Images->Add(Rail_Curve_LeftTop);
-	imageListSchienen->Images->Add(Rail_Curve_RightTop);
-	imageListSchienen->Images->Add(Rail_Curve_RightBottom);
-	imageListSchienen->Images->Add(Rail_Curve_LeftBottom);
+	I1->ImageSize = Size(48, 48);
+	I1->Images->Add(Rail_Normal_Vert);
+	I1->Images->Add(Rail_Normal_Hor);
+	I1->Images->Add(Rail_Curve_LeftTop);
+	I1->Images->Add(Rail_Curve_RightTop);
+	I1->Images->Add(Rail_Curve_RightBottom);
+	I1->Images->Add(Rail_Curve_LeftBottom);
+	
+	I2->ImageSize = Size(48, 48);
+	I2->Images->Add(Rail_Normal_Vert);
+	I2->Images->Add(Rail_Normal_Hor);
+	I2->Images->Add(Rail_Curve_LeftTop);
+	I2->Images->Add(Rail_Curve_RightTop);
+	I2->Images->Add(Rail_Curve_RightBottom);
+	I2->Images->Add(Rail_Curve_LeftBottom);
 
 
 	// Image-List Arrays
-	array<ListViewItem^>^Alle = { item10,item11,item12, item13, item14, item15, item40, item41, item42, item43 };
-	array<ListViewItem^>^Schienen = { item10,item11,item12, item13, item14, item15};
-	
+	A1[0] = item10;
+	A1[1] = item11;
+	A1[2] = item12;
+	A1[3] = item13;
+	A1[4] = item14;
+	A1[5] = item15;
+	A1[6] = item40;
+	A1[7] = item41;
+	A1[8] = item42;
+	A1[9] = item43;
+	A2[0] = item10;
+	A2[1] = item11;
+	A2[2] = item12;
+	A2[3] = item13;
+	A2[4] = item14;
+	A2[5] = item15;
+		
 	// Fill Listview based on selected Combobox-Item
 	
 	

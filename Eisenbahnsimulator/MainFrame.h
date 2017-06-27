@@ -20,8 +20,15 @@ namespace Eisenbahnsimulator {
 		MainFrame(void)
 		{
 			InitializeComponent();
-			toolbox(listView1, ResManager, ComboToolbox);
+			ImageList^ imageListAlle = gcnew ImageList;
+			ImageList^ imageListSchienen = gcnew ImageList;
+			array<ListViewItem^>^Alle = gcnew array<ListViewItem^>(10);
+			array<ListViewItem^>^Schienen = gcnew array<ListViewItem^>(6);;
 			ResManager = gcnew System::Resources::ResourceManager("Eisenbahnsimulator.Pictures", System::Reflection::Assembly::GetExecutingAssembly());
+			toolbox(listView1, ResManager, ComboToolbox, imageListAlle, imageListSchienen, Alle, Schienen );
+			updateToolbox(listView1, ComboToolbox, imageListAlle, imageListSchienen, Alle, Schienen);
+			
+			
 			//
 			//TODO: Add the constructor code here
 			//
@@ -432,8 +439,8 @@ namespace Eisenbahnsimulator {
 
 
 private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, System::EventArgs^  e) {
-	listView1->Items->Clear();
-	listView1->Clear();
+	
+	//updateToolbox(listView1, ComboToolbox, imageListAlle, imageListSchienen, Alle, Schienen);
 	
 	
 	
