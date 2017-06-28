@@ -1,6 +1,9 @@
 #pragma once
 #include "Toolbox.h"
 #include "Train.h"
+#include "Decoration.h"
+#include "TrainStop.h"
+#include "RailSwitch.h"
 
 namespace Eisenbahnsimulator {
 

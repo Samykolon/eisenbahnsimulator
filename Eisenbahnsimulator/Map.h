@@ -26,7 +26,7 @@ public:
 
 		for (int i = 0; i < count; i++)
 		{
-			if (_map[i]->PosX == posX && _map[i]->PosY == posY)
+			if (_map[i]->X == posX && _map[i]->Y == posY)
 			{
 				return _map[i];
 			}
@@ -34,10 +34,10 @@ public:
 		return nullptr;
 	}
 
-	TileObject^ SetTile(int posX, int posY, TileObject^ obj) //Sets the object at x, y
+	TileObject^ SetTile(int posX, int posY, TileObject^ obj) //Sets the object at x, y and initializes the object's coordinates
 	{
-		obj->PosY = posY;
-		obj->PosX = posX;
+		obj->Y = posY;
+		obj->X = posX;
 		_map->Add(obj);
 		return obj;
 	}
