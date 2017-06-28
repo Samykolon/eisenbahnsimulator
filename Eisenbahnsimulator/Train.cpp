@@ -1,10 +1,9 @@
 #include "Train.h"
 
-Train::Train(String^ nm, int ix, int iy, Direction start, Direction goal)
+Train::Train(String^ nm, Direction start, Direction goal, TileObject^ to)
 {
 	String^ Name = nm;
-	X = ix;
-	Y = iy;
+	Tile = to;
 	StartDirection = start;
 	GoalDirection = goal;
 }
