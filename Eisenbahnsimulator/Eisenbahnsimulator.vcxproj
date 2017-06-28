@@ -138,13 +138,17 @@
   <ItemGroup>
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Rail.cpp" />
     <ClCompile Include="Train.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrame.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Object.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Rail.h" />
+    <ClInclude Include="Signal.h" />
+    <ClInclude Include="TileObject.h" />
     <ClInclude Include="Toolbox.h" />
     <ClInclude Include="Train.h" />
   </ItemGroup>

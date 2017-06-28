@@ -24,6 +24,9 @@
     <ClCompile Include="Object.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Rail.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrame.h">
@@ -35,7 +38,16 @@
     <ClInclude Include="Train.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
+    <ClInclude Include="TileObject.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Signal.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Rail.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

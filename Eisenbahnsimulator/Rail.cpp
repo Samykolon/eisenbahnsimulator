@@ -1,4 +1,4 @@
-#include "Object.h"
+#include "Rail.h"
 
 Boolean Rail::LeadsTo(Direction dir)
 {
@@ -35,6 +35,6 @@ Boolean Rail::LeadsTo(Direction dir)
 	default:
 		break;
 	}
-	
+
 	return Boolean();
 }

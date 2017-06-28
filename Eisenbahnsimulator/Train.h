@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "TileObject.h"
 
 using namespace System;
 
