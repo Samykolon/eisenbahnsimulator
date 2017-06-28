@@ -5,28 +5,28 @@ Boolean Rail::LeadsTo(Direction dir)
 	switch (dir)
 	{
 	case Direction::East:
-		if (Directions == Directions::EastNorth || Directions == Directions::EastSouth || Directions == Directions::EastWest) {
+		if (EndDirections == Directions::EastNorth || EndDirections == Directions::EastSouth || EndDirections == Directions::EastWest) {
 			return true;
 		}
 		else
 			return false;
 		break;
 	case Direction::North:
-		if (Directions == Directions::EastNorth || Directions == Directions::NorthSouth || Directions == Directions::NorthWest) {
+		if (EndDirections == Directions::EastNorth || EndDirections == Directions::NorthSouth || EndDirections == Directions::NorthWest) {
 			return true;
 		}
 		else
 			return false;
 		break;
 	case Direction::West:
-		if (Directions == Directions::WestEast || Directions == Directions::WestNorth || Directions == Directions::WestSouth) {
+		if (EndDirections == Directions::WestEast || EndDirections == Directions::WestNorth || EndDirections == Directions::WestSouth) {
 			return true;
 		}
 		else
 			return false;
 		break;
 	case Direction::South:
-		if (Directions == Directions::SouthEast || Directions == Directions::SouthNorth || Directions == Directions::SouthWest) {
+		if (EndDirections == Directions::SouthEast || EndDirections == Directions::SouthNorth || EndDirections == Directions::SouthWest) {
 			return true;
 		}
 		else

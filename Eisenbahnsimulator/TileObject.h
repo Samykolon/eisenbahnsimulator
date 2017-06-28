@@ -8,7 +8,7 @@ enum class Directions { //Two cardinal directions
 
 enum class Direction { East, North, West, South }; //One cardinal direction
 
-public ref class TileObject abstract
+public ref class TileObject abstract //A basic tile
 {
 public:
 	int PosX;
