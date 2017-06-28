@@ -41,9 +41,6 @@
     <ClInclude Include="Map.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Signal.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Rail.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>

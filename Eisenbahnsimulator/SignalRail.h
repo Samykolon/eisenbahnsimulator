@@ -2,11 +2,7 @@
 #include "Rail.h"
 
 public ref class SignalRail : Rail { //A rail with a signal
-	Signal^ Signal;
+	double Duration;
 
-	SignalRail(Directions dir) : Rail(dir) {
-		Signal = nullptr;
-	}
-	
-
+	SignalRail(Directions dir, double dur) : Rail(dir), Duration(dur) {}
 };

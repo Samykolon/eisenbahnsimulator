@@ -460,10 +460,7 @@ namespace Eisenbahnsimulator {
 private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, System::EventArgs^  e) {
 	
 	updateToolbox(listView1, ComboToolbox, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
-	
-	
-	
-	
+		
 
 }
 };
