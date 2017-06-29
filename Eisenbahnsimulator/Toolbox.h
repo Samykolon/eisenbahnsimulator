@@ -68,7 +68,7 @@ void toolbox(System::Windows::Forms::ListView^  listViewToolbox, System::Resourc
 	Combo->SelectedIndex = 5;
 	listViewToolbox->FullRowSelect = true;
 	listViewToolbox->View = View::Tile;
-	listViewToolbox->Sorting = SortOrder::Ascending;
+	listViewToolbox->Sorting = SortOrder::None;
 	listViewToolbox->GridLines = true;
 	listViewToolbox->LabelEdit = false;
 
@@ -185,14 +185,14 @@ void toolbox(System::Windows::Forms::ListView^  listViewToolbox, System::Resourc
 	A5[14] = item28;
 	A5[15] = item29;
 	A5[16] = item30;
-	A5[16] = item31;
-	A5[17] = item40;
-	A5[18] = item41;
-	A5[19] = item42;
-	A5[20] = item43;
-	A5[21] = item50;
-	A5[22] = item51;
-	A5[23] = item52;
+	A5[17] = item31;
+	A5[18] = item40;
+	A5[19] = item41;
+	A5[20] = item42;
+	A5[21] = item43;
+	A5[22] = item50;
+	A5[23] = item51;
+	A5[24] = item52;
 
 		
 		
