@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="NewDialog.cpp" />
     <ClCompile Include="Rail.cpp" />
     <ClCompile Include="Train.cpp" />
   </ItemGroup>
@@ -146,6 +147,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Map.h" />
+    <ClInclude Include="NewDialog.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Rail.h" />
     <ClInclude Include="RailSwitch.h" />
     <ClInclude Include="SignalRail.h" />
@@ -157,6 +161,9 @@
   <ItemGroup>
     <EmbeddedResource Include="MainFrame.resx">
       <DependentUpon>MainFrame.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewDialog.resx">
+      <DependentUpon>NewDialog.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pictures.resx" />
   </ItemGroup>
