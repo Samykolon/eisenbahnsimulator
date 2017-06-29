@@ -90,6 +90,7 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::ListView^  listView1;
 	private: System::Windows::Forms::Timer^  timer;
 	private: System::ComponentModel::IContainer^  components;
+
 			 //private: System::Windows::Forms::ListView^  listView1;
 	private:
 		/// <summary>
@@ -226,7 +227,7 @@ namespace Eisenbahnsimulator {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel1->Controls->Add(this->groupBox5);
-			this->panel1->Location = System::Drawing::Point(215, 26);
+			this->panel1->Location = System::Drawing::Point(222, 28);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(1195, 543);
 			this->panel1->TabIndex = 1;
@@ -279,6 +280,7 @@ namespace Eisenbahnsimulator {
 			this->listView1->TileSize = System::Drawing::Size(168, 60);
 			this->listView1->UseCompatibleStateImageBehavior = false;
 			this->listView1->View = System::Windows::Forms::View::Tile;
+			this->listView1->SelectedIndexChanged += gcnew System::EventHandler(this, &MainFrame::listView1_SelectedIndexChanged);
 			// 
 			// groupBox3
 			// 
@@ -429,7 +431,8 @@ namespace Eisenbahnsimulator {
 		array<ListViewItem^>^Haltepunkte = gcnew array<ListViewItem^>(2);
 		array<ListViewItem^>^Umgebung = gcnew array<ListViewItem^>(4);
 		array<ListViewItem^>^Zuege = gcnew array<ListViewItem^>(3);
-		array<ListViewItem^>^Alle = gcnew array<ListViewItem^>(24);
+		array<ListViewItem^>^Alle = gcnew array<ListViewItem^>(25);
+		String^ selectedItem;
 		
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
 	}
@@ -477,12 +480,24 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 		
 
 }
-private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-	
-	if (TileMap != nullptr) { //Checks if the user has created a TileMap
-		//TODO: Check which toolbox item is selecte
-	}	
-	
-}
+
+	private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+
+		if (TileMap != nullptr) { //Checks if the user has created a TileMap
+			//TODO: Check which toolbox item is selected
+		}
+	}
+
+	private: System::Void listView1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+
+	if (listView1->SelectedItems->Count > 0)
+	{
+		selectedItem = (listView1->SelectedIndices[0].ToString());
+		MessageBox::Show(selectedItem);
+	}
+	else
+		selectedItem = "";
+
+	}
 };
 }
