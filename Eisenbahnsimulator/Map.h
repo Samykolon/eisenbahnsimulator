@@ -36,6 +36,7 @@ public:
 
 	TileObject^ SetTile(int posX, int posY, TileObject^ obj) //Sets the object at x, y and initializes the object's coordinates
 	{
+		//TODO: Check if an object is already there
 		obj->Y = posY;
 		obj->X = posX;
 		_map->Add(obj);

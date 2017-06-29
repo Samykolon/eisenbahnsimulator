@@ -70,12 +70,8 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::ComboBox^  comboBox2;
 	private: System::Windows::Forms::ComboBox^ ComboToolbox;
 
-
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::TrackBar^  trackBar2;
-
-
-
 
 	private: System::Windows::Forms::RadioButton^  radioButton4;
 	private: System::Windows::Forms::RadioButton^  radioButton2;
@@ -96,11 +92,6 @@ namespace Eisenbahnsimulator {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-
-	List<Train^>^ Trains; //Trains on the grid
-	int TileSize;	//Size of a tile in pixels
-	Map^ TileMap; //Contains all Tile objects
-
 
 
 #pragma region Windows Form Designer generated code
@@ -432,7 +423,11 @@ namespace Eisenbahnsimulator {
 		array<ListViewItem^>^Umgebung = gcnew array<ListViewItem^>(4);
 		array<ListViewItem^>^Zuege = gcnew array<ListViewItem^>(3);
 		array<ListViewItem^>^Alle = gcnew array<ListViewItem^>(25);
-		String^ selectedItem;
+		String^ selectedItem;	//Number of selected toolbox item
+		List<Train^>^ Trains;	//Trains on the grid
+		int TileSize;	//Size of a tile in pixels
+		Map^ TileMap;	//Contains all Tile objects
+		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
 		
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
 	}
@@ -459,7 +454,7 @@ namespace Eisenbahnsimulator {
 					MessageBox::Show(L"Beide Zahlen müssen größer als 0 sein.");
 				}
 				else {
-					TileMap = gcnew Map(xCoord, yCoord);
+					TileMap = gcnew Map(xCoord, yCoord); //Create new Map
 				}
 			}
 		}
@@ -482,9 +477,28 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 }
 
 	private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	if (TileMap != nullptr) { //Checks if the user has created a TileMap
 
-		if (TileMap != nullptr) { //Checks if the user has created a TileMap
-			//TODO: Check which toolbox item is selected
+		int X = CalcTileCoord(e->X);	//Calculates Tile coordinates the user clicks on
+		int Y = CalcTileCoord(e->Y);
+
+			//Places tiles based on toolbox choice
+			if (selectedItem != "") {
+				switch (int::Parse(selectedItem)) {
+				case 0:
+					TileMap->SetTile(X, Y, gcnew Rail(Directions::WestEast)); //Vertical Rail
+					break;
+				case 1:
+
+					break;
+				case 2:
+
+					break;
+				}
+				
+			}
+			
+		
 		}
 	}
 
