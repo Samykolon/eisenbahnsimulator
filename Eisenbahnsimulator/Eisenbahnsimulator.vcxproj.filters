@@ -108,5 +108,8 @@
     <Image Include="Rails\grass_path_top.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="Rails\Rail_Curve_LeftBottomC.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
 </Project>

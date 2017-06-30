@@ -539,10 +539,8 @@ private: System::Void panel1_Paint(System::Object^  sender, System::Windows::For
 	if (TileMap != nullptr) { //If a TileMap has been created
 		int maxXTile = Math::Min(TileMap->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
 		int maxYTile = Math::Min(TileMap->Height, CalcTileCoord(panel1->Height - 2));
-	
-
 		Graphics^ g = e->Graphics;
-		
+	
 		for (int x = 0; x < maxXTile; x++) //Draw background tiles
 		{
 			for (int y = 0; y < maxYTile; y++)
@@ -551,6 +549,7 @@ private: System::Void panel1_Paint(System::Object^  sender, System::Windows::For
 
 			}
 		}
+		g->DrawImage(Image::FromFile(L"Rails/Rail_Curve_LeftBottom.png"), 0 * TileSize, 0 * TileSize, TileSize, TileSize);
 	}
 }
 };
