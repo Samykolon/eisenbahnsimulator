@@ -3,7 +3,7 @@
 
 using namespace System;
 
-enum class TrainType { SteamEngine, DieselEngine, ElectricLocomotive };
+public enum class TrainType { SteamEngine, DieselEngine, ElectricLocomotive };
 
 public ref class Train {
 public:

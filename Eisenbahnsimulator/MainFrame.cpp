@@ -30,3 +30,8 @@ int Eisenbahnsimulator::MainFrame::CalcTileCoord(int pixCoord)
 		X++;
 	}	
 }
+
+void Eisenbahnsimulator::MainFrame::AddTrain(TrainType , int xi, int yi)
+{
+	//Hier wird ein Zug hinzugefügt
+}

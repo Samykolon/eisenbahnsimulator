@@ -6,6 +6,7 @@
 #include "RailSwitch.h"
 #include "Map.h"
 #include "NewDialog.h"
+#include "Rail.h"
 
 namespace Eisenbahnsimulator {
 
@@ -39,6 +40,7 @@ namespace Eisenbahnsimulator {
 			//
 			Trains = gcnew List<Train^>();
 			TileSize = 128;
+			selectedItem = -1;
 			
 		}
 
@@ -423,11 +425,13 @@ namespace Eisenbahnsimulator {
 		array<ListViewItem^>^Umgebung = gcnew array<ListViewItem^>(4);
 		array<ListViewItem^>^Zuege = gcnew array<ListViewItem^>(3);
 		array<ListViewItem^>^Alle = gcnew array<ListViewItem^>(25);
-		String^ selectedItem;	//Number of selected toolbox item
+		int selectedItem;	//Number of selected toolbox item
 		List<Train^>^ Trains;	//Trains on the grid
 		int TileSize;	//Size of a tile in pixels
 		Map^ TileMap;	//Contains all Tile objects
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
+		void AddTrain(TrainType tt, int xi, int yi);
+
 		
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
 	}
@@ -483,34 +487,48 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 		int Y = CalcTileCoord(e->Y);
 
 			//Places tiles based on toolbox choice
-			if (selectedItem != "") {
-				switch (int::Parse(selectedItem)) {
+			if (selectedItem != -1) { //TODO: Better solution for numbers, because right now you get confused - enum? + continue
+				switch (selectedItem) {
+
 				case 0:
-					TileMap->SetTile(X, Y, gcnew Rail(Directions::WestEast)); //Vertical Rail
+					TileMap->SetTile(X, Y, gcnew Rail(Directions::WestEast)); //Vertical rail
 					break;
 				case 1:
-
+					TileMap->SetTile(X, Y, gcnew Rail(Directions::SouthNorth)); //Horizontal rail
 					break;
 				case 2:
-
+					TileMap->SetTile(X, Y, gcnew Rail(Directions::WestNorth)); //Turns
+					break;
+				case 3:
+					TileMap->SetTile(X, Y, gcnew Rail(Directions::NorthEast));
+					break;
+				case 4:
+					TileMap->SetTile(X, Y, gcnew Rail(Directions::SouthEast));
+					break;
+				case 5:
+					TileMap->SetTile(X, Y, gcnew Rail(Directions::WestSouth));
+					break;
+				case 6:
 					break;
 				}
 				
 			}
+						
+			if (TileMap->GetTile(X, Y) != nullptr) {
+				MessageBox::Show("X: " + X + ", Y: " + Y + "\n" + (safe_cast<Rail^>(TileMap->GetTile(X, Y))->EndDirections).ToString()); //Debug output
+			}
 			
-		
 		}
 	}
 
 	private: System::Void listView1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 
-	if (listView1->SelectedItems->Count > 0)
+	if (listView1->SelectedItems->Count > 0) 
 	{
-		selectedItem = (listView1->SelectedIndices[0].ToString());
-		MessageBox::Show(selectedItem);
+		selectedItem = listView1->SelectedIndices[0];
 	}
 	else
-		selectedItem = "";
+		selectedItem = -1;
 
 	}
 };

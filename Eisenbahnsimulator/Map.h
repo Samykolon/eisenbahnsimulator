@@ -9,7 +9,7 @@ public ref class Map
 private:
 	int Height; //Height of the tile map
 	int Width;	//Width of the tile map
-	List<TileObject^>^ _map;
+	List<TileObject^>^ TMap;
 
 public:
 
@@ -17,18 +17,20 @@ public:
 	{
 		Height = _height;
 		Width = _width;
+		TMap = gcnew List<TileObject^>(_height * _width);
 	}
 
 	// returns Object at position x, y	
 	TileObject^ GetTile(int posX, int posY)
 	{
-		int count = _map->Count;
+		
+		int count = TMap->Count;
 
 		for (int i = 0; i < count; i++)
 		{
-			if (_map[i]->X == posX && _map[i]->Y == posY)
+			if (TMap[i]->X == posX && TMap[i]->Y == posY)
 			{
-				return _map[i];
+				return TMap[i];
 			}
 		}
 		return nullptr;
@@ -36,10 +38,19 @@ public:
 
 	TileObject^ SetTile(int posX, int posY, TileObject^ obj) //Sets the object at x, y and initializes the object's coordinates
 	{
-		//TODO: Check if an object is already there
+		// Check if an object is already there
+		for (int i = TMap->Count - 1; i >= 0; i--) //Reverse for loop, to make deletion possible
+		{
+			if (TMap[i]->X == posX && TMap[i]->Y == posY) {
+				TMap->RemoveAt(i); //Remove objects that are overwritten
+			}
+
+		}
+			
+		
 		obj->Y = posY;
 		obj->X = posX;
-		_map->Add(obj);
+		TMap->Add(obj);
 		return obj;
 	}
 };
