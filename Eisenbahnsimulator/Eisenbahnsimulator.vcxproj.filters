@@ -70,6 +70,9 @@
     <EmbeddedResource Include="Pictures.resx">
       <Filter>Ressourcendateien</Filter>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewDialog.resx">
+      <Filter>Ressourcendateien</Filter>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Rails\Rail_Curve_LeftBottom.bmp">
@@ -100,6 +103,9 @@
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Rails\Rail_Normal_Vert.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\grass_path_top.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>

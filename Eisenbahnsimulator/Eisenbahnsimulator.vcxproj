@@ -168,6 +168,7 @@
     <EmbeddedResource Include="Pictures.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Rails\grass_path_top.png" />
     <Image Include="Rails\Rail_Curve_LeftBottom.bmp" />
     <Image Include="Rails\Rail_Curve_LeftBottomC.bmp" />
     <Image Include="Rails\Rail_Curve_LeftTop.bmp" />

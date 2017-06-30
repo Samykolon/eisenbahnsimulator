@@ -224,6 +224,7 @@ namespace Eisenbahnsimulator {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(1195, 543);
 			this->panel1->TabIndex = 1;
+			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainFrame::panel1_Paint);
 			this->panel1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseDown);
 			// 
 			// groupBox5
@@ -443,7 +444,7 @@ namespace Eisenbahnsimulator {
 		::DialogResult confirmResult;
 		if (TileMap != nullptr) {
 
-			confirmResult = MessageBox::Show(L"Wollen Sie wirklich die bisherige Arbeitsfäche überschreiben?", L"Bestätigen", MessageBoxButtons::YesNo);
+			confirmResult = MessageBox::Show(L"Wollen Sie die bisherige Arbeitsfläche überschreiben?", L"Bestätigen", MessageBoxButtons::YesNo);
 			
 		}
 		if (confirmResult != ::DialogResult::No) {
@@ -458,7 +459,8 @@ namespace Eisenbahnsimulator {
 					MessageBox::Show(L"Beide Zahlen müssen größer als 0 sein.");
 				}
 				else {
-					TileMap = gcnew Map(xCoord, yCoord); //Create new Map
+					TileMap = gcnew Map(yCoord, xCoord); //Create new Map
+					panel1->Invalidate(); //Draw main map
 				}
 			}
 		}
@@ -531,5 +533,25 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 		selectedItem = -1;
 
 	}
+
+private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+	
+	if (TileMap != nullptr) { //If a TileMap has been created
+		int maxXTile = Math::Min(TileMap->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
+		int maxYTile = Math::Min(TileMap->Height, CalcTileCoord(panel1->Height - 2));
+	
+
+		Graphics^ g = e->Graphics;
+		
+		for (int x = 0; x < maxXTile; x++) //Draw background tiles
+		{
+			for (int y = 0; y < maxYTile; y++)
+			{
+				g->DrawImage(Image::FromFile(L"Rails/grass_path_top.png"), x * TileSize, y * TileSize, TileSize, TileSize); //Debug test
+
+			}
+		}
+	}
+}
 };
 }

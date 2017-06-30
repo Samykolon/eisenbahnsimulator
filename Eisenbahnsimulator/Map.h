@@ -6,13 +6,11 @@ using namespace System::Collections::Generic;
 
 public ref class Map
 {
-private:
+	List<TileObject^>^ TMap;
+	public:
 	int Height; //Height of the tile map
 	int Width;	//Width of the tile map
-	List<TileObject^>^ TMap;
-
-public:
-
+	
 	Map(int _height, int _width)
 	{
 		Height = _height;
@@ -45,9 +43,7 @@ public:
 				TMap->RemoveAt(i); //Remove objects that are overwritten
 			}
 
-		}
-			
-		
+		}		
 		obj->Y = posY;
 		obj->X = posX;
 		TMap->Add(obj);
