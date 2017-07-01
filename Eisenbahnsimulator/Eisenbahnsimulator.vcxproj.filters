@@ -32,9 +32,6 @@
     <ClInclude Include="MainFrame.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Toolbox.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Train.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -60,6 +57,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="NewDialog.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Toolbox.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -216,5 +216,8 @@
     <Image Include="Rails\Switch_Yellow.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ToolboxItems.txt" />
   </ItemGroup>
 </Project>

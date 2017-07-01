@@ -216,6 +216,9 @@
     <Image Include="Rails\Switch_Blue.png" />
     <Image Include="Rails\Switch_Yellow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="ToolboxItems.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

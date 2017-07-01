@@ -1,0 +1,34 @@
+Hier ist mal die Bedeutung aufgelistet, was die einzelnen Werte bedeuten, die in dem Int SelectedItem drinstehen:
+
+Dabei ist immer entscheidend welche Nummer hinter item steht:
+
+
+	ListViewItem^ item10 = gcnew ListViewItem("Schiene vertikal", 1);
+	ListViewItem^ item11 = gcnew ListViewItem("Schiene horizontal", 2);
+	ListViewItem^ item12 = gcnew ListViewItem("Schienenkurve", 3);
+	ListViewItem^ item13 = gcnew ListViewItem("Schienenkurve", 4);
+	ListViewItem^ item14 = gcnew ListViewItem("Schienenkurve", 5);
+	ListViewItem^ item15 = gcnew ListViewItem("Schienenkurve", 6);
+	ListViewItem^ item20 = gcnew ListViewItem("Schiene vertikal mit Signal", 7);
+	ListViewItem^ item21 = gcnew ListViewItem("Schiene horizontal mit Signal", 8);
+	ListViewItem^ item22 = gcnew ListViewItem("Schienenkurve mit Signal", 9);
+	ListViewItem^ item23 = gcnew ListViewItem("Schienenkurve mit Signal", 10);
+	ListViewItem^ item24 = gcnew ListViewItem("Schienenkurve mit Signal", 11);
+	ListViewItem^ item25 = gcnew ListViewItem("Schienenkurve mit Signal", 12);
+	ListViewItem^ item261 = gcnew ListViewItem("Weiche", 13);
+	ListViewItem^ item262 = gcnew ListViewItem("Weiche", 14);
+	ListViewItem^ item263 = gcnew ListViewItem("Weiche", 15);
+	ListViewItem^ item264 = gcnew ListViewItem("Weiche", 16);
+	ListViewItem^ item265 = gcnew ListViewItem("Weiche", 17);
+	ListViewItem^ item266 = gcnew ListViewItem("Weiche", 18);
+	ListViewItem^ item267 = gcnew ListViewItem("Weiche", 19);
+	ListViewItem^ item268 = gcnew ListViewItem("Weiche", 20);
+	ListViewItem^ item30 = gcnew ListViewItem("Kleiner Bahnhof", 21);
+	ListViewItem^ item31 = gcnew ListViewItem("Groﬂer Bahnhof", 22);
+	ListViewItem^ item40 = gcnew ListViewItem("Laubbaum", 23);
+	ListViewItem^ item41 = gcnew ListViewItem("Nadelbaum", 24);
+	ListViewItem^ item42 = gcnew ListViewItem("Strauch", 25);
+	ListViewItem^ item43 = gcnew ListViewItem("Haus", 26);
+	ListViewItem^ item50 = gcnew ListViewItem("Dampflokomotive", 27);
+	ListViewItem^ item51 = gcnew ListViewItem("Diesellokomotive", 28);
+	ListViewItem^ item52 = gcnew ListViewItem("Elektrolokomotive", 29);
