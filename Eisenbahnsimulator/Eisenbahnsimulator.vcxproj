@@ -165,21 +165,19 @@
     <EmbeddedResource Include="NewDialog.resx">
       <DependentUpon>NewDialog.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pictures.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Rails\grass_path_top.png" />
-    <Image Include="Rails\Rail_Curve_LeftBottom.bmp" />
-    <Image Include="Rails\Rail_Curve_LeftBottomC.bmp" />
+    <Image Include="Rails\grass.png" />
+    <Image Include="Rails\Rail_Curve_LeftBottom.png" />
     <Image Include="Rails\Rail_Curve_LeftBottomC.png" />
-    <Image Include="Rails\Rail_Curve_LeftTop.bmp" />
-    <Image Include="Rails\Rail_Curve_LeftTopC.bmp" />
-    <Image Include="Rails\Rail_Curve_RightBottom.bmp" />
-    <Image Include="Rails\Rail_Curve_RightBottomC.bmp" />
-    <Image Include="Rails\Rail_Curve_RightTop.bmp" />
-    <Image Include="Rails\Rail_Curve_RightTopC.bmp" />
-    <Image Include="Rails\Rail_Normal_Hor.bmp" />
-    <Image Include="Rails\Rail_Normal_Vert.bmp" />
+    <Image Include="Rails\Rail_Curve_LeftTop.png" />
+    <Image Include="Rails\Rail_Curve_LeftTopC.png" />
+    <Image Include="Rails\Rail_Curve_RightBottom.png" />
+    <Image Include="Rails\Rail_Curve_RightBottomC.png" />
+    <Image Include="Rails\Rail_Curve_RightTop.png" />
+    <Image Include="Rails\Rail_Curve_RightTopC.png" />
+    <Image Include="Rails\Rail_Normal_Hor.png" />
+    <Image Include="Rails\Rail_Normal_Vert.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

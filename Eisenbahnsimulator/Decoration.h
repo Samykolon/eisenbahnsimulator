@@ -6,4 +6,8 @@ public:
 	enum class DecoType { FoliageTree, Conifer, Bush, House };
 	DecoType Type;
 
+	Decoration(DecoType dt) {
+		Type = dt;
+	}
+
 };

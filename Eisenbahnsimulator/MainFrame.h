@@ -545,7 +545,7 @@ private: System::Void panel1_Paint(System::Object^  sender, System::Windows::For
 		{
 			for (int y = 0; y < maxYTile; y++)
 			{
-				g->DrawImage(Image::FromFile(L"Rails/grass_path_top.png"), x * TileSize, y * TileSize, TileSize, TileSize); //Debug test
+				g->DrawImage(Image::FromFile(L"Rails/grass.png"), x * TileSize, y * TileSize, TileSize, TileSize); //Debug test
 
 			}
 		}

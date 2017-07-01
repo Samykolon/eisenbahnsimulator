@@ -1,6 +1,6 @@
 #include "Train.h"
 
-Train::Train(TrainType typ, String^ nm, Direction start, Direction goal, TileObject^ to)
+Train::Train(TrainType typ, String^ nm, Direction start, Direction goal, Rail^ to)
 {
 	TrainType Type = typ;
 	String^ Name = nm;

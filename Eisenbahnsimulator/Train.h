@@ -1,5 +1,6 @@
 #pragma once
 #include "TileObject.h"
+#include "Rail.h"
 
 using namespace System;
 
@@ -16,5 +17,5 @@ public:
 	Direction GoalDirection;
 	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
 public:
-	Train(TrainType typ, String ^ nm, Direction start, Direction goal, TileObject ^ to);
+	Train(TrainType typ, String ^ nm, Direction start, Direction goal, Rail ^ to);
 };

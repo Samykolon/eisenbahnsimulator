@@ -1,6 +1,5 @@
 #pragma once
 #include "TileObject.h"
-#include "Signal.h"
 
 using namespace System;
 
