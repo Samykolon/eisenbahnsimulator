@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="NewDialog.cpp" />
     <ClCompile Include="Rail.cpp" />
     <ClCompile Include="Train.cpp" />

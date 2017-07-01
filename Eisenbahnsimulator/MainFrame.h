@@ -545,10 +545,17 @@ private: System::Void panel1_Paint(System::Object^  sender, System::Windows::For
 		{
 			for (int y = 0; y < maxYTile; y++)
 			{
-				g->DrawImage(Image::FromFile(L"Rails/grass.png"), x * TileSize, y * TileSize, TileSize, TileSize); //Debug test
+				g->DrawImage(Image::FromFile(L"Rails/grass.png"), x * TileSize, y * TileSize, TileSize, TileSize); //Draw grass
 
 			}
 		}
+		for (int i = 0; i < TileMap->GetCount(); i++)
+		{
+
+		}
+
+
+
 		g->DrawImage(Image::FromFile(L"Rails/Rail_Curve_LeftBottom.png"), 0 * TileSize, 0 * TileSize, TileSize, TileSize);
 	}
 }

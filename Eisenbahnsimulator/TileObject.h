@@ -14,6 +14,7 @@ public:
 	int X;	//x coordinate
 	int Y;	//y coordinate
 
-	//Doesn't need a constructor, because X and Y are set by Map
+	//Doesn't need a constructor, because X and Y are set by Map <- This is kind of bullshit
+	//TODO: Constructor that is called by Map and sets the picturePath
 
 };
