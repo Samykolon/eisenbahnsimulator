@@ -487,7 +487,6 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 
 		int X = CalcTileCoord(e->X);	//Calculates Tile coordinates the user clicks on
 		int Y = CalcTileCoord(e->Y);
-		MessageBox::Show(selectedItem.ToString());
 
 			//Places tiles based on toolbox choice
 			if (selectedItem != -1) { //TODO: Better solution for numbers, because right now you get confused - enum? + continue
@@ -514,7 +513,7 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 				case 16:
 					break;
 				}
-				
+				panel1->Invalidate();
 			}
 						
 			//if (TileMap->GetTile(X, Y) != nullptr) {
@@ -552,7 +551,8 @@ private: System::Void panel1_Paint(System::Object^  sender, System::Windows::For
 		}
 		for (int i = 0; i < TileMap->GetCount(); i++)
 		{
-			
+			TileObject^ toBeDrawn = TileMap->TileAt(i);
+			g->DrawImage(Image::FromFile(L"Rails/" + toBeDrawn->ImagePath), (toBeDrawn->X - 1) * TileSize, (toBeDrawn->Y - 1) * TileSize, TileSize, TileSize); //Draws all tiles in the tile map
 		}
 		
 		g->DrawImage(Image::FromFile(L"Rails/Rail_Curve_LeftBottom.png"), 0 * TileSize, 0 * TileSize, TileSize, TileSize);

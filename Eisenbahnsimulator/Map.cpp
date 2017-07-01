@@ -24,6 +24,11 @@ TileObject^ Map::GetTile(int posX, int posY) // returns Object at position x, y
 	return nullptr;
 }
 
+inline TileObject^ Map::TileAt(int i)
+{
+	return TMap[i];
+}
+
 void Map::SetTile(TileObject ^ obj) //Sets the object at x, y
 {
 	// Check if an object is already there
