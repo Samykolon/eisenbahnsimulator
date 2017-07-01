@@ -487,38 +487,39 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 
 		int X = CalcTileCoord(e->X);	//Calculates Tile coordinates the user clicks on
 		int Y = CalcTileCoord(e->Y);
+		MessageBox::Show(selectedItem.ToString());
 
 			//Places tiles based on toolbox choice
 			if (selectedItem != -1) { //TODO: Better solution for numbers, because right now you get confused - enum? + continue
 				switch (selectedItem) {
 
-				case 0:
-					TileMap->SetTile(X, Y, gcnew Rail(Directions::WestEast)); //Vertical rail
+				case 10:
+					TileMap->SetTile(gcnew Rail(X, Y, Directions::WestEast)); //Vertical rail
 					break;
-				case 1:
-					TileMap->SetTile(X, Y, gcnew Rail(Directions::SouthNorth)); //Horizontal rail
+				case 11:
+					TileMap->SetTile(gcnew Rail(X, Y, Directions::SouthNorth)); //Horizontal rail
 					break;
-				case 2:
-					TileMap->SetTile(X, Y, gcnew Rail(Directions::WestNorth)); //Turns
+				case 12:
+					TileMap->SetTile(gcnew Rail(X, Y, Directions::WestNorth)); //Turns
 					break;
-				case 3:
-					TileMap->SetTile(X, Y, gcnew Rail(Directions::NorthEast));
+				case 13:
+					TileMap->SetTile(gcnew Rail(X, Y, Directions::NorthEast));
 					break;
-				case 4:
-					TileMap->SetTile(X, Y, gcnew Rail(Directions::SouthEast));
+				case 14:
+					TileMap->SetTile(gcnew Rail(X, Y, Directions::SouthEast));
 					break;
-				case 5:
-					TileMap->SetTile(X, Y, gcnew Rail(Directions::WestSouth));
+				case 15:
+					TileMap->SetTile(gcnew Rail(X, Y, Directions::WestSouth));
 					break;
-				case 6:
+				case 16:
 					break;
 				}
 				
 			}
 						
-			if (TileMap->GetTile(X, Y) != nullptr) {
-				MessageBox::Show("X: " + X + ", Y: " + Y + "\n" + (safe_cast<Rail^>(TileMap->GetTile(X, Y))->EndDirections).ToString()); //Debug output
-			}
+			//if (TileMap->GetTile(X, Y) != nullptr) {
+			//	MessageBox::Show("X: " + X + ", Y: " + Y + "\n" + (safe_cast<Rail^>(TileMap->GetTile(X, Y))->EndDirections).ToString()); //Debug output
+			//}
 			
 		}
 	}
@@ -551,11 +552,9 @@ private: System::Void panel1_Paint(System::Object^  sender, System::Windows::For
 		}
 		for (int i = 0; i < TileMap->GetCount(); i++)
 		{
-
+			
 		}
-
-
-
+		
 		g->DrawImage(Image::FromFile(L"Rails/Rail_Curve_LeftBottom.png"), 0 * TileSize, 0 * TileSize, TileSize, TileSize);
 	}
 }

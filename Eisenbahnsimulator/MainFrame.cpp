@@ -27,7 +27,6 @@ int Eisenbahnsimulator::MainFrame::CalcTileCoord(int pixCoord)
 
 void Eisenbahnsimulator::MainFrame::AddTrain(TrainType tt, int xi, int yi)
 {
-	Decoration^ deco = gcnew Decoration(Decoration::DecoType::Bush);
 	Rail^ currentRail = dynamic_cast<Rail^>(TileMap->GetTile(xi, yi)); //Tries to cast the object into a Rail
 
 	if (currentRail != nullptr){ //Executed if the train is placed on a Rail

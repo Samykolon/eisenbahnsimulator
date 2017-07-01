@@ -1,6 +1,6 @@
 #include "Rail.h"
 
-Boolean Rail::LeadsTo(Direction dir)
+inline Boolean Rail::LeadsTo(Direction dir)
 {
 	switch (dir)
 	{
@@ -37,4 +37,32 @@ Boolean Rail::LeadsTo(Direction dir)
 	}
 
 	return Boolean();
+}
+
+inline Rail::Rail(int xi, int yi, Directions _dir) :TileObject(xi, yi)
+{
+	switch (_dir)
+	{
+	case Directions::NorthEast:
+		ImagePath = L"Rail_Curve_RightTop.png";
+		break;
+	case Directions::NorthSouth:
+		ImagePath = L"Rail_Normal_Vert.png";
+		break;
+	case Directions::NorthWest:
+		ImagePath = L"Rail_Curve_LeftTop.png";
+		break;
+	case Directions::EastSouth:
+		ImagePath = L"Rail_Curve_RightBottom.png";
+		break;
+	case Directions::EastWest:
+		ImagePath = L"Rail_Normal_Hor.png";
+		break;
+	case Directions::SouthWest:
+		ImagePath = L"Rail_Curve_LeftBottom.png";
+		break;
+	default:
+		break;
+	}
+	EndDirections = _dir;
 }

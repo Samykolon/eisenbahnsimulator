@@ -10,11 +10,7 @@ public:
 	Boolean LeadsTo(Direction dir); //Returns true if the Rail leads to the specified direction
 
 public:
-	Rail(Directions _dir)
-	{
-		EndDirections = _dir;
-	
-	}
+	Rail(int xi, int yi, Directions _dir);
 
 	
 };

@@ -16,6 +16,6 @@ public ref class Map
 		
 	TileObject^ GetTile(int posX, int posY);// returns Object at position x, y
 
-	TileObject^ SetTile(int posX, int posY, TileObject^ obj);	//sets Object at x, y and initializes its coordinates
+	void SetTile(TileObject^ obj);	//Adds image at x, y to its list and overwrites object that are already there
 	int GetCount(); //Returns the number of objects it contains
 };

@@ -1,4 +1,5 @@
 #pragma once
+using namespace System;
 
 public enum class Directions { //Two cardinal directions
 	NorthEast = 0, EastNorth = 0, NorthSouth = 1, SouthNorth = 1,
@@ -13,8 +14,9 @@ public ref class TileObject abstract //A basic tile
 public:
 	int X;	//x coordinate
 	int Y;	//y coordinate
+	String^ ImagePath;
 
-	//Doesn't need a constructor, because X and Y are set by Map <- This is kind of bullshit
-	//TODO: Constructor that is called by Map and sets the picturePath
-
+	//TODO: Make virtual?
+	TileObject(int xi, int yi); //Constructs a Tileobject with an X and Y coordinate
+	
 };
