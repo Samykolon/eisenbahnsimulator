@@ -72,37 +72,148 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Rails\Rail_Curve_LeftBottomC.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Curve_RightBottom.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Curve_RightBottomC.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Curve_RightTop.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Curve_RightTopC.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Normal_Hor.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Normal_Vert.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
     <Image Include="Rails\grass.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_LeftBottom.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Rails\Rail_Curve_LeftBottom.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="Rails\Rail_Curve_LeftBottom_Signal_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_LeftBottom_SignalGreen.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_LeftBottom_SignalRed.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_LeftBottomC.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_LeftBottomC.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_LeftTop.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
     <Image Include="Rails\Rail_Curve_LeftTop.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="Rails\Rail_Curve_LeftTop_Signal_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_LeftTop_SignalGreen.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_LeftTop_SignalRed.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_LeftTopC.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
     <Image Include="Rails\Rail_Curve_LeftTopC.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightBottom.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightBottom.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightBottom_Signal_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightBottom_SignalGreen.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightBottom_SignalRed.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightBottomC.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightBottomC.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightTop.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightTop.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightTop_Signal_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightTop_SignalGreen.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightTop_SignalRed.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightTopC.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Curve_RightTopC.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Normal_Hor.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Normal_Hor.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Normal_Hor_SignalBoth.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Normal_Hor_SignalGreen.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Normal_Hor_SignalRed.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Normal_Vert.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Normal_Vert.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Normal_Vert_SignalBoth.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Normal_Vert_SignalGreen.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Normal_Vert_SignalRed.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_BL.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_BL_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_TR.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Signal_None.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Signal_SGreen.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Signal_SRed.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Signal_Standart.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Switch_Blue.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Switch_Yellow.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>
