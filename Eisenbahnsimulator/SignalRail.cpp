@@ -1,9 +1,10 @@
 #include "SignalRail.h"
 
-inline SignalRail::SignalRail(int xi, int yi, Directions dir, double dur) : Rail(xi, yi, dir), Duration(dur) {
-	
+inline SignalRail::SignalRail(int xi, int yi, Directions dir, double gdur, double rdur) : Rail(xi, yi, dir), greenDuration(gdur), redDuration(rdur){
+	timer = 0;
+	IsGreen = true;
 	//TODO: Show if active
-	switch (dir)
+	switch (dir) //set Correct
 	{
 	case Directions::NorthEast:
 		ImagePath = L"Rail_Curve_RightTop_SignalGreen.png";
@@ -27,3 +28,20 @@ inline SignalRail::SignalRail(int xi, int yi, Directions dir, double dur) : Rail
 		break;
 	}
 }
+
+inline void SignalRail::Tick(double time)
+{
+	timer += time; //Time passes
+	
+	if (timer < greenDuration) { //Green phase
+		IsGreen = true;		
+	}
+	else if (timer < greenDuration + redDuration) { //Red Phase
+		IsGreen = false;
+	}
+	else { //Return to loop beginning
+		timer = 0;
+		IsGreen = true;
+	}
+}
+

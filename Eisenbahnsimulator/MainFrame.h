@@ -382,6 +382,10 @@ namespace Eisenbahnsimulator {
 			this->listBox1->Size = System::Drawing::Size(201, 173);
 			this->listBox1->TabIndex = 9;
 			// 
+			// timer
+			// 
+			this->timer->Tick += gcnew System::EventHandler(this, &MainFrame::timer_Tick);
+			// 
 			// MainFrame
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -510,8 +514,15 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 				case 15:
 					TileMap->SetTile(gcnew Rail(X, Y, Directions::WestSouth));
 					break;
-				case 16:
+				case 50:
+					AddTrain(TrainType::SteamEngine, X, Y);
 					break;
+				case 51:
+					AddTrain(TrainType::DieselEngine, X, Y);
+					break;
+				case 52:
+					AddTrain(TrainType::ElectricLocomotive, X, Y);
+					break;				
 				}
 				panel1->Invalidate();
 			}
@@ -534,29 +545,36 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 
 	}
 
-private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) { //Draws everything
 	
 	if (TileMap != nullptr) { //If a TileMap has been created
 		int maxXTile = Math::Min(TileMap->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
 		int maxYTile = Math::Min(TileMap->Height, CalcTileCoord(panel1->Height - 2));
 		Graphics^ g = e->Graphics;
 	
-		for (int x = 0; x < maxXTile; x++) //Draw background tiles
-		{
-			for (int y = 0; y < maxYTile; y++)
-			{
-				g->DrawImage(Image::FromFile(L"Rails/grass.png"), x * TileSize, y * TileSize, TileSize, TileSize); //Draw grass
+		//for (int x = 0; x < maxXTile; x++) //Draw background tiles
+		//{
+		//	for (int y = 0; y < maxYTile; y++)
+		//	{
+		//		g->DrawImage(Image::FromFile(L"Rails/grass.png"), x * TileSize, y * TileSize, TileSize, TileSize); //Draw grass
 
-			}
-		}
+		//	}
+		//}
+
+		g->DrawImage(Image::FromFile(L"Rails/grass_background.png"), 0, 0 , 2000, 2000); //Draw grass - what is better?
+
 		for (int i = 0; i < TileMap->GetCount(); i++)
 		{
 			TileObject^ toBeDrawn = TileMap->TileAt(i);
 			g->DrawImage(Image::FromFile(L"Rails/" + toBeDrawn->ImagePath), (toBeDrawn->X - 1) * TileSize, (toBeDrawn->Y - 1) * TileSize, TileSize, TileSize); //Draws all tiles in the tile map
 		}
-		
-		g->DrawImage(Image::FromFile(L"Rails/Rail_Curve_LeftBottom.png"), 0 * TileSize, 0 * TileSize, TileSize, TileSize);
+				
 	}
+}
+private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
+	//Signals switch
+	//Trains drive
+
 }
 };
 }
