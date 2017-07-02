@@ -148,6 +148,7 @@
     <ClCompile Include="TrainStop.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BetterPanel.h" />
     <ClInclude Include="Decoration.h" />
     <ClInclude Include="MainFrame.h">
       <FileType>CppForm</FileType>

@@ -7,6 +7,7 @@
 #include "Map.h"
 #include "NewDialog.h"
 #include "Rail.h"
+#include "BetterPanel.h"
 
 namespace Eisenbahnsimulator {
 
@@ -41,6 +42,8 @@ namespace Eisenbahnsimulator {
 			Trains = gcnew List<Train^>();
 			TileSize = 128;
 			selectedItem = -1;
+			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::AllPaintingInWmPaint, true);
+			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::DoubleBuffer, true);
 			
 		}
 

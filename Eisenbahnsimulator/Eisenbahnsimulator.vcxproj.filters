@@ -80,6 +80,9 @@
     <ClInclude Include="Toolbox.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="BetterPanel.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainFrame.resx">
