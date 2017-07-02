@@ -471,6 +471,7 @@ namespace Eisenbahnsimulator {
 					panel1->Invalidate(); //Draw main map
 				}
 			}
+			timer->Start();
 		}
 	}
 	private: System::Void schließenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -522,7 +523,7 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestEast, 3, 3)); //Rails with Signals
 					break;
 				case 21:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::SouthNorth, 3, 3)); 
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::SouthNorth, 3, 3)); //Allow customized duration
 					break;
 				case 22:
 					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestNorth, 3, 3)); 
@@ -597,8 +598,16 @@ private: System::Void panel1_Paint(System::Object^  sender, System::Windows::For
 	}
 }
 private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
+	for (int i = 0; i < TileMap->GetCount(); i++)
+	{
+
+		if ((TileMap->TileAt(i))->GetType() == SignalRail::typeid) { //Changes signals if necessary
+			static_cast<SignalRail^>(TileMap->TileAt(i))->Tick(0.2);
+		}
+	}
 	//Signals switch
 	//Trains drive
+	panel1->Invalidate();
 
 }
 };

@@ -16,7 +16,7 @@ protected:
 public:
 	int X;	//x coordinate
 	int Y;	//y coordinate
-	property String^ ImagePath {
+	virtual property String^ ImagePath {
 		String^ get() {
 			return imagePath;
 		}
