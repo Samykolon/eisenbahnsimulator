@@ -6,4 +6,5 @@ public ref class RailSwitch : Rail{
 	Boolean Active; // Determines if the dwitch has been activated
 
 	RailSwitch(int xi, int yi, Directions railDir, Direction switchDir);
+	
 };

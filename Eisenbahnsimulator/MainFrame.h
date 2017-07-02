@@ -8,6 +8,7 @@
 #include "NewDialog.h"
 #include "Rail.h"
 #include "BetterPanel.h"
+#include "SignalRail.h"
 
 namespace Eisenbahnsimulator {
 
@@ -517,6 +518,26 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 				case 15:
 					TileMap->SetTile(gcnew Rail(X, Y, Directions::WestSouth));
 					break;
+				case 20:
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestEast, 3, 3)); //Vertical rail
+					break;
+				case 21:
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::SouthNorth, 3, 3)); //Horizontal rail
+					break;
+				case 22:
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestNorth, 3, 3)); //Turns
+					break;
+				case 23:
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::NorthEast, 3, 3));
+					break;
+				case 24:
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::SouthEast, 3, 3));
+					break;
+				case 25:
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestSouth, 3, 3));
+					break;
+				case 16:
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestSouth, 3, 3));
 				case 50:
 					AddTrain(TrainType::SteamEngine, X, Y);
 					break;
@@ -565,6 +586,9 @@ private: System::Void panel1_Paint(System::Object^  sender, System::Windows::For
 		//}
 
 		g->DrawImage(Image::FromFile(L"Rails/grass_background.png"), 0, 0 , 2000, 2000); //Draw grass - what is better?
+
+		
+		
 
 		for (int i = 0; i < TileMap->GetCount(); i++)
 		{

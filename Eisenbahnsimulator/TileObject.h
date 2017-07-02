@@ -11,10 +11,19 @@ public enum class Direction { East, North, West, South }; //One cardinal directi
 
 public ref class TileObject abstract //A basic tile
 {
+protected:
+	String^ imagePath;
 public:
 	int X;	//x coordinate
 	int Y;	//y coordinate
-	String^ ImagePath;
+	property String^ ImagePath {
+		String^ get() {
+			return imagePath;
+		}
+		void set(String^ ip) {
+			imagePath = ip;
+		}
+	}
 
 	//TODO: Make virtual?
 	TileObject(int xi, int yi); //Constructs a Tileobject with an X and Y coordinate
