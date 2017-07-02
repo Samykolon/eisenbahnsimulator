@@ -519,13 +519,13 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 					TileMap->SetTile(gcnew Rail(X, Y, Directions::WestSouth));
 					break;
 				case 20:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestEast, 3, 3)); //Vertical rail
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestEast, 3, 3)); //Rails with Signals
 					break;
 				case 21:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::SouthNorth, 3, 3)); //Horizontal rail
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::SouthNorth, 3, 3)); 
 					break;
 				case 22:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestNorth, 3, 3)); //Turns
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestNorth, 3, 3)); 
 					break;
 				case 23:
 					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::NorthEast, 3, 3));
@@ -535,9 +535,7 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 					break;
 				case 25:
 					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestSouth, 3, 3));
-					break;
-				case 16:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestSouth, 3, 3));
+					break;				
 				case 50:
 					AddTrain(TrainType::SteamEngine, X, Y);
 					break;
