@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 public ref class BetterPanel : public System::Windows::Forms::Panel
 {
 public:

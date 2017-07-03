@@ -1,6 +1,6 @@
-#include "RailSwitch.h"
+﻿#include "RailSwitch.h"
 
-RailSwitch::RailSwitch(int xi, int yi, Directions railDir, Direction switchDir) : Rail(xi, yi, railDir) {
+RailSwitch::RailSwitch(Directions railDir, Direction switchDir, String^ imagePath, String^ name) : Rail(railDir, imagePath, name) {
 	//TODO: Check if the switch direction and the rail directions are the same?
 	//TODO: Assign correct images
 	SwitchDirection = switchDir;

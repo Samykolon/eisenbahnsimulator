@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "TileObject.h"
 
 using namespace System;
@@ -10,7 +10,7 @@ public:
 	Boolean LeadsTo(Direction dir); //Returns true if the Rail leads to the specified direction
 
 public:
-	Rail(int xi, int yi, Directions _dir);
+	Rail(Directions _dir, String^ imagePath, String^ name);
 
 	
 };

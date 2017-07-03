@@ -1,4 +1,4 @@
-#include "MainFrame.h"
+﻿#include "MainFrame.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -63,5 +63,5 @@ void Eisenbahnsimulator::MainFrame::AddTrain(TrainType tt, int xi, int yi)
 	}
 		
 
-	//Hier wird ein Zug hinzugef�gt
+	//Hier wird ein Zug hinzugef・t
 }

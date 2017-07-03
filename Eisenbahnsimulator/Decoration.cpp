@@ -1,6 +1,6 @@
-#include "Decoration.h"
+﻿#include "Decoration.h"
 
-Decoration::Decoration(int xi, int yi, DecoType dt) :TileObject(xi, yi) {
+Decoration::Decoration(DecoType dt, String^ imagePath, String^ name) :TileObject(imagePath, name) {
 	Type = dt;
 	switch (dt)
 	{	//TODO: Define imagePaths

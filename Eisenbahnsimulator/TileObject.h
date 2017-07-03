@@ -1,5 +1,30 @@
-#pragma once
+﻿#pragma once
 using namespace System;
+
+ref class TileObject;
+ref class Rail;
+ref class SignalRail;
+ref class TrainStop;
+ref class SignalRail;
+ref class RailSwitch;
+ref class Decoraction;
+
+
+struct pos
+{
+	int posX;
+	int posY;
+
+	bool operator == (pos position)
+	{
+		if (position.posX == posX && position.posY == posY)
+		{
+			return true;
+		}
+		return false;
+	}
+
+};
 
 public enum class Directions { //Two cardinal directions
 	NorthEast = 0, EastNorth = 0, NorthSouth = 1, SouthNorth = 1,
@@ -13,19 +38,29 @@ public ref class TileObject abstract //A basic tile
 {
 protected:
 	String^ imagePath;
+	String^ name;
 public:
-	int X;	//x coordinate
-	int Y;	//y coordinate
-	virtual property String^ ImagePath {
+	int x;	//x coordinate
+	int y;	//y coordinate
+
+	//TODO: Make virtual?
+	TileObject(String^ _imagePath, String^ _name); //Constructs a Tileobject with an X and Y coordinate
+
+	void setPosition(int _x, int _y);
+	pos	getPosition()
+	{
+		pos temp = { x, y };
+		return temp;
+	}
+
+	// TODO: is this really necessary? At least set
+	virtual property String^ ImagePath 
+	{
 		String^ get() {
 			return imagePath;
 		}
-		void set(String^ ip) {
-			imagePath = ip;
+		void set(String^ _imagePath) {
+			imagePath = _imagePath;
 		}
 	}
-
-	//TODO: Make virtual?
-	TileObject(int xi, int yi); //Constructs a Tileobject with an X and Y coordinate
-	
 };

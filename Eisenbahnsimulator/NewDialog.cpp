@@ -1,2 +1,2 @@
-#include "NewDialog.h"
+﻿#include "NewDialog.h"
 

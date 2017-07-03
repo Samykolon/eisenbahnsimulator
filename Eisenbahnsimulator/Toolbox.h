@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 
 using namespace System;
@@ -223,11 +223,12 @@ int selectedTBIndex(System::Windows::Forms::ListView^  listViewToolbox, System::
 
 void toolbox(System::Windows::Forms::ListView^  listViewToolbox, System::Windows::Forms::ComboBox^  Combo, System::Windows::Forms::ImageList^ I0, System::Windows::Forms::ImageList^ I1, System::Windows::Forms::ImageList^ I2, System::Windows::Forms::ImageList^ I3, System::Windows::Forms::ImageList^ I4, System::Windows::Forms::ImageList^ I5, array<System::Windows::Forms::ListViewItem^>^A0, array<System::Windows::Forms::ListViewItem^>^A1, array<System::Windows::Forms::ListViewItem^>^A2, array<System::Windows::Forms::ListViewItem^>^A3, array<System::Windows::Forms::ListViewItem^>^A4, array<System::Windows::Forms::ListViewItem^>^A5)
 {
+	
 	Combo->Items->Add("Schienen");
 	Combo->Items->Add("Signale und Weichen");
 	Combo->Items->Add("Haltepunkte");
 	Combo->Items->Add("Umgebung");
-	Combo->Items->Add("Züge");
+	Combo->Items->Add("Zãƒ»e");
 	Combo->Items->Add("Alle");
 	Combo->SelectedIndex = 5;
 	listViewToolbox->FullRowSelect = true;
@@ -258,7 +259,7 @@ void toolbox(System::Windows::Forms::ListView^  listViewToolbox, System::Windows
 	ListViewItem^ item267 = gcnew ListViewItem("Weiche", 19);
 	ListViewItem^ item268 = gcnew ListViewItem("Weiche", 20);
 	ListViewItem^ item30 = gcnew ListViewItem("Kleiner Bahnhof", 21);
-	ListViewItem^ item31 = gcnew ListViewItem("Großer Bahnhof", 22);
+	ListViewItem^ item31 = gcnew ListViewItem("Groï¾Ÿer Bahnhof", 22);
 	ListViewItem^ item40 = gcnew ListViewItem("Laubbaum", 23);
 	ListViewItem^ item41 = gcnew ListViewItem("Nadelbaum", 24);
 	ListViewItem^ item42 = gcnew ListViewItem("Strauch", 25);

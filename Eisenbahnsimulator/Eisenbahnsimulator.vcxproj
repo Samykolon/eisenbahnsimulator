@@ -136,6 +136,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AppData.cpp" />
     <ClCompile Include="Decoration.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -150,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="BetterPanel.h" />
     <ClInclude Include="Decoration.h" />
+    <ClInclude Include="AppData.h" />
     <ClInclude Include="MainFrame.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -225,6 +227,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ToolboxItems.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

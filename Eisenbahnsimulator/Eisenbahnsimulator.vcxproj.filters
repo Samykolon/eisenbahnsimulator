@@ -45,6 +45,9 @@
     <ClCompile Include="TrainStop.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="AppData.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrame.h">
@@ -81,6 +84,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="BetterPanel.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="AppData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -240,5 +246,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ToolboxItems.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

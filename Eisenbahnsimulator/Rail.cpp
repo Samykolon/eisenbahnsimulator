@@ -1,4 +1,4 @@
-#include "Rail.h"
+﻿#include "Rail.h"
 
 inline Boolean Rail::LeadsTo(Direction dir)
 {
@@ -39,8 +39,8 @@ inline Boolean Rail::LeadsTo(Direction dir)
 	return Boolean();
 }
 
-inline Rail::Rail(int xi, int yi, Directions _dir) :TileObject(xi, yi)
-{
+inline Rail::Rail(Directions _dir, String^ imagePath, String^ name) :TileObject(imagePath, name)
+{/*
 	switch (_dir)
 	{
 	case Directions::NorthEast:
@@ -63,6 +63,6 @@ inline Rail::Rail(int xi, int yi, Directions _dir) :TileObject(xi, yi)
 		break;
 	default:
 		break;
-	}
+	}*/
 	EndDirections = _dir;
 }

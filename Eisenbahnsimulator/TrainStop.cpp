@@ -1,3 +1,3 @@
-#include "TrainStop.h"
+﻿#include "TrainStop.h"
 
-inline TrainStop::TrainStop(int xi, int yi, Directions dir, int imp) : Rail(xi, yi, dir), Importance(imp) {}
+inline TrainStop::TrainStop(Directions dir, int imp, String^ imagePath, String^ name) : Rail(dir, imagePath, name), Importance(imp) {}

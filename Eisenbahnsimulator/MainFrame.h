@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Toolbox.h"
 #include "Train.h"
 #include "Decoration.h"
@@ -25,7 +25,7 @@ namespace Eisenbahnsimulator {
 	/// </summary>
 	public ref class MainFrame : public System::Windows::Forms::Form
 	{
-		
+
 
 
 	public:
@@ -35,8 +35,8 @@ namespace Eisenbahnsimulator {
 
 			toolbox(listView1, ComboToolbox, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
 			updateToolbox(listView1, ComboToolbox, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
-			
-			
+
+
 			//
 			//TODO: Add the constructor code here
 			//
@@ -45,7 +45,7 @@ namespace Eisenbahnsimulator {
 			selectedItem = -1;
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::AllPaintingInWmPaint, true);
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::DoubleBuffer, true);
-			
+
 		}
 
 	protected:
@@ -57,7 +57,7 @@ namespace Eisenbahnsimulator {
 			if (components)
 			{
 				delete components;
-			}			
+			}
 		}
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	protected:
@@ -65,7 +65,7 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::ToolStripMenuItem^  neuToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  speichernToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  ladenToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  schließenToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  schlieÃŸenToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  ansichtToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  hilfeToolStripMenuItem;
 	private: System::Windows::Forms::Panel^  panel1;
@@ -87,7 +87,7 @@ namespace Eisenbahnsimulator {
 
 	private: System::Windows::Forms::TextBox^  textBox1;
 	private: System::Windows::Forms::ListBox^  listBox1;
-	private: System::Windows::Forms::ToolStripMenuItem^  überToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  Ã¼berToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  einstellungenToolStripMenuItem;
 	private: System::Windows::Forms::ListView^  listView1;
 	private: System::Windows::Forms::Timer^  timer;
@@ -113,11 +113,11 @@ namespace Eisenbahnsimulator {
 			this->neuToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->speichernToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->ladenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->schließenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->schlieÃŸenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->ansichtToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->einstellungenToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->hilfeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->überToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->Ã¼berToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->groupBox5 = (gcnew System::Windows::Forms::GroupBox());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -158,7 +158,7 @@ namespace Eisenbahnsimulator {
 			// 
 			this->dateiToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
 				this->neuToolStripMenuItem,
-					this->speichernToolStripMenuItem, this->ladenToolStripMenuItem, this->schließenToolStripMenuItem
+					this->speichernToolStripMenuItem, this->ladenToolStripMenuItem, this->schlieÃŸenToolStripMenuItem
 			});
 			this->dateiToolStripMenuItem->Name = L"dateiToolStripMenuItem";
 			this->dateiToolStripMenuItem->Size = System::Drawing::Size(46, 20);
@@ -183,12 +183,12 @@ namespace Eisenbahnsimulator {
 			this->ladenToolStripMenuItem->Size = System::Drawing::Size(126, 22);
 			this->ladenToolStripMenuItem->Text = L"Laden";
 			// 
-			// schließenToolStripMenuItem
+			// schlieÃŸenToolStripMenuItem
 			// 
-			this->schließenToolStripMenuItem->Name = L"schließenToolStripMenuItem";
-			this->schließenToolStripMenuItem->Size = System::Drawing::Size(126, 22);
-			this->schließenToolStripMenuItem->Text = L"Schließen";
-			this->schließenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::schließenToolStripMenuItem_Click);
+			this->schlieÃŸenToolStripMenuItem->Name = L"schlieÃŸenToolStripMenuItem";
+			this->schlieÃŸenToolStripMenuItem->Size = System::Drawing::Size(126, 22);
+			this->schlieÃŸenToolStripMenuItem->Text = L"SchlieÃŸen";
+			this->schlieÃŸenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::schlieÃŸenToolStripMenuItem_Click);
 			// 
 			// ansichtToolStripMenuItem
 			// 
@@ -206,17 +206,17 @@ namespace Eisenbahnsimulator {
 			// 
 			// hilfeToolStripMenuItem
 			// 
-			this->hilfeToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->überToolStripMenuItem });
+			this->hilfeToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->Ã¼berToolStripMenuItem });
 			this->hilfeToolStripMenuItem->Name = L"hilfeToolStripMenuItem";
 			this->hilfeToolStripMenuItem->Size = System::Drawing::Size(44, 20);
 			this->hilfeToolStripMenuItem->Text = L"Hilfe";
 			// 
-			// überToolStripMenuItem
+			// Ã¼berToolStripMenuItem
 			// 
-			this->überToolStripMenuItem->Name = L"überToolStripMenuItem";
-			this->überToolStripMenuItem->Size = System::Drawing::Size(108, 22);
-			this->überToolStripMenuItem->Text = L"Über...";
-			this->überToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::überToolStripMenuItem_Click);
+			this->Ã¼berToolStripMenuItem->Name = L"Ã¼berToolStripMenuItem";
+			this->Ã¼berToolStripMenuItem->Size = System::Drawing::Size(108, 22);
+			this->Ã¼berToolStripMenuItem->Text = L"Ãœber...";
+			this->Ã¼berToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::Ã¼berToolStripMenuItem_Click);
 			// 
 			// panel1
 			// 
@@ -239,7 +239,7 @@ namespace Eisenbahnsimulator {
 			this->groupBox5->Size = System::Drawing::Size(229, 152);
 			this->groupBox5->TabIndex = 0;
 			this->groupBox5->TabStop = false;
-			this->groupBox5->Text = L"Ausgewähltes Objekt bearbeiten";
+			this->groupBox5->Text = L"AusgewÃ¤hltes Objekt bearbeiten";
 			// 
 			// groupBox1
 			// 
@@ -294,7 +294,7 @@ namespace Eisenbahnsimulator {
 			this->groupBox3->Size = System::Drawing::Size(201, 172);
 			this->groupBox3->TabIndex = 4;
 			this->groupBox3->TabStop = false;
-			this->groupBox3->Text = L"Ausgewählter Zug";
+			this->groupBox3->Text = L"AusgewÃ¤hlter Zug";
 			// 
 			// radioButton4
 			// 
@@ -304,7 +304,7 @@ namespace Eisenbahnsimulator {
 			this->radioButton4->Size = System::Drawing::Size(71, 17);
 			this->radioButton4->TabIndex = 6;
 			this->radioButton4->TabStop = true;
-			this->radioButton4->Text = L"rückwärts";
+			this->radioButton4->Text = L"rÃ¼ckwÃ¤rts";
 			this->radioButton4->UseVisualStyleBackColor = true;
 			// 
 			// radioButton2
@@ -315,7 +315,7 @@ namespace Eisenbahnsimulator {
 			this->radioButton2->Size = System::Drawing::Size(65, 17);
 			this->radioButton2->TabIndex = 5;
 			this->radioButton2->TabStop = true;
-			this->radioButton2->Text = L"vorwärts";
+			this->radioButton2->Text = L"vorwÃ¤rts";
 			this->radioButton2->UseVisualStyleBackColor = true;
 			// 
 			// button4
@@ -380,7 +380,7 @@ namespace Eisenbahnsimulator {
 			// 
 			this->listBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->listBox1->FormattingEnabled = true;
-			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(1) { L"Liste der vorhandenen Züge" });
+			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(1) { L"Liste der vorhandenen ZÃ¼ge" });
 			this->listBox1->Location = System::Drawing::Point(13, 603);
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(201, 173);
@@ -421,7 +421,7 @@ namespace Eisenbahnsimulator {
 
 		}
 #pragma endregion
-		
+
 		ImageList^ imageListSchienen = gcnew ImageList;
 		ImageList^ imageListSignale = gcnew ImageList;
 		ImageList^ imageListHaltepunkte = gcnew ImageList;
@@ -441,7 +441,7 @@ namespace Eisenbahnsimulator {
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
 		void AddTrain(TrainType tt, int xi, int yi);
 
-		
+
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
 	}
 
@@ -452,8 +452,8 @@ namespace Eisenbahnsimulator {
 		::DialogResult confirmResult;
 		if (TileMap != nullptr) {
 
-			confirmResult = MessageBox::Show(L"Wollen Sie die bisherige Arbeitsfläche überschreiben?", L"Bestätigen", MessageBoxButtons::YesNo);
-			
+			confirmResult = MessageBox::Show(L"Wollen Sie die bisherige ArbeitsflÃ¤che Ã¼berschreiben?", L"BestÃ¤tigen", MessageBoxButtons::YesNo);
+
 		}
 		if (confirmResult != ::DialogResult::No) {
 			NewDialog^ newD = gcnew NewDialog();
@@ -464,7 +464,7 @@ namespace Eisenbahnsimulator {
 					MessageBox::Show(L"Bitte geben sie nur ganze Zahlen ein.");
 				}
 				else if (xCoord <= 0 || yCoord <= 0) {
-					MessageBox::Show(L"Beide Zahlen müssen größer als 0 sein.");
+					MessageBox::Show(L"Beide Zahlen mÃ¼ssen grÃ¶ÃŸer als 0 sein.");
 				}
 				else {
 					TileMap = gcnew Map(yCoord, xCoord); //Create new Map
@@ -474,28 +474,28 @@ namespace Eisenbahnsimulator {
 			timer->Start();
 		}
 	}
-	private: System::Void schließenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void schlieÃŸenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 		this->Close();
 	}
-	private: System::Void überToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void Ã¼berToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
-		MessageBox::Show(L"Eisenbahnsimulator\nVersion 1.0.0\nCopyright by Samuel Dressel, Hannes Krumbiegel, Johannes Bley und Florian Köhler");
+		MessageBox::Show(L"Eisenbahnsimulator\nVersion 1.0.0\nCopyright by Samuel Dressel, Hannes Krumbiegel, Johannes Bley und Florian KÃ¶hler");
 
 	}
 
 
-private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, System::EventArgs^  e) {
-	
-	updateToolbox(listView1, ComboToolbox, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
-		
+	private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, System::EventArgs^  e) {
 
-}
+		updateToolbox(listView1, ComboToolbox, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
+
+
+	}
 
 	private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-	if (TileMap != nullptr) { //Checks if the user has created a TileMap
+		if (TileMap != nullptr) { //Checks if the user has created a TileMap
 
-		int X = CalcTileCoord(e->X);	//Calculates Tile coordinates the user clicks on
-		int Y = CalcTileCoord(e->Y);
+			int X = CalcTileCoord(e->X);	//Calculates Tile coordinates the user clicks on
+			int Y = CalcTileCoord(e->Y);
 
 			//Places tiles based on toolbox choice
 			if (selectedItem != -1) { //TODO: Better solution for numbers, because right now you get confused - enum? + continue
@@ -526,7 +526,7 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::SouthNorth, 3, 3)); //Allow customized duration
 					break;
 				case 22:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestNorth, 3, 3)); 
+					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestNorth, 3, 3));
 					break;
 				case 23:
 					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::NorthEast, 3, 3));
@@ -536,7 +536,7 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 					break;
 				case 25:
 					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestSouth, 3, 3));
-					break;				
+					break;
 				case 50:
 					AddTrain(TrainType::SteamEngine, X, Y);
 					break;
@@ -545,70 +545,70 @@ private: System::Void ComboToolbox_DropDownClosed(System::Object^  sender, Syste
 					break;
 				case 52:
 					AddTrain(TrainType::ElectricLocomotive, X, Y);
-					break;				
+					break;
 				}
 				panel1->Invalidate();
 			}
-						
+
 			//if (TileMap->GetTile(X, Y) != nullptr) {
 			//	MessageBox::Show("X: " + X + ", Y: " + Y + "\n" + (safe_cast<Rail^>(TileMap->GetTile(X, Y))->EndDirections).ToString()); //Debug output
 			//}
-			
+
 		}
 	}
 
 	private: System::Void listView1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 
-	if (listView1->SelectedItems->Count > 0) 
-	{
-		selectedItem = selectedTBIndex(listView1, ComboToolbox);
-	}
-	else
-		selectedItem = -1;
+		if (listView1->SelectedItems->Count > 0)
+		{
+			selectedItem = selectedTBIndex(listView1, ComboToolbox);
+		}
+		else
+			selectedItem = -1;
 
 	}
 
-private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) { //Draws everything
-	
-	if (TileMap != nullptr) { //If a TileMap has been created
-		int maxXTile = Math::Min(TileMap->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
-		int maxYTile = Math::Min(TileMap->Height, CalcTileCoord(panel1->Height - 2));
-		Graphics^ g = e->Graphics;
-	
-		//for (int x = 0; x < maxXTile; x++) //Draw background tiles
-		//{
-		//	for (int y = 0; y < maxYTile; y++)
-		//	{
-		//		g->DrawImage(Image::FromFile(L"Rails/grass.png"), x * TileSize, y * TileSize, TileSize, TileSize); //Draw grass
+	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) { //Draws everything
 
-		//	}
-		//}
+		if (TileMap != nullptr) { //If a TileMap has been created
+			int maxXTile = Math::Min(TileMap->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
+			int maxYTile = Math::Min(TileMap->Height, CalcTileCoord(panel1->Height - 2));
+			Graphics^ g = e->Graphics;
 
-		g->DrawImage(Image::FromFile(L"Rails/grass_background.png"), 0, 0 , 2000, 2000); //Draw grass - what is better?
+			//for (int x = 0; x < maxXTile; x++) //Draw background tiles
+			//{
+			//	for (int y = 0; y < maxYTile; y++)
+			//	{
+			//		g->DrawImage(Image::FromFile(L"Rails/grass.png"), x * TileSize, y * TileSize, TileSize, TileSize); //Draw grass
 
-		
-		
+			//	}
+			//}
 
+			g->DrawImage(Image::FromFile(L"Rails/grass_background.png"), 0, 0, 2000, 2000); //Draw grass - what is better?
+
+
+
+
+			for (int i = 0; i < TileMap->GetCount(); i++)
+			{
+				TileObject^ toBeDrawn = TileMap->TileAt(i);
+				g->DrawImage(Image::FromFile(L"Rails/" + toBeDrawn->ImagePath), (toBeDrawn->X - 1) * TileSize, (toBeDrawn->Y - 1) * TileSize, TileSize, TileSize); //Draws all tiles in the tile map
+			}
+
+		}
+	}
+	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
 		for (int i = 0; i < TileMap->GetCount(); i++)
 		{
-			TileObject^ toBeDrawn = TileMap->TileAt(i);
-			g->DrawImage(Image::FromFile(L"Rails/" + toBeDrawn->ImagePath), (toBeDrawn->X - 1) * TileSize, (toBeDrawn->Y - 1) * TileSize, TileSize, TileSize); //Draws all tiles in the tile map
-		}
-				
-	}
-}
-private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
-	for (int i = 0; i < TileMap->GetCount(); i++)
-	{
 
-		if ((TileMap->TileAt(i))->GetType() == SignalRail::typeid) { //Changes signals if necessary
-			static_cast<SignalRail^>(TileMap->TileAt(i))->Tick(0.2);
+			if ((TileMap->TileAt(i))->GetType() == SignalRail::typeid) { //Changes signals if necessary
+				static_cast<SignalRail^>(TileMap->TileAt(i))->Tick(0.2);
+			}
 		}
-	}
-	//Signals switch
-	//Trains drive
-	panel1->Invalidate();
+		//Signals switch
+		//Trains drive
+		panel1->Invalidate();
 
-}
-};
+	}
+	};
 }

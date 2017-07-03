@@ -1,4 +1,4 @@
-#include "Map.h"
+﻿#include "Map.h"
 
 
 
@@ -9,14 +9,14 @@ Map::Map(int _height, int _width)
 	TMap = gcnew List<TileObject^>(_height * _width);
 }
 
-TileObject^ Map::GetTile(int posX, int posY) // returns Object at position x, y	
+TileObject^ Map::GetTile(int _posX, int _posY) // returns Object at position x, y	
 {
-
+	pos tempPosition = { _posX, _posY };
 	int count = TMap->Count;
 
 	for (int i = 0; i < count; i++)
 	{
-		if (TMap[i]->X == posX && TMap[i]->Y == posY)
+		if (TMap[i]->getPosition() == tempPosition)
 		{
 			return TMap[i];
 		}
@@ -29,17 +29,20 @@ inline TileObject^ Map::TileAt(int i)
 	return TMap[i];
 }
 
-void Map::SetTile(TileObject ^ obj) //Sets the object at x, y
+void Map::SetTile(TileObject ^ _obj, int _posX, int _posY) //Sets the object at x, y
 {
+	_obj->setPosition(_posX, _posY);
+
 	// Check if an object is already there
 	for (int i = TMap->Count - 1; i >= 0; i--) //Reverse for loop, to make deletion possible
 	{
-		if (TMap[i]->X == obj->X && TMap[i]->Y == obj->Y) {
+		if (TMap[i]->getPosition() == _obj->getPosition()) 
+		{
 			TMap->RemoveAt(i); //Remove objects that are overwritten
+			break; // TODO : MAybe dont break I don't know
 		}
-
 	}
-	TMap->Add(obj); //Add object 	
+	TMap->Add(_obj); //Add object 	
 }
 
 int Map::GetCount()

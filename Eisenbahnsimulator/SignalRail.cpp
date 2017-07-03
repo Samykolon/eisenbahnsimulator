@@ -1,8 +1,11 @@
-#include "SignalRail.h"
+﻿#include "SignalRail.h"
 
-inline SignalRail::SignalRail(int xi, int yi, Directions dir, double gdur, double rdur) : Rail(xi, yi, dir), greenDuration(gdur), redDuration(rdur){
+
+inline SignalRail::SignalRail(Directions dir, double gdur, double rdur, String^ imagePath_1, String^ imagePath_2, String ^name) : Rail(dir, imagePath_1, name), greenDuration(gdur), redDuration(rdur){
 	timer = 0;
 	IsGreen = true;
+	imagePath1 = imagePath_1;
+	imagePath2 = imagePath_2;
 	//TODO: Show if active
 	
 }
