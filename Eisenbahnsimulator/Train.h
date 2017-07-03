@@ -10,6 +10,7 @@ public ref class Train {
 public:
 	TrainType Type;
 	String^ Name;
+	String^ imagePath;
 	double Speed; 
 	double MaxSpeed;
 	double TileProgress;	//A number between 0 and 2+pi/4 (curve) or 4 that determines the location of the train on the tile
@@ -17,5 +18,15 @@ public:
 	Direction GoalDirection;
 	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
 public:
-	Train(TrainType typ, String ^ nm, Direction start, Direction goal, Rail ^ to);
+	Train(TrainType typ, String ^ nm, Direction start, Direction goal, Rail ^ to, String^ _imagePath);
+
+	virtual property String^ ImagePath
+	{
+		String^ get() {
+			return imagePath;
+		}
+		void set(String^ _imagePath) {
+			imagePath = _imagePath;
+		}
+	}
 };

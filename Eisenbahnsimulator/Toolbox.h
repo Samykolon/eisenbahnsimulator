@@ -272,7 +272,7 @@ void toolbox(System::Windows::Forms::ListView^  listViewToolbox, System::Windows
 
 	// Create columns for the items and subitems.
 	listViewToolbox->Columns->Add("Element", -2, HorizontalAlignment::Left);
-	
+
 	// Load Images 
 	Image ^Rail_Normal_Vert = (Image::FromFile(L"Rails/Rail_Normal_Vert.png"));
 	Image ^Rail_Normal_Hor = (Image::FromFile(L"Rails/Rail_Normal_Hor.png"));
@@ -436,6 +436,8 @@ void toolbox(System::Windows::Forms::ListView^  listViewToolbox, System::Windows
 void updateToolbox(int _categoryIndex, Appdata^ _appdata, ListView^ _listView)
 {
 	_listView->Items->Clear();
+	//_listView->Columns->Add("Element", -2, HorizontalAlignment::Left);
+
 
 	List<String ^>^ categoryList = _appdata->getCategoryList();
 	List<String^>^ category = _appdata->getCategory(categoryList[_categoryIndex]);
@@ -443,9 +445,8 @@ void updateToolbox(int _categoryIndex, Appdata^ _appdata, ListView^ _listView)
 	imageList->ImageSize = Size(48, 48);
 	for (int i = 0; i < category->Count; i++)
 	{
-		Image ^img = Image::FromFile(L"Rails/Rail_Normal_Vert.png");
-		_listView->Items->Add(_appdata->getLangString(category[i]));
-		imageList->Images->Add(img);
+		_listView->Items->Add(_appdata->getLangString(category[i]),i);
+		imageList->Images->Add(_appdata->getImage(category[i]));
 	}
-	_listView->SmallImageList = imageList;
+	_listView->LargeImageList = imageList;
 }

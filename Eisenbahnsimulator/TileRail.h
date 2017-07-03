@@ -11,9 +11,5 @@ public:
 
 public:
 	Rail(Directions _dir, String^ imagePath, String^ name);
-	virtual Object ^Clone() override
-	{
-		return MemberwiseClone();
-	}
-	
+
 };

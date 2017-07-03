@@ -1,7 +1,7 @@
 ﻿#include "TileDecoration.h"
 
 Decoration::Decoration(DecoType dt, String^ imagePath, String^ name) :TileObject(imagePath, name) {
-	Type = dt;
+	/*Type = dt;
 	switch (dt)
 	{	//TODO: Define imagePaths
 	case Decoration::DecoType::FoliageTree:
@@ -14,7 +14,7 @@ Decoration::Decoration(DecoType dt, String^ imagePath, String^ name) :TileObject
 		break;
 	default:
 		break;
-	}
+	}*/
 
 
 }

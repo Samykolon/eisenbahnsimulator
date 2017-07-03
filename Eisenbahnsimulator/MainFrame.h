@@ -50,6 +50,12 @@ namespace Eisenbahnsimulator {
 				}
 			}
 			ComboBoxCategorySelection->SelectedIndex = 0;
+
+			listViewSelectElements->FullRowSelect = true;
+			listViewSelectElements->View = View::Tile;
+			listViewSelectElements->Sorting = SortOrder::None;
+			listViewSelectElements->GridLines = true;
+			listViewSelectElements->LabelEdit = false;
 			updateToolbox(ComboBoxCategorySelection->SelectedIndex, appdata, listViewSelectElements);
 			/*// update category Selection 
 			{
@@ -124,6 +130,8 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::ListView^  listViewSelectElements;
 
 	private: System::Windows::Forms::Timer^  timer;
+
+
 	private: System::ComponentModel::IContainer^  components;
 
 			 //private: System::Windows::Forms::ListView^  listView1;
@@ -558,10 +566,13 @@ namespace Eisenbahnsimulator {
 
 				if (appdata->isTile(selectedItemKey))
 				{
-					TileMap->SetTile(static_cast<TileObject^>(appdata->getTile(selectedItemKey)->Clone()), X, Y);
+					TileObject ^temp = static_cast<TileObject^>(appdata->getTile(selectedItemKey)->Clone());
+					TileMap->SetTile(temp, X, Y);
 				}
 				else if(appdata->isTrain(selectedItemKey))
 				{
+					// TODO: Do Like Tile
+					AddTrain(TrainType::ElectricLocomotive, X, Y);
 				//	TileMap->SetTile(appdata->getTile(selectedItemKey)->MemberwiseClone, X, Y);
 					// TileMap->AddTrain()
 				}
@@ -667,7 +678,7 @@ namespace Eisenbahnsimulator {
 			for (int i = 0; i < TileMap->GetCount(); i++)
 			{
 				TileObject^ toBeDrawn = TileMap->TileAt(i);
-				g->DrawImage(Image::FromFile(L"Rails/" + toBeDrawn->ImagePath), (toBeDrawn->getPosition()->posX - 1) * TileSize, (toBeDrawn->getPosition()->posY - 1) * TileSize, TileSize, TileSize); //Draws all tiles in the tile map
+				g->DrawImage(Image::FromFile(toBeDrawn->ImagePath), (toBeDrawn->getPosition()->posX - 1) * TileSize, (toBeDrawn->getPosition()->posY - 1) * TileSize, TileSize, TileSize); //Draws all tiles in the tile map
 			}
 
 		}
@@ -685,5 +696,7 @@ namespace Eisenbahnsimulator {
 		panel1->Invalidate();
 
 	}
-	};
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+};
 }

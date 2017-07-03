@@ -23,9 +23,5 @@ public:
 	}
 	SignalRail(Directions dir, double gdur, double rdur, String^ imagePath_1, String^ imagePath_2, String ^name);
 	void Tick(double time) override; //Time passes, activity may change
-	virtual Object ^Clone() override
-	{
-		return MemberwiseClone();
-	}
 	
 };

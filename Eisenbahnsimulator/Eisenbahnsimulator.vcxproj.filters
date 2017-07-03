@@ -247,7 +247,4 @@
   <ItemGroup>
     <Text Include="ToolboxItems.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-  </ItemGroup>
 </Project>

@@ -9,19 +9,25 @@ Appdata::Appdata()
 	trains = gcnew Dictionary<String^, Train ^>;
 	categories = gcnew Dictionary<String^, List<String^>^>;
 	categoryList = gcnew List<String^>;
+	imagePaths = gcnew Dictionary<String^, String^>;
+	images = gcnew Dictionary<String ^, Image^>;
+
+
 	// Tiles will be loaded only on startup
-	tiles->Add(L"Tile_Rail_East_South", gcnew Rail(Directions::EastSouth,  L"Rail_Curve_RightBottom.png", "Rail_East_South"));
-	tiles->Add(L"Tile_Rail_East_West",  gcnew Rail(Directions::EastWest,   L"Rail_Normal_Hor.png",		"Rail_East_West"));
-	tiles->Add(L"Tile_Rail_East_North", gcnew Rail(Directions::NorthEast,  L"Rail_Curve_RightTop.png",	"Rail_East_North"));
-	tiles->Add(L"Tile_Rail_South_West", gcnew Rail(Directions::SouthWest,  L"Rail_Curve_LeftBottom.png",	"Rail_South_West"));
-	tiles->Add(L"Tile_Rail_South_North",gcnew Rail(Directions::NorthSouth, L"Rail_Normal_Vert.png",		"Rail_South_North"));
-	tiles->Add(L"Tile_Rail_West_North", gcnew Rail(Directions::NorthWest,  L"Rail_Curve_LeftTop.png",		"Rail_West_North"));
+	tiles->Add(L"Tile_Rail_East_South", gcnew Rail(Directions::EastSouth, L"Rails/Rail_Curve_RightBottom.png", "Tile_Rail_East_South"));
+	tiles->Add(L"Tile_Rail_East_West", gcnew Rail(Directions::EastWest, L"Rails/Rail_Normal_Hor.png", "Tile_Rail_East_West"));
+	tiles->Add(L"Tile_Rail_East_North", gcnew Rail(Directions::NorthEast, L"Rails/Rail_Curve_RightTop.png", "Tile_Rail_East_North"));
+	tiles->Add(L"Tile_Rail_South_West", gcnew Rail(Directions::SouthWest, L"Rails/Rail_Curve_LeftBottom.png", "Tile_Rail_South_West"));
+	tiles->Add(L"Tile_Rail_South_North", gcnew Rail(Directions::NorthSouth, L"Rails/Rail_Normal_Vert.png", "Tile_Rail_South_North"));
+	tiles->Add(L"Tile_Rail_West_North", gcnew Rail(Directions::NorthWest, L"Rails/Rail_Curve_LeftTop.png", "Tile_Rail_West_North"));
 	/*
 	trains->Add(L"Train_steam_locomotive",gcnew Train());
 	trains->Add(L"Train_electric_locomotive", gcnew Train());
 	trains->Add(L"Train_diesel_locomotive", gcnew Train());
 	*/
-	
+
+
+
 
 
 	// Create Categories for Toolbox
@@ -32,34 +38,38 @@ Appdata::Appdata()
 	List<String^>^ categoryRailStop = gcnew List<String^>;
 	List<String^>^ categoryEnvironment = gcnew List<String^>;
 	List<String^>^ categoryAll = gcnew List <String^>;
-	// Rails
-	categoryRails->Add(L"Tile_Rail_East_South");
+	
+	// Items in rail category in this order
+	categoryRails->Add(L"Tile_Rail_South_North");
 	categoryRails->Add(L"Tile_Rail_East_West");
+	categoryRails->Add(L"Tile_Rail_East_South");
 	categoryRails->Add(L"Tile_Rail_East_North");
 	categoryRails->Add(L"Tile_Rail_South_West");
-	categoryRails->Add(L"Tile_Rail_South_North");
 	categoryRails->Add(L"Tile_Rail_West_North");
 
+	// Items in train category in this order
+	//categoryTrains->Add(L"Train");
+
+	// link categorie List with identifier
+	categories->Add(L"Category_Rails", categoryRails);
+	categories->Add(L"Category_Trains", categoryTrains);
+	categories->Add(L"Category_RailSwitches", categoryRailSwitches);
+	categories->Add(L"Category_Decoration", categoryDecoractions);
+	categories->Add(L"Category_RailStops", categoryRailStop);
+	categories->Add(L"Category_Environment", categoryEnvironment);
+	categories->Add(L"Category_All", categoryAll);
 	
-	categories->Add(L"category_Rails", categoryRails);
-	categories->Add(L"category_Trains", categoryTrains);
-	categories->Add(L"category_RailSwitches", categoryRailSwitches);
-	categories->Add(L"category_Decoration", categoryDecoractions);
-	categories->Add(L"category_RailStops", categoryRailStop);
-	categories->Add(L"category_Environment", categoryEnvironment);
-	categories->Add(L"category_All", categoryAll);
-	
-
-	categoryList->Add(L"category_Rails");
-	categoryList->Add(L"category_Trains");
-	categoryList->Add(L"category_RailSwitches");
-	categoryList->Add(L"category_Decoration");
-	categoryList->Add(L"category_RailStops");
-	categoryList->Add(L"category_Environment");
-	categoryList->Add(L"category_All");
+	// order of categories in dropbox
+	categoryList->Add(L"Category_Rails");
+	categoryList->Add(L"Category_Trains");
+	categoryList->Add(L"Category_RailSwitches");
+	categoryList->Add(L"Category_Decoration");
+	categoryList->Add(L"Category_RailStops");
+	categoryList->Add(L"Category_Environment");
+	categoryList->Add(L"Category_All");
 
 
-	// Lade Sprachdatei
+	// Load Names to indentifier
 	lang->Add(L"Tile_Rail_East_South", L"Schiene Süd-Ost");
 	lang->Add(L"Tile_Rail_East_West", L"Schiene Ost-West");
 	lang->Add(L"Tile_Rail_East_North", L"Schiene Ost-Nord");
@@ -68,13 +78,24 @@ Appdata::Appdata()
 	lang->Add(L"Tile_Rail_West_North", L"Schiene West-Nord");
 
 
-	lang->Add(L"category_Rails", L"Schienen");
-	lang->Add(L"category_Trains", L"Züge");
-	lang->Add(L"category_RailSwitches", L"Weichen");
-	lang->Add(L"category_Decoration", L"Dekoration");
-	lang->Add(L"category_RailStops", L"Haltestellen");
-	lang->Add(L"category_Environment", L"Umgebung");
-	lang->Add(L"category_All", L"Alle");
+	lang->Add(L"Category_Rails", L"Schienen");
+	lang->Add(L"Category_Trains", L"Züge");
+	lang->Add(L"Category_RailSwitches", L"Weichen");
+	lang->Add(L"Category_Decoration", L"Dekoration");
+	lang->Add(L"Category_RailStops", L"Haltestellen");
+	lang->Add(L"Category_Environment", L"Umgebung");
+	lang->Add(L"Category_All", L"Alle");
+
+
+	// Load images to imagePaths from tiles
+	for each (KeyValuePair<String^, TileObject^>^ tile in tiles)
+	{
+		imagePaths->Add(tile->Key, tile->Value->ImagePath);
+	}
+	for each (KeyValuePair<String^, Train^>^ train in trains)
+	{
+		imagePaths->Add(train->Key, train->Value->ImagePath);
+	}
 }
 
 String^ Appdata::getLangString(String ^ keyString)
@@ -114,6 +135,13 @@ List<String^>^ Appdata::getCategoryList()
 	return categoryList;
 }
 
+String ^ Appdata::getImagePath(String ^ keyString)
+{
+	if(imagePaths->ContainsKey(keyString))
+		return imagePaths[keyString];
+	return nullptr;
+}
+
 bool Appdata::isTile(String ^ str)
 {
 	return tiles->ContainsKey(str);
@@ -122,4 +150,19 @@ bool Appdata::isTile(String ^ str)
 bool Appdata::isTrain(String ^ str)
 {
 	return trains->ContainsKey(str);
+}
+
+Image ^ Appdata::getImage(String ^ keyString)
+{
+	if (images->ContainsKey(keyString))
+	{
+		return images[keyString];
+	}
+	String^ path = getImagePath(keyString);
+	
+	if (path != nullptr)
+	{
+		images->Add(keyString, Image::FromFile(path));
+	}
+	return images[keyString];
 }

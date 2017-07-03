@@ -52,7 +52,6 @@ public:
 
 	}
 
-	// TODO: is this really necessary? At least set
 	virtual property String^ ImagePath 
 	{
 		String^ get() {
@@ -64,7 +63,9 @@ public:
 	}
 	virtual Object ^Clone()
 	{
-		return MemberwiseClone();
+		TileObject ^temp = static_cast<TileObject^>(MemberwiseClone());
+		temp->coord = gcnew Pos(0, 0);
+		return temp;
 	}
 
 };

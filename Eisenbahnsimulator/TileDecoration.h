@@ -1,14 +1,12 @@
 ﻿#pragma once
 #include "TileObject.h"
 
-public ref class Decoration : TileObject {
-public:
-	enum class DecoType { FoliageTree, Conifer, Bush, House };
-	DecoType Type;
+enum class DecoType { FoliageTree, Conifer, Bush, House };
 
+public ref class Decoration : TileObject {
+protected:
+	DecoType Type;
+public:
 	Decoration(DecoType dt, String^ imagePath, String^ name);
-	virtual Object ^Clone() override
-	{
-		return MemberwiseClone();
-	}
+
 };
