@@ -7,5 +7,8 @@ public:
 	DecoType Type;
 
 	Decoration(DecoType dt, String^ imagePath, String^ name);
-
+	virtual Object ^Clone() override
+	{
+		return MemberwiseClone();
+	}
 };

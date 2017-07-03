@@ -1,4 +1,4 @@
-﻿#include "SignalRail.h"
+﻿#include "TileSignalRail.h"
 
 
 inline SignalRail::SignalRail(Directions dir, double gdur, double rdur, String^ imagePath_1, String^ imagePath_2, String ^name) : Rail(dir, imagePath_1, name), greenDuration(gdur), redDuration(rdur){

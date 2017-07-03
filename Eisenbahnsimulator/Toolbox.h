@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "AppData.h"
 
 using namespace System;
 using namespace System::ComponentModel;
@@ -8,7 +9,7 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
-
+/*
 void updateToolbox(System::Windows::Forms::ListView^  listViewToolbox, System::Windows::Forms::ComboBox^  Combo, System::Windows::Forms::ImageList^ I0, System::Windows::Forms::ImageList^ I1, System::Windows::Forms::ImageList^ I2, System::Windows::Forms::ImageList^ I3, System::Windows::Forms::ImageList^ I4, System::Windows::Forms::ImageList^ I5, array<System::Windows::Forms::ListViewItem^>^A0, array<System::Windows::Forms::ListViewItem^>^A1, array<System::Windows::Forms::ListViewItem^>^A2, array<System::Windows::Forms::ListViewItem^>^A3, array<System::Windows::Forms::ListViewItem^>^A4, array<System::Windows::Forms::ListViewItem^>^A5)
 {
 	
@@ -428,4 +429,23 @@ void toolbox(System::Windows::Forms::ListView^  listViewToolbox, System::Windows
 
 		
 		
+}
+*/
+
+
+void updateToolbox(int _categoryIndex, Appdata^ _appdata, ListView^ _listView)
+{
+	_listView->Items->Clear();
+
+	List<String ^>^ categoryList = _appdata->getCategoryList();
+	List<String^>^ category = _appdata->getCategory(categoryList[_categoryIndex]);
+	ImageList^ imageList = gcnew ImageList;
+	imageList->ImageSize = Size(48, 48);
+	for (int i = 0; i < category->Count; i++)
+	{
+		Image ^img = Image::FromFile(L"Rails/Rail_Normal_Vert.png");
+		_listView->Items->Add(_appdata->getLangString(category[i]));
+		imageList->Images->Add(img);
+	}
+	_listView->SmallImageList = imageList;
 }

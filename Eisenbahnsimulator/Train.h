@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "TileObject.h"
-#include "Rail.h"
+#include "TileRail.h"
 
 using namespace System;
 

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Rail.h"
+#include "TileRail.h"
 
 public ref class SignalRail : Rail { //A rail with a signal
 private:
@@ -22,6 +22,10 @@ public:
 		}		
 	}
 	SignalRail(Directions dir, double gdur, double rdur, String^ imagePath_1, String^ imagePath_2, String ^name);
-	void Tick(double time); //Time passes, activity may change
+	void Tick(double time) override; //Time passes, activity may change
+	virtual Object ^Clone() override
+	{
+		return MemberwiseClone();
+	}
 	
 };

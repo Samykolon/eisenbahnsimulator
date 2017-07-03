@@ -137,20 +137,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppData.cpp" />
-    <ClCompile Include="Decoration.cpp" />
+    <ClCompile Include="TileDecoration.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="NewDialog.cpp" />
-    <ClCompile Include="Rail.cpp" />
-    <ClCompile Include="RailSwitch.cpp" />
-    <ClCompile Include="SignalRail.cpp" />
+    <ClCompile Include="TileRail.cpp" />
+    <ClCompile Include="TileRailSwitch.cpp" />
+    <ClCompile Include="TileSignalRail.cpp" />
     <ClCompile Include="TileObject.cpp" />
     <ClCompile Include="Train.cpp" />
-    <ClCompile Include="TrainStop.cpp" />
+    <ClCompile Include="TileTrainStop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BetterPanel.h" />
-    <ClInclude Include="Decoration.h" />
+    <ClInclude Include="TileDecoration.h" />
     <ClInclude Include="AppData.h" />
     <ClInclude Include="MainFrame.h">
       <FileType>CppForm</FileType>
@@ -159,13 +159,13 @@
     <ClInclude Include="NewDialog.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Rail.h" />
-    <ClInclude Include="RailSwitch.h" />
-    <ClInclude Include="SignalRail.h" />
+    <ClInclude Include="TileRail.h" />
+    <ClInclude Include="TileRailSwitch.h" />
+    <ClInclude Include="TileSignalRail.h" />
     <ClInclude Include="TileObject.h" />
     <ClInclude Include="Toolbox.h" />
     <ClInclude Include="Train.h" />
-    <ClInclude Include="TrainStop.h" />
+    <ClInclude Include="TileTrainStop.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainFrame.resx">

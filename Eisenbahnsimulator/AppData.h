@@ -13,11 +13,19 @@ public ref class Appdata
 {
 	Dictionary<String^, String^>^ lang;
 	Dictionary<String^, TileObject^>^ tiles;
-	List<Train ^>^ trains;
-	List<String ^>^ categories;
+	Dictionary<String^, Train ^>^ trains;
+	Dictionary<String ^, List<String^>^>^ categories;
+	List<String^>^ categoryList;
 public:
 
 	Appdata(); 
-	TileObject ^getTile(int listIndex, int index);
+	TileObject ^getTile(String^ keyString);
+	Train^ getTrain(String^ keyString);
 	String ^getLangString(String ^ str);
+	List<String^>^ getCategory(String^ keyString);
+	List<String^>^ getCategoryList();
+	
+	bool isTile(String^ str);
+	bool isTrain(String ^str);
+
 };

@@ -9,21 +9,18 @@ ref class SignalRail;
 ref class RailSwitch;
 ref class Decoraction;
 
-
-struct pos
+public ref class Pos
 {
+public:
 	int posX;
 	int posY;
 
-	bool operator == (pos position)
+	bool operator == (Pos ^_position)
 	{
-		if (position.posX == posX && position.posY == posY)
-		{
-			return true;
-		}
-		return false;
+		// true if position x and y are equal
+		return (_position->posX == posX && _position->posY == posY);
 	}
-
+	Pos(int _posX, int _posY) : posX(_posX), posY(_posY){}
 };
 
 public enum class Directions { //Two cardinal directions
@@ -34,23 +31,25 @@ public enum class Directions { //Two cardinal directions
 
 public enum class Direction { East, North, West, South }; //One cardinal direction
 
-public ref class TileObject abstract //A basic tile
+public ref class TileObject abstract : public ICloneable//A basic tile
 {
 protected:
 	String^ imagePath;
 	String^ name;
 public:
-	int x;	//x coordinate
-	int y;	//y coordinate
-
+	Pos ^coord; // coordinates of Tile
 	//TODO: Make virtual?
 	TileObject(String^ _imagePath, String^ _name); //Constructs a Tileobject with an X and Y coordinate
 
 	void setPosition(int _x, int _y);
-	pos	getPosition()
+	Pos ^getPosition()
 	{
-		pos temp = { x, y };
-		return temp;
+		return coord;
+	}
+
+	virtual void Tick(double d)
+	{
+
 	}
 
 	// TODO: is this really necessary? At least set
@@ -63,4 +62,9 @@ public:
 			imagePath = _imagePath;
 		}
 	}
+	virtual Object ^Clone()
+	{
+		return MemberwiseClone();
+	}
+
 };

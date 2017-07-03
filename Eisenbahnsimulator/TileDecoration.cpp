@@ -1,4 +1,4 @@
-﻿#include "Decoration.h"
+﻿#include "TileDecoration.h"
 
 Decoration::Decoration(DecoType dt, String^ imagePath, String^ name) :TileObject(imagePath, name) {
 	Type = dt;

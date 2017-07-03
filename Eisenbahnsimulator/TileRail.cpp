@@ -1,4 +1,4 @@
-﻿#include "Rail.h"
+﻿#include "TileRail.h"
 
 inline Boolean Rail::LeadsTo(Direction dir)
 {

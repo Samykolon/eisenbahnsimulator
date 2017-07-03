@@ -11,7 +11,7 @@ Map::Map(int _height, int _width)
 
 TileObject^ Map::GetTile(int _posX, int _posY) // returns Object at position x, y	
 {
-	pos tempPosition = { _posX, _posY };
+	Pos^ tempPosition = gcnew Pos(_posX, _posY);
 	int count = TMap->Count;
 
 	for (int i = 0; i < count; i++)
