@@ -25,7 +25,7 @@ Appdata::Appdata()
 	trains->Add(L"Train_electric_locomotive", gcnew Train());
 	trains->Add(L"Train_diesel_locomotive", gcnew Train());
 	*/
-
+//	trains->Add(L"train",gcnew Train(TrainType::ElectricLocomotive,"dsa",Direction::East,Direction::North,))
 
 
 

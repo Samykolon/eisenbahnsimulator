@@ -20,7 +20,7 @@ public:
 public:
 	Train(TrainType typ, String ^ nm, Direction start, Direction goal, Rail ^ to, String^ _imagePath);
 
-	virtual property String^ ImagePath
+	property String^ ImagePath
 	{
 		String^ get() {
 			return imagePath;
