@@ -34,6 +34,7 @@ public:
 
 	bool isTile(String^ str);
 	bool isTrain(String ^str);
+	Image ^getImageFromPath(String ^keyString);
 	Image ^getImage(String ^keyString);
 
 };

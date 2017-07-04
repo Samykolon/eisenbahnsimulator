@@ -152,17 +152,25 @@ bool Appdata::isTrain(String ^ str)
 	return trains->ContainsKey(str);
 }
 
+Image ^ Appdata::getImageFromPath(String ^ filePath)
+{
+	if (images->ContainsKey(filePath))
+	{
+		return images[filePath];
+	}	
+	if (filePath != nullptr)
+	{
+		images->Add(filePath, Image::FromFile(filePath));
+	}
+	return images[filePath];
+}
+
 Image ^ Appdata::getImage(String ^ keyString)
 {
-	if (images->ContainsKey(keyString))
-	{
-		return images[keyString];
-	}
 	String^ path = getImagePath(keyString);
-	
 	if (path != nullptr)
 	{
-		images->Add(keyString, Image::FromFile(path));
+		return getImageFromPath(path);
 	}
-	return images[keyString];
+	return nullptr;
 }

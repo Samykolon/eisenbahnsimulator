@@ -580,68 +580,6 @@ namespace Eisenbahnsimulator {
 				}
 				panel1->Invalidate();
 			}
-
-
-			/* // TODO: Reenable
-			//Places tiles based on toolbox choice
-			if (selectedItem != -1)  //TODO: Better solution for numbers, because right now you get confused - enum? + continue
-			{	
-				switch (selectedItem) 
-				{
-
-				case 10:
-					TileMap->SetTile(gcnew Rail(X, Y, Directions::WestEast)); //Vertical rail
-					break;
-				case 11:
-					TileMap->SetTile(gcnew Rail(X, Y, Directions::SouthNorth)); //Horizontal rail
-					break;
-				case 12:
-					TileMap->SetTile(gcnew Rail(X, Y, Directions::WestNorth)); //Turns
-					break;
-				case 13:
-					TileMap->SetTile(gcnew Rail(X, Y, Directions::NorthEast));
-					break;
-				case 14:
-					TileMap->SetTile(gcnew Rail(X, Y, Directions::SouthEast));
-					break;
-				case 15:
-					TileMap->SetTile(gcnew Rail(X, Y, Directions::WestSouth));
-					break;
-				case 20:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestEast, 3, 3)); //Rails with Signals
-					break;
-				case 21:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::SouthNorth, 3, 3)); //Allow customized duration
-					break;
-				case 22:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestNorth, 3, 3));
-					break;
-				case 23:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::NorthEast, 3, 3));
-					break;
-				case 24:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::SouthEast, 3, 3));
-					break;
-				case 25:
-					TileMap->SetTile(gcnew SignalRail(X, Y, Directions::WestSouth, 3, 3));
-					break;
-				case 50:
-					AddTrain(TrainType::SteamEngine, X, Y);
-					break;
-				case 51:
-					AddTrain(TrainType::DieselEngine, X, Y);
-					break;
-				case 52:
-					AddTrain(TrainType::ElectricLocomotive, X, Y);
-					break;
-				}
-				panel1->Invalidate();
-			}*/
-
-			//if (TileMap->GetTile(X, Y) != nullptr) {
-			//	MessageBox::Show("X: " + X + ", Y: " + Y + "\n" + (safe_cast<Rail^>(TileMap->GetTile(X, Y))->EndDirections).ToString()); //Debug output
-			//}
-
 		}
 	}
 
@@ -672,7 +610,7 @@ namespace Eisenbahnsimulator {
 			//	}
 			//}
 
-			g->DrawImage(Image::FromFile(L"Rails/grass_background.png"), 0, 0, 2000, 2000); //Draw grass - what is better?
+			g->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), 0, 0, 2000, 2000); //Draw grass - what is better?
 
 
 
@@ -682,7 +620,7 @@ namespace Eisenbahnsimulator {
 				
 				TileObject^ toBeDrawn = TileMap->TileAt(i);
 				if (toBeDrawn->getPosition()->posX > CoordinateOffset->posX && toBeDrawn->getPosition()->posY > CoordinateOffset->posY && toBeDrawn->getPosition()->posX < maxXTile + CoordinateOffset->posX && toBeDrawn->getPosition()->posY < maxXTile + CoordinateOffset->posY) { //Checks if the tile is out of range				
-					g->DrawImage(Image::FromFile(toBeDrawn->ImagePath), (toBeDrawn->getPosition()->posX - 1 - CoordinateOffset->posX) * TileSize, (toBeDrawn->getPosition()->posY - 1 - CoordinateOffset->posY) * TileSize, TileSize, TileSize); //Draws all tiles in the tile map
+					g->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath), (toBeDrawn->getPosition()->posX - 1 - CoordinateOffset->posX) * TileSize, (toBeDrawn->getPosition()->posY - 1 - CoordinateOffset->posY) * TileSize, TileSize, TileSize); //Draws all tiles in the tile map
 				}
 				//TODO: Change fromfile draw method, might have lead to problems
 			}
