@@ -23,7 +23,5 @@ inline void SignalRail::Tick(double time)
 	else {
 		timer = 0;
 	}
-
-
 }
 

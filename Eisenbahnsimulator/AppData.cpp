@@ -1,7 +1,7 @@
 ﻿#include "AppData.h"
 #include "TileObject.h"
 #include "TileRail.h"
-
+#include "TileSignalRail.h"
 Appdata::Appdata()
 {
 	tiles = gcnew Dictionary<String ^,TileObject^>;
@@ -20,6 +20,15 @@ Appdata::Appdata()
 	tiles->Add(L"Tile_Rail_South_West", gcnew Rail(Directions::SouthWest, L"Rails/Rail_Curve_LeftBottom.png", "Tile_Rail_South_West"));
 	tiles->Add(L"Tile_Rail_South_North", gcnew Rail(Directions::NorthSouth, L"Rails/Rail_Normal_Vert.png", "Tile_Rail_South_North"));
 	tiles->Add(L"Tile_Rail_West_North", gcnew Rail(Directions::NorthWest, L"Rails/Rail_Curve_LeftTop.png", "Tile_Rail_West_North"));
+	
+	tiles->Add(L"Tile_Rail_Signal_North_South", gcnew SignalRail(Directions::NorthSouth, 1, 1, L"Rails/Rail_Normal_Vert_SignalGreen.png", L"Rails/Rail_Normal_Vert_SignalRed.png", L"Tile_Rail_Signal_North_South"));
+	tiles->Add(L"Tile_Rail_Signal_West_East", gcnew SignalRail(Directions::WestEast, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
+	tiles->Add(L"Tile_Rail_Signal_North_East", gcnew SignalRail(Directions::NorthEast, 1, 1, L"Rails/Rail_Curve_RightTop_SignalGreen.png", L"Rails/Rail_Curve_RightTop_SignalRed.png", L"Tile_Rail_Signal_West_East"));
+	tiles->Add(L"Tile_Rail_Signal_North_West", gcnew SignalRail(Directions::NorthWest, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
+	tiles->Add(L"Tile_Rail_Signal_South_East", gcnew SignalRail(Directions::SouthEast, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
+	tiles->Add(L"Tile_Rail_Signal_South_West", gcnew SignalRail(Directions::SouthWest, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
+
+	
 	/*
 	trains->Add(L"Train_steam_locomotive",gcnew Train());
 	trains->Add(L"Train_electric_locomotive", gcnew Train());
@@ -46,6 +55,9 @@ Appdata::Appdata()
 	categoryRails->Add(L"Tile_Rail_East_North");
 	categoryRails->Add(L"Tile_Rail_South_West");
 	categoryRails->Add(L"Tile_Rail_West_North");
+	categoryRails->Add(L"Tile_Rail_Signal_North_South");
+	categoryRails->Add(L"Tile_Rail_Signal_West_East");
+
 
 	// Items in train category in this order
 	categoryTrains->Add(L"train");

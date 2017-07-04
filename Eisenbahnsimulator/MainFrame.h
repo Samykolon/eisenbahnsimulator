@@ -41,6 +41,7 @@ namespace Eisenbahnsimulator {
 			InitializeComponent();
 			appdata = gcnew Appdata();
 			userdata = gcnew Userdata(100,100); // Creates also map
+			timer->Start();
 			// loadCategories
 			{
 				List<String ^>^ categoryList = appdata->getCategoryList();
@@ -493,16 +494,16 @@ namespace Eisenbahnsimulator {
 		if (confirmResult != ::DialogResult::No) {
 			NewDialog^ newD = gcnew NewDialog();
 			if (newD->ShowDialog(this) == ::DialogResult::OK) { //User pressed OK
-				int xCoord;
-				int yCoord;
-				if (!(int::TryParse(newD->XText, xCoord) && (int::TryParse(newD->YText, yCoord)))) { //Checks if both texts can be converted into Ints
+				int sizeX;
+				int sizeY;
+				if (!(int::TryParse(newD->XText, sizeX) && (int::TryParse(newD->YText, sizeY)))) { //Checks if both texts can be converted into Ints
 					MessageBox::Show(L"Bitte geben sie nur ganze Zahlen ein.");
 				}
-				else if (xCoord <= 0 || yCoord <= 0) {
+				else if (sizeX <= 0 || sizeY <= 0) {
 					MessageBox::Show(L"Beide Zahlen müssen größer als 0 sein.");
 				}
 				else {
-					userdata->map = gcnew Map(yCoord, xCoord); //Create new Map
+					userdata->map = gcnew Map(sizeX, sizeY); //Create new Map
 					panel1->Invalidate(); //Draw main map
 				}
 			}
@@ -548,6 +549,7 @@ namespace Eisenbahnsimulator {
 				{
 					// TODO: Do Like Tile
 					AddTrain(TrainType::ElectricLocomotive, X, Y);
+					updateTrainList(userdata,appdata,listBox1);
 				//	TileMap->SetTile(appdata->getTile(selectedItemKey)->MemberwiseClone, X, Y);
 					// TileMap->AddTrain()
 				}
@@ -567,12 +569,12 @@ namespace Eisenbahnsimulator {
 
 	}
 
-	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) { //Draws everything
+	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  paintEventArgs) { //Draws everything
 
 		if (userdata != nullptr) { //If a TileMap has been created
 			int maxXTile = Math::Min(userdata->map->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
 			int maxYTile = Math::Min(userdata->map->Height, CalcTileCoord(panel1->Height - 2));
-			Graphics^ g = e->Graphics;
+			Graphics^ graphics = paintEventArgs->Graphics;
 
 			//for (int x = 0; x < maxXTile; x++) //Draw background tiles
 			//{
@@ -583,7 +585,7 @@ namespace Eisenbahnsimulator {
 			//	}
 			//}
 
-			g->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), 0, 0, 2000, 2000); //Draw grass - what is better?
+			graphics->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), 0, 0, 2000, 2000); //Draw grass - what is better?
 
 
 
@@ -592,12 +594,18 @@ namespace Eisenbahnsimulator {
 			{
 				
 				TileObject^ toBeDrawn = userdata->map->TileAt(i);
-				if (toBeDrawn->getPosition()->posX > CoordinateOffset->posX && toBeDrawn->getPosition()->posY > CoordinateOffset->posY && toBeDrawn->getPosition()->posX < maxXTile + CoordinateOffset->posX && toBeDrawn->getPosition()->posY < maxXTile + CoordinateOffset->posY) { //Checks if the tile is out of range				
-					g->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath), (toBeDrawn->getPosition()->posX - 1 - CoordinateOffset->posX) * TileSize, (toBeDrawn->getPosition()->posY - 1 - CoordinateOffset->posY) * TileSize, TileSize, TileSize); //Draws all tiles in the tile map
+				//Checks if the tile is out of range	
+				if (toBeDrawn->Position->posX > CoordinateOffset->posX &&
+					toBeDrawn->Position->posY > CoordinateOffset->posY &&
+					toBeDrawn->Position->posX < maxXTile + CoordinateOffset->posX &&
+					toBeDrawn->Position->posY < maxXTile + CoordinateOffset->posY) 
+				{ 			
+					graphics->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath),
+									    (toBeDrawn->Position->posX - 1 - CoordinateOffset->posX) * TileSize,
+									    (toBeDrawn->Position->posY - 1 - CoordinateOffset->posY) * TileSize,
+									    TileSize, TileSize); //Draws all tiles in the tile map
 				}
-				//TODO: Change fromfile draw method, might have lead to problems
 			}
-
 		}
 	}
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {

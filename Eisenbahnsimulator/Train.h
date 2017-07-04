@@ -2,11 +2,17 @@
 #include "TileObject.h"
 #include "TileRail.h"
 
+ref class Train;
+
+#include "AppData.h"
+
+
 using namespace System;
 
 public enum class TrainType { SteamEngine, DieselEngine, ElectricLocomotive };
 
-public ref class Train {
+public ref class Train : public ICloneable
+{
 public:
 	TrainType Type;
 	String^ Name;
@@ -29,4 +35,7 @@ public:
 			imagePath = _imagePath;
 		}
 	}
+	
+	virtual Object ^Clone();
+
 };

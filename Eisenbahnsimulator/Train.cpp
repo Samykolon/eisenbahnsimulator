@@ -9,3 +9,8 @@ inline Train::Train(TrainType typ, String^ nm, Direction start, Direction goal, 
 	StartDirection = start;
 	GoalDirection = goal;
 }
+
+Object ^ Train::Clone()
+{
+	return MemberwiseClone();
+}

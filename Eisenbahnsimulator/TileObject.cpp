@@ -1,16 +1,40 @@
 ﻿#include "TileObject.h"
 
-inline TileObject::TileObject(String^ _imagePath, String^ _name)
+inline TileObject::TileObject(String^ _imagePath, String^ _id_name)
 {
 	// initialize position with zero
 	coord = gcnew Pos(0, 0);
 	imagePath = _imagePath;
-	name = _name;
+	id_name = _id_name;
 }
 
-void TileObject::setPosition(int _x, int _y)
+String^ TileObject::ImagePath::get()
 {
-	coord->posX = _x;
-	coord->posY = _y;
+	return imagePath;
 }
 
+void TileObject::ImagePath::set(String^ _imagePath) 
+{
+	imagePath = _imagePath;
+}
+
+Pos^ TileObject::Position::get()
+{
+	return coord;
+}
+
+void TileObject::Position::set(Pos^ _position) {
+	coord = _position;
+}
+
+void TileObject::Tick(double time)
+{
+
+}
+
+Object ^TileObject::Clone()
+{
+	TileObject ^temp = static_cast<TileObject^>(MemberwiseClone());
+	temp->coord = gcnew Pos(0, 0);
+	return temp;
+}

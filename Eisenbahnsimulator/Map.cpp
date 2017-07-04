@@ -16,7 +16,7 @@ TileObject^ Map::GetTile(int _posX, int _posY) // returns Object at position x, 
 
 	for (int i = 0; i < count; i++)
 	{
-		if (TMap[i]->getPosition() == tempPosition)
+		if (TMap[i]->Position == tempPosition)
 		{
 			return TMap[i];
 		}
@@ -31,12 +31,12 @@ inline TileObject^ Map::TileAt(int i)
 
 void Map::SetTile(TileObject ^ _obj, int _posX, int _posY) //Sets the object at x, y
 {
-	_obj->setPosition(_posX, _posY);
+	_obj->Position = gcnew Pos(_posX, _posY);
 
 	// Check if an object is already there
 	for (int i = TMap->Count - 1; i >= 0; i--) //Reverse for loop, to make deletion possible
 	{
-		if (TMap[i]->getPosition() == _obj->getPosition()) 
+		if (TMap[i]->Position == _obj->Position)
 		{
 			TMap->RemoveAt(i); //Remove objects that are overwritten
 			break; // TODO : MAybe dont break I don't know
