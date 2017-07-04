@@ -147,6 +147,7 @@
     <ClCompile Include="TileObject.cpp" />
     <ClCompile Include="Train.cpp" />
     <ClCompile Include="TileTrainStop.cpp" />
+    <ClCompile Include="UserData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BetterPanel.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Toolbox.h" />
     <ClInclude Include="Train.h" />
     <ClInclude Include="TileTrainStop.h" />
+    <ClInclude Include="UserData.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainFrame.resx">

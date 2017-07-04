@@ -15,6 +15,7 @@
 #include "BetterPanel.h"
 
 #include "AppData.h"
+#include "UserData.h"
 
 namespace Eisenbahnsimulator {
 
@@ -39,7 +40,7 @@ namespace Eisenbahnsimulator {
 		{
 			InitializeComponent();
 			appdata = gcnew Appdata();
-
+			userdata = gcnew Userdata(100,100); // Creates also map
 			// loadCategories
 			{
 				List<String ^>^ categoryList = appdata->getCategoryList();
@@ -57,27 +58,10 @@ namespace Eisenbahnsimulator {
 			listViewSelectElements->GridLines = true;
 			listViewSelectElements->LabelEdit = false;
 			updateToolbox(ComboBoxCategorySelection->SelectedIndex, appdata, listViewSelectElements);
-			/*// update category Selection 
-			{
-				// TODO: in separate function
-				int selectedCategory = ComboBoxCategorySelection->SelectedIndex;
-				List<String ^>^ categoryList = appdata->getCategoryList();
-				List<String^>^ category = appdata->getCategory(categoryList[selectedCategory]);
-				for (int i = 0; i < category->Count; i++)
-				{
-					listViewSelectElements->Items->Add(appdata->getLangString(categoryList[i]));
-				}
-			}*/
-
-			// TODO : Replace completly
-			//toolbox(listViewSelectElements, ComboBoxCategorySelection, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
-			//updateToolbox(listViewSelectElements, ComboBoxCategorySelection, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
-
 
 			//
 			//TODO: Add the constructor code here
 			//
-			Trains = gcnew List<Train^>();
 			TileSize = 128;
 			selectedItem = -1;
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::AllPaintingInWmPaint, true);
@@ -483,23 +467,12 @@ namespace Eisenbahnsimulator {
 		}
 #pragma endregion
 		Appdata^ appdata;
-		ImageList^ imageListSchienen = gcnew ImageList;
-		ImageList^ imageListSignale = gcnew ImageList;
-		ImageList^ imageListHaltepunkte = gcnew ImageList;
-		ImageList^ imageListUmgebung = gcnew ImageList;
-		ImageList^ imageListZuege = gcnew ImageList;
-		ImageList^ imageListAlle = gcnew ImageList;
-		array<ListViewItem^>^Schienen = gcnew array<ListViewItem^>(6);
-		array<ListViewItem^>^Signale = gcnew array<ListViewItem^>(14);
-		array<ListViewItem^>^Haltepunkte = gcnew array<ListViewItem^>(2);
-		array<ListViewItem^>^Umgebung = gcnew array<ListViewItem^>(4);
-		array<ListViewItem^>^Zuege = gcnew array<ListViewItem^>(3);
-		array<ListViewItem^>^Alle = gcnew array<ListViewItem^>(29);
+		Userdata^ userdata;
+
 		int selectedItem;	//Number of selected toolbox item
-		List<Train^>^ Trains;	//Trains on the grid
 		int TileSize;	//Size of a tile in pixels
-		Map^ TileMap;	//Contains all Tile objects
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
+
 		void AddTrain(TrainType tt, int xi, int yi);
 		Pos^ CoordinateOffset;
 
@@ -512,7 +485,7 @@ namespace Eisenbahnsimulator {
 	private: System::Void neuToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 		//Open the NewDialog and create a map with the returned size
 		::DialogResult confirmResult;
-		if (TileMap != nullptr) {
+		if (userdata != nullptr) {
 
 			confirmResult = MessageBox::Show(L"Wollen Sie die bisherige Arbeitsfläche überschreiben?", L"Bestätigen", MessageBoxButtons::YesNo);
 
@@ -529,7 +502,7 @@ namespace Eisenbahnsimulator {
 					MessageBox::Show(L"Beide Zahlen müssen größer als 0 sein.");
 				}
 				else {
-					TileMap = gcnew Map(yCoord, xCoord); //Create new Map
+					userdata->map = gcnew Map(yCoord, xCoord); //Create new Map
 					panel1->Invalidate(); //Draw main map
 				}
 			}
@@ -556,7 +529,7 @@ namespace Eisenbahnsimulator {
 	}
 
 	private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		if (TileMap != nullptr) { //Checks if the user has created a TileMap
+		if (userdata != nullptr) { //Checks if the user has created a TileMap
 
 			int X = CalcTileCoord(e->X);	//Calculates Tile coordinates the user clicks on
 			int Y = CalcTileCoord(e->Y);
@@ -569,7 +542,7 @@ namespace Eisenbahnsimulator {
 				if (appdata->isTile(selectedItemKey))
 				{
 					TileObject ^temp = static_cast<TileObject^>(appdata->getTile(selectedItemKey)->Clone());
-					TileMap->SetTile(temp, X, Y);
+					userdata->map->SetTile(temp, X, Y);
 				}
 				else if(appdata->isTrain(selectedItemKey))
 				{
@@ -596,9 +569,9 @@ namespace Eisenbahnsimulator {
 
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) { //Draws everything
 
-		if (TileMap != nullptr) { //If a TileMap has been created
-			int maxXTile = Math::Min(TileMap->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
-			int maxYTile = Math::Min(TileMap->Height, CalcTileCoord(panel1->Height - 2));
+		if (userdata != nullptr) { //If a TileMap has been created
+			int maxXTile = Math::Min(userdata->map->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
+			int maxYTile = Math::Min(userdata->map->Height, CalcTileCoord(panel1->Height - 2));
 			Graphics^ g = e->Graphics;
 
 			//for (int x = 0; x < maxXTile; x++) //Draw background tiles
@@ -615,10 +588,10 @@ namespace Eisenbahnsimulator {
 
 
 
-			for (int i = 0; i < TileMap->GetCount(); i++)
+			for (int i = 0; i < userdata->map->GetCount(); i++)
 			{
 				
-				TileObject^ toBeDrawn = TileMap->TileAt(i);
+				TileObject^ toBeDrawn = userdata->map->TileAt(i);
 				if (toBeDrawn->getPosition()->posX > CoordinateOffset->posX && toBeDrawn->getPosition()->posY > CoordinateOffset->posY && toBeDrawn->getPosition()->posX < maxXTile + CoordinateOffset->posX && toBeDrawn->getPosition()->posY < maxXTile + CoordinateOffset->posY) { //Checks if the tile is out of range				
 					g->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath), (toBeDrawn->getPosition()->posX - 1 - CoordinateOffset->posX) * TileSize, (toBeDrawn->getPosition()->posY - 1 - CoordinateOffset->posY) * TileSize, TileSize, TileSize); //Draws all tiles in the tile map
 				}
@@ -628,12 +601,9 @@ namespace Eisenbahnsimulator {
 		}
 	}
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
-		for (int i = 0; i < TileMap->GetCount(); i++)
+		for (int i = 0; i < userdata->map->GetCount(); i++)
 		{
-			TileMap->TileAt(i)->Tick(0.2);
-			/*if ((TileMap->TileAt(i))->GetType() == SignalRail::typeid) { //Changes signals if necessary
-				static_cast<SignalRail^>(TileMap->TileAt(i))->Tick(0.2);
-			}*/
+			userdata->map->TileAt(i)->Tick(0.2);
 		}
 		//Signals switch
 		//Trains drive

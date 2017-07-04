@@ -25,7 +25,7 @@ Appdata::Appdata()
 	trains->Add(L"Train_electric_locomotive", gcnew Train());
 	trains->Add(L"Train_diesel_locomotive", gcnew Train());
 	*/
-//	trains->Add(L"train",gcnew Train(TrainType::ElectricLocomotive,"dsa",Direction::East,Direction::North,))
+	trains->Add(L"train", gcnew Train(TrainType::ElectricLocomotive, "Test Train", Direction::East, Direction::North, static_cast<Rail^>(getTile("Tile_Rail_East_South")),L"Rails/Rail_Curve_LeftTop.png"));
 
 
 
@@ -48,7 +48,38 @@ Appdata::Appdata()
 	categoryRails->Add(L"Tile_Rail_West_North");
 
 	// Items in train category in this order
-	//categoryTrains->Add(L"Train");
+	categoryTrains->Add(L"train");
+
+
+
+
+
+
+	// Items in All category
+	for each (String^ item in categoryRails)
+	{
+		categoryAll->Add(item);
+	}
+	for each (String^ item in categoryTrains)
+	{
+		categoryAll->Add(item);
+	}
+	for each (String^ item in categoryRailSwitches)
+	{
+		categoryAll->Add(item);
+	}
+	for each (String^ item in categoryDecoractions)
+	{
+		categoryAll->Add(item);
+	}
+	for each (String^ item in categoryRailStop)
+	{
+		categoryAll->Add(item);
+	}
+	for each (String^ item in categoryEnvironment)
+	{
+		categoryAll->Add(item);
+	}
 
 	// link categorie List with identifier
 	categories->Add(L"Category_Rails", categoryRails);
@@ -60,13 +91,14 @@ Appdata::Appdata()
 	categories->Add(L"Category_All", categoryAll);
 	
 	// order of categories in dropbox
+	categoryList->Add(L"Category_All");
 	categoryList->Add(L"Category_Rails");
 	categoryList->Add(L"Category_Trains");
 	categoryList->Add(L"Category_RailSwitches");
 	categoryList->Add(L"Category_Decoration");
 	categoryList->Add(L"Category_RailStops");
 	categoryList->Add(L"Category_Environment");
-	categoryList->Add(L"Category_All");
+	
 
 
 	// Load Names to indentifier
@@ -103,6 +135,7 @@ String^ Appdata::getLangString(String ^ keyString)
 	String ^temp;
 	if (lang->TryGetValue(keyString, temp))
 		return temp;
+	return keyString;
 	throw "Key not found in dictionary lang. Key: " + keyString;
 }
 

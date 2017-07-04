@@ -48,6 +48,9 @@
     <ClCompile Include="TileDecoration.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="UserData.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrame.h">
@@ -87,6 +90,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="TileRail.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="UserData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
