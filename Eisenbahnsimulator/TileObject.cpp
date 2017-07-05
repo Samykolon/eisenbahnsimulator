@@ -20,11 +20,11 @@ void TileObject::ImagePath::set(String^ _imagePath)
 
 Point TileObject::Position::get()
 {
-	return Position;
+	return position;
 }
 
 void TileObject::Position::set(Point _position) {
-	Position = _position;
+	position = _position;
 }
 
 void TileObject::Tick(double time)
@@ -35,6 +35,5 @@ void TileObject::Tick(double time)
 Object ^TileObject::Clone()
 {
 	TileObject ^temp = static_cast<TileObject^>(MemberwiseClone());
-	temp->Position = Point(0, 0);
 	return temp;
 }
