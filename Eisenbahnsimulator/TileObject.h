@@ -1,5 +1,6 @@
 ﻿#pragma once
 using namespace System;
+using namespace System::Drawing;
 
 ref class TileObject;
 ref class Rail;
@@ -15,7 +16,7 @@ public ref class TileObject abstract : public ICloneable//A basic tile
 protected:
 	String^ imagePath;
 	String^ id_name;
-	Pos^ coord;
+	Point position;
 public:
 	//TODO: Make virtual?
 	TileObject(String^ _imagePath, String^ _id_name); 
@@ -24,10 +25,10 @@ public:
 
 	virtual Object ^Clone();
 
-	virtual property Pos^ Position
+	virtual property Point Position
 	{
-		Pos^ get();
-		void set(Pos^ _position);
+		Point get();
+		void set(Point _position);
 	}
 
 	virtual property String^ ImagePath

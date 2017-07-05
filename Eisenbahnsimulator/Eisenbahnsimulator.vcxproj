@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BetterPanel.h" />
+    <ClInclude Include="Pose.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="TileDecoration.h" />
     <ClInclude Include="AppData.h" />

@@ -1,8 +1,10 @@
 ﻿#pragma once
 #include "TileObject.h"
 
+
 using namespace System;
 using namespace System::Collections::Generic;
+using namespace System::Drawing;
 
 public ref class Map
 {

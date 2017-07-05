@@ -11,5 +11,5 @@ public:
 
 public:
 	Rail(Directions _dir, String^ imagePath, String^ name);
-	virtual Pos^ Drive(Direction startDirection, double tileProgress, double speed, int tileSize);
+	virtual Point Drive(Direction startDirection, double tileProgress, double speed, int tileSize);
 };

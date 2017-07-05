@@ -101,6 +101,9 @@
     <ClInclude Include="Position.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Pose.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainFrame.resx">

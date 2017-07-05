@@ -67,7 +67,7 @@ namespace Eisenbahnsimulator {
 			selectedItem = -1;
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::AllPaintingInWmPaint, true);
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::DoubleBuffer, true);
-			CoordinateOffset = gcnew Pos(0, 0);
+			CoordinateOffset = Point(0, 0);
 
 		}
 
@@ -475,7 +475,7 @@ namespace Eisenbahnsimulator {
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
 
 		void AddTrain(TrainType tt, int xi, int yi);
-		Pos^ CoordinateOffset;
+		Point CoordinateOffset;
 
 
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
@@ -595,14 +595,14 @@ namespace Eisenbahnsimulator {
 				
 				TileObject^ toBeDrawn = userdata->map->TileAt(i);
 				//Checks if the tile is out of range	
-				if (toBeDrawn->Position->posX > CoordinateOffset->posX &&
-					toBeDrawn->Position->posY > CoordinateOffset->posY &&
-					toBeDrawn->Position->posX < maxXTile + CoordinateOffset->posX &&
-					toBeDrawn->Position->posY < maxXTile + CoordinateOffset->posY) 
+				if (toBeDrawn->Position.X > CoordinateOffset.X &&
+					toBeDrawn->Position.Y > CoordinateOffset.Y &&
+					toBeDrawn->Position.X < maxXTile + CoordinateOffset.X &&
+					toBeDrawn->Position.Y < maxXTile + CoordinateOffset.Y) 
 				{ 			
 					graphics->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath),
-									    (toBeDrawn->Position->posX - 1 - CoordinateOffset->posX) * TileSize,
-									    (toBeDrawn->Position->posY - 1 - CoordinateOffset->posY) * TileSize,
+									    (toBeDrawn->Position.X - 1 - CoordinateOffset.X) * TileSize,
+									    (toBeDrawn->Position.Y - 1 - CoordinateOffset.Y) * TileSize,
 									    TileSize, TileSize); //Draws all tiles in the tile map
 				}
 			}

@@ -1,7 +1,5 @@
 ﻿#include "Map.h"
 
-
-
 Map::Map(int _height, int _width)
 {
 	Height = _height;
@@ -11,7 +9,8 @@ Map::Map(int _height, int _width)
 
 TileObject^ Map::GetTile(int _posX, int _posY) // returns Object at position x, y	
 {
-	Pos^ tempPosition = gcnew Pos(_posX, _posY);
+	Point tempPosition = Point(_posX, _posY);
+	
 	int count = TMap->Count;
 
 	for (int i = 0; i < count; i++)
@@ -31,7 +30,7 @@ inline TileObject^ Map::TileAt(int i)
 
 void Map::SetTile(TileObject ^ _obj, int _posX, int _posY) //Sets the object at x, y
 {
-	_obj->Position = gcnew Pos(_posX, _posY);
+	_obj->Position = Point(_posX, _posY);
 
 	// Check if an object is already there
 	for (int i = TMap->Count - 1; i >= 0; i--) //Reverse for loop, to make deletion possible

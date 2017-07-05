@@ -67,7 +67,7 @@ inline Rail::Rail(Directions _dir, String^ imagePath, String^ name) :TileObject(
 	EndDirections = _dir;
 }
 
-Pos ^ Rail::Drive(Direction startDirection, double tileProgress, double speed, int tileSize)
+Point Rail::Drive(Direction startDirection, double tileProgress, double speed, int tileSize)
 {
 	switch (EndDirections)
 	{
@@ -77,15 +77,15 @@ Pos ^ Rail::Drive(Direction startDirection, double tileProgress, double speed, i
 	case Directions::NorthSouth:
 		if (tileProgress < 4) {
 			if (startDirection == Direction::North) {
-				return gcnew Pos((coord->posX - 1) * tileSize + 0.5 * tileSize, (coord->posY - 1) * tileSize + tileProgress/4.0 * tileSize);
+				return Point((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress/4.0 * tileSize);
 			}
 			else
 			{
-				return gcnew Pos((coord->posX - 1) * tileSize + 0.5 * tileSize, (coord->posY - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize));
+				return Point((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize));
 			}
 		}
 		else {
-			return gcnew Pos(-1, -1);
+			return Point(-1, -1);
 		}
 		break;
 	case Directions::NorthWest:
@@ -94,16 +94,7 @@ Pos ^ Rail::Drive(Direction startDirection, double tileProgress, double speed, i
 		break;
 	case Directions::EastWest: 
 		if (tileProgress < 4) {
-			if (startDirection == Direction::East) {
-				return gcnew Pos((coord->posY - 1) * tileSize + tileProgress / 4.0 * tileSize, (coord->posX - 1) * tileSize + 0.5 * tileSize);
-			}
-			else
-			{
-				return gcnew Pos((coord->posY - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), (coord->posX - 1) * tileSize + 0.5 * tileSize);
-			}
-		}
-		else {
-			return gcnew Pos(-1, -1);
+	
 		}
 		break;
 	case Directions::SouthWest:
@@ -113,5 +104,5 @@ Pos ^ Rail::Drive(Direction startDirection, double tileProgress, double speed, i
 	}
 
 	//out of Tile:
-	return gcnew Pos(-1, -1);
+	return Point(-1, -1);
 }

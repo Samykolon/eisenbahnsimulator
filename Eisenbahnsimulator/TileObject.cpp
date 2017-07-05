@@ -3,7 +3,7 @@
 inline TileObject::TileObject(String^ _imagePath, String^ _id_name)
 {
 	// initialize position with zero
-	coord = gcnew Pos(0, 0);
+	position = Point(0, 0);
 	imagePath = _imagePath;
 	id_name = _id_name;
 }
@@ -18,13 +18,13 @@ void TileObject::ImagePath::set(String^ _imagePath)
 	imagePath = _imagePath;
 }
 
-Pos^ TileObject::Position::get()
+Point TileObject::Position::get()
 {
-	return coord;
+	return Position;
 }
 
-void TileObject::Position::set(Pos^ _position) {
-	coord = _position;
+void TileObject::Position::set(Point _position) {
+	Position = _position;
 }
 
 void TileObject::Tick(double time)
@@ -35,6 +35,6 @@ void TileObject::Tick(double time)
 Object ^TileObject::Clone()
 {
 	TileObject ^temp = static_cast<TileObject^>(MemberwiseClone());
-	temp->coord = gcnew Pos(0, 0);
+	temp->Position = Point(0, 0);
 	return temp;
 }
