@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "TileObject.h"
+#include "Pose.h"
 
 using namespace System;
 
@@ -11,5 +12,5 @@ public:
 
 public:
 	Rail(Directions _dir, String^ imagePath, String^ name);
-	virtual Point Drive(Direction startDirection, double tileProgress, double speed, int tileSize);
+	virtual Pose Drive(Direction startDirection, double tileProgress, double speed, int tileSize);
 };

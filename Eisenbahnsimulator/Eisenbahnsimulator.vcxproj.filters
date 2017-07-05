@@ -98,10 +98,10 @@
     <ClInclude Include="UserData.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Position.h">
+    <ClInclude Include="Pose.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Pose.h">
+    <ClInclude Include="Position.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

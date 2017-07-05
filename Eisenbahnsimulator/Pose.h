@@ -1,10 +1,13 @@
 #pragma once
-#include "Position.h"
 
-public ref class Pose : Point {
-	double orientation;
+using namespace System::Drawing;
+
+public value class Pose {
+	int X;
+	int Y;
+	double orientation; 
 public:
-	property double Orientation {
+	property double Orientation { //Orientation in degrees, mathematical direction, the direction an object is facing
 		void set(double angle) {
 			while(angle >= 360){
 				angle = angle - 360;
@@ -18,8 +21,10 @@ public:
 			return orientation;
 		}
 	}
-	Pose(int xi, int yi, double orientation) {
-
+	Pose(int xi, int yi, double ori) {
+		X = xi;
+		Y = yi;
+		orientation = ori;
 	}
 
 };

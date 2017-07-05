@@ -67,7 +67,7 @@ inline Rail::Rail(Directions _dir, String^ imagePath, String^ name) :TileObject(
 	EndDirections = _dir;
 }
 
-Point Rail::Drive(Direction startDirection, double tileProgress, double speed, int tileSize)
+Pose Rail::Drive(Direction startDirection, double tileProgress, double speed, int tileSize)
 {
 	switch (EndDirections)
 	{
@@ -77,15 +77,15 @@ Point Rail::Drive(Direction startDirection, double tileProgress, double speed, i
 	case Directions::NorthSouth:
 		if (tileProgress < 4) {
 			if (startDirection == Direction::North) {
-				return Point((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress/4.0 * tileSize);
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress/4.0 * tileSize, 270);
 			}
 			else
 			{
-				return Point((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize));
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), 90);
 			}
 		}
 		else {
-			return Point(-1, -1);
+			return Pose(-1, -1, 0);
 		}
 		break;
 	case Directions::NorthWest:
@@ -104,5 +104,5 @@ Point Rail::Drive(Direction startDirection, double tileProgress, double speed, i
 	}
 
 	//out of Tile:
-	return Point(-1, -1);
+	return Pose(-1, -1, 0);
 }
