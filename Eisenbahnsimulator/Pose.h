@@ -3,9 +3,10 @@
 using namespace System::Drawing;
 
 public value class Pose {
+	double orientation;
+public:
 	int X;
 	int Y;
-	double orientation; 
 public:
 	property double Orientation { //Orientation in degrees, mathematical direction, the direction an object is facing
 		void set(double angle) {

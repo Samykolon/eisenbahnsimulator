@@ -67,19 +67,44 @@ inline Rail::Rail(Directions _dir, String^ imagePath, String^ name) :TileObject(
 	EndDirections = _dir;
 }
 
-Pose Rail::Drive(Direction startDirection, double tileProgress, double speed, int tileSize)
+Pose Rail::Drive(Direction startDirection, double tileProgress, int tileSize)
 {
 	switch (EndDirections)
 	{
 	case Directions::NorthEast:
+		if (startDirection == Direction::North) {
+			if (tileProgress < 1) {
+				return Pose(((position.X - 1) * tileSize + 0.5 * tileSize), (position.Y - 1) * tileSize + tileProgress / 4.0 * tileSize, 270);
+			}
+			else if (tileProgress < 1.78539816339) {
 
+			}
+			else if (tileProgress < 2.78539816339) {
+				return Pose((position.X - 1) * tileSize + 0.75 * tileSize + (tileProgress - 1.78539816339) * tileSize/4.0, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
+			}
+			else
+				return Pose(-1, -1, 0);
+		}
+		else { //startdirection == East
+			if (tileProgress < 1) {
+				    return Pose((position.X - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, 180);
+			}
+			else if (tileProgress < 1.78539816339) {
+
+			}
+			else if (tileProgress < 2.78539816339) {
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), 90);
+			}
+			else
+				return Pose(-1, -1, 0);
+		}
 		break;
 	case Directions::NorthSouth:
 		if (tileProgress < 4) {
 			if (startDirection == Direction::North) {
 				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress/4.0 * tileSize, 270);
 			}
-			else
+			else //Startdirection == South
 			{
 				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), 90);
 			}
@@ -89,20 +114,107 @@ Pose Rail::Drive(Direction startDirection, double tileProgress, double speed, in
 		}
 		break;
 	case Directions::NorthWest:
+		if (startDirection == Direction::North) {
+			if (tileProgress < 1) {
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress / 4.0 * tileSize, 270);
+			}
+			else if (tileProgress < 1.78539816339) {
+
+			}
+			else if (tileProgress < 2.78539816339) {
+				
+				    return Pose((position.X - 1) * tileSize + 0.25 * tileSize - ((tileProgress - 1.78539816339) * tileSize/4.0), (position.Y - 1) * tileSize + 0.5 * tileSize, 180); //Corrected
+			}
+			else
+				return Pose(-1, -1, 0);
+		}
+		else { //startdirection == West
+			if (tileProgress < 1) {
+				return Pose((position.X - 1) * tileSize + tileProgress / 4.0 * tileSize, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
+			}
+			else if (tileProgress < 1.78539816339) {
+
+			}
+			else if (tileProgress < 2.78539816339) {
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), 90);
+			}
+			else
+				return Pose(-1, -1, 0);
+		}
 		break;
 	case Directions::EastSouth:
+		if (startDirection == Direction::South) {
+			if (tileProgress < 1) {
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), 90);
+			}
+			else if (tileProgress < 1.78539816339) {
+
+			}
+			else if (tileProgress < 2.78539816339) {
+				return Pose((position.X - 1) * tileSize + tileProgress / 4.0 * tileSize, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
+			}
+			else
+				return Pose(-1, -1, 0);
+		}
+		else { //startdirection == East
+			if (tileProgress < 1) {
+				return Pose((position.X - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, 180);
+			}
+			else if (tileProgress < 1.78539816339) {
+
+			}
+			else if (tileProgress < 2.78539816339) {
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress / 4.0 * tileSize, 270);
+			}
+			else
+				return Pose(-1, -1, 0);
+		}
 		break;
 	case Directions::EastWest: 
 		if (tileProgress < 4) {
-	
+			if (startDirection == Direction::West) {
+				return Pose((position.X - 1) * tileSize + tileProgress / 4.0 * tileSize, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
+			}
+			else //startdirection == east
+			{
+				return Pose((position.X - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, 180);
+			}
+		}
+		else {
+			return Pose(-1, -1, 0);
 		}
 		break;
 	case Directions::SouthWest:
+		if (startDirection == Direction::South) {
+			if (tileProgress < 1) {
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), 90);
+			}
+			else if (tileProgress < 1.78539816339) {
+
+			}
+			else if (tileProgress < 2.78539816339) {
+				return Pose((position.X - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, 180);
+			}
+			else
+				return Pose(-1, -1, 0);
+		}
+		else { //startdirection == West
+			if (tileProgress < 1) {
+				return Pose((position.X - 1) * tileSize + tileProgress / 4.0 * tileSize, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
+			}
+			else if (tileProgress < 1.78539816339) {
+
+			}
+			else if (tileProgress < 2.78539816339) {
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress / 4.0 * tileSize, 270);
+			}
+			else
+				return Pose(-1, -1, 0);
+		}
 		break;
-	default:
+	default: 
+		return Pose(-1, -1, 0);
 		break;
 	}
-
-	//out of Tile:
-	return Pose(-1, -1, 0);
+	
 }
