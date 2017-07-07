@@ -1,5 +1,7 @@
 ﻿#include "TileRail.h"
 
+using namespace System;
+
 inline Boolean Rail::LeadsTo(Direction dir)
 {
 	switch (dir)
@@ -74,26 +76,28 @@ Pose Rail::Drive(Direction startDirection, double tileProgress, int tileSize)
 	case Directions::NorthEast:
 		if (startDirection == Direction::North) {
 			if (tileProgress < 1) {
-				return Pose(((position.X - 1) * tileSize + 0.5 * tileSize), (position.Y - 1) * tileSize + tileProgress / 4.0 * tileSize, 270);
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress / 4.0 * tileSize, 3.0/2.0 * Math::PI);
 			}
-			else if (tileProgress < 1.78539816339) {
-
+			else if (tileProgress < 2.57079632679) {
+				double phi = (tileProgress - 1); //phi in radian
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize +  (1 - Math::Cos(phi)) * tileSize / 4.0, (position.Y - 1) * tileSize + tileSize * 0.25 + tileSize / 4.0 * Math::Sin(phi), 3.0 / 2.0 * Math::PI + phi);
 			}
-			else if (tileProgress < 2.78539816339) {
-				return Pose((position.X - 1) * tileSize + 0.75 * tileSize + (tileProgress - 1.78539816339) * tileSize/4.0, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
+			else if (tileProgress < 3.57079632679) {
+				return Pose((position.X - 1) * tileSize + 0.75 * tileSize + (tileProgress - 2.57079632679) * tileSize/4.0, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
 			}
 			else
 				return Pose(-1, -1, 0);
 		}
 		else { //startdirection == East
 			if (tileProgress < 1) {
-				    return Pose((position.X - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, 180);
+				    return Pose((position.X - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, Math::PI);
 			}
-			else if (tileProgress < 1.78539816339) {
-
+			else if (tileProgress < 2.57079632679) {
+				double phi = (tileProgress - 1);
+				return Pose((position.X - 1) * tileSize + tileSize * 0.75 - 0.25 * tileSize * Math::Sin(phi), (position.Y - 1) * tileSize + 0.5 * tileSize - 0.25 * tileSize * Math::Cos(phi), Math::PI);
 			}
-			else if (tileProgress < 2.78539816339) {
-				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - ((tileProgress- 1.78539816339) / 4.0 * tileSize), 90);
+			else if (tileProgress < 3.57079632679) {
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize - tileSize * 0.75 - (tileProgress - 2.57079632679) * 0.25 * tileSize, Math::PI/2.0);
 			}
 			else
 				return Pose(-1, -1, 0);
@@ -102,11 +106,11 @@ Pose Rail::Drive(Direction startDirection, double tileProgress, int tileSize)
 	case Directions::NorthSouth:
 		if (tileProgress < 4) {
 			if (startDirection == Direction::North) {
-				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress/4.0 * tileSize, 270);
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress/4.0 * tileSize, 3.0 / 2.0 * Math::PI);
 			}
 			else //Startdirection == South
 			{
-				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), 90);
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), Math::PI / 2.0);
 			}
 		}
 		else {
@@ -116,14 +120,14 @@ Pose Rail::Drive(Direction startDirection, double tileProgress, int tileSize)
 	case Directions::NorthWest:
 		if (startDirection == Direction::North) {
 			if (tileProgress < 1) {
-				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress / 4.0 * tileSize, 270);
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileProgress / 4.0 * tileSize, 3.0 / 2.0 * Math::PI);
 			}
-			else if (tileProgress < 1.78539816339) {
+			else if (tileProgress < 2.57079632679) {
 
 			}
-			else if (tileProgress < 2.78539816339) {
+			else if (tileProgress < 3.57079632679) {
 				
-				    return Pose((position.X - 1) * tileSize + 0.25 * tileSize - ((tileProgress - 1.78539816339) * tileSize/4.0), (position.Y - 1) * tileSize + 0.5 * tileSize, 180); //Corrected
+				    return Pose((position.X - 1) * tileSize + 0.25 * tileSize - ((tileProgress - 2.57079632679) * tileSize/4.0), (position.Y - 1) * tileSize + 0.5 * tileSize, Math::PI); //Corrected
 			}
 			else
 				return Pose(-1, -1, 0);
@@ -132,11 +136,11 @@ Pose Rail::Drive(Direction startDirection, double tileProgress, int tileSize)
 			if (tileProgress < 1) {
 				return Pose((position.X - 1) * tileSize + tileProgress / 4.0 * tileSize, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
 			}
-			else if (tileProgress < 1.78539816339) {
+			else if (tileProgress < 2.57079632679) {
 
 			}
-			else if (tileProgress < 2.78539816339) {
-				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - ((tileProgress- 1.78539816339) / 4.0 * tileSize), 90);
+			else if (tileProgress < 3.57079632679) {
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - ((tileProgress- 2.57079632679) / 4.0 * tileSize), Math::PI / 2.0);
 			}
 			else
 				return Pose(-1, -1, 0);
@@ -145,26 +149,26 @@ Pose Rail::Drive(Direction startDirection, double tileProgress, int tileSize)
 	case Directions::EastSouth:
 		if (startDirection == Direction::South) {
 			if (tileProgress < 1) {
-				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), 90);
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), Math::PI / 2.0);
 			}
-			else if (tileProgress < 1.78539816339) {
+			else if (tileProgress < 2.57079632679) {
 
 			}
-			else if (tileProgress < 2.78539816339) {
-				return Pose((position.X - 1) * tileSize + (tileProgress - 1.78539816339) / 4.0 * tileSize, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
+			else if (tileProgress < 3.57079632679) {
+				return Pose((position.X - 1) * tileSize + (tileProgress - 2.57079632679) / 4.0 * tileSize, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
 			}
 			else
 				return Pose(-1, -1, 0);
 		}
 		else { //startdirection == East
 			if (tileProgress < 1) {
-				return Pose((position.X - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, 180);
+				return Pose((position.X - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, Math::PI);
 			}
-			else if (tileProgress < 1.78539816339) {
+			else if (tileProgress < 2.57079632679) {
 
 			}
-			else if (tileProgress < 2.78539816339) {
-				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + (tileProgress - 1.78539816339) / 4.0 * tileSize, 270);
+			else if (tileProgress < 3.57079632679) {
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + (tileProgress - 2.57079632679) / 4.0 * tileSize, 3.0 / 2.0 * Math::PI);
 			}
 			else
 				return Pose(-1, -1, 0);
@@ -177,7 +181,7 @@ Pose Rail::Drive(Direction startDirection, double tileProgress, int tileSize)
 			}
 			else //startdirection == east
 			{
-				return Pose((position.X - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, 180);
+				return Pose((position.X - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, Math::PI);
 			}
 		}
 		else {
@@ -187,13 +191,13 @@ Pose Rail::Drive(Direction startDirection, double tileProgress, int tileSize)
 	case Directions::SouthWest:
 		if (startDirection == Direction::South) {
 			if (tileProgress < 1) {
-				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), 90);
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + tileSize - (tileProgress / 4.0 * tileSize), Math::PI / 2.0);
 			}
-			else if (tileProgress < 1.78539816339) {
+			else if (tileProgress < 2.57079632679) {
 
 			}
-			else if (tileProgress < 2.78539816339) {
-				return Pose((position.X - 1) * tileSize + tileSize - ((tileProgress- 1.78539816339) / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, 180);
+			else if (tileProgress < 3.57079632679) {
+				return Pose((position.X - 1) * tileSize + tileSize - ((tileProgress- 2.57079632679) / 4.0 * tileSize), (position.Y - 1) * tileSize + 0.5 * tileSize, Math::PI);
 			}
 			else
 				return Pose(-1, -1, 0);
@@ -202,11 +206,11 @@ Pose Rail::Drive(Direction startDirection, double tileProgress, int tileSize)
 			if (tileProgress < 1) {
 				return Pose((position.X - 1) * tileSize + tileProgress / 4.0 * tileSize, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
 			}
-			else if (tileProgress < 1.78539816339) {
+			else if (tileProgress < 2.57079632679) {
 
 			}
-			else if (tileProgress < 2.78539816339) {
-				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + (tileProgress- 1.78539816339) / 4.0 * tileSize, 270);
+			else if (tileProgress < 3.57079632679) {
+				return Pose((position.X - 1) * tileSize + 0.5 * tileSize, (position.Y - 1) * tileSize + (tileProgress- 2.57079632679) / 4.0 * tileSize, 3.0 / 2.0 * Math::PI);
 			}
 			else
 				return Pose(-1, -1, 0);
