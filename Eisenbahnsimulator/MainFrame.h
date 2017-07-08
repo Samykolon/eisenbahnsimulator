@@ -454,8 +454,7 @@ namespace Eisenbahnsimulator {
 		int selectedItem;	//Number of selected toolbox item
 		int TileSize;	//Size of a tile in pixels
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
-
-		void AddTrain(TrainType tt, int xi, int yi);
+			
 		Point CoordinateOffset;	
 
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
@@ -528,7 +527,7 @@ namespace Eisenbahnsimulator {
 				else if(appdata->isTrain(selectedItemKey))
 				{
 					// TODO: Do Like Tile
-					AddTrain(TrainType::ElectricLocomotive, X, Y);
+					userdata->AddTrain(TrainType::ElectricLocomotive, X, Y);
 					updateTrainList(userdata,appdata,listBox1);
 				//	TileMap->SetTile(appdata->getTile(selectedItemKey)->MemberwiseClone, X, Y);
 					// TileMap->AddTrain()
@@ -591,17 +590,19 @@ namespace Eisenbahnsimulator {
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
 		for (int i = 0; i < userdata->map->GetCount(); i++)
 		{
-			userdata->map->TileAt(i)->Tick(0.2);
-
-			
+			userdata->map->TileAt(i)->Tick(0.2);			
 		}
-				
-		//Signals switch
-		//Trains drive
+		for each (Train^ train in userdata->trainList)
+		{
+			train->TileProgress += train->Speed / 100; //Increase the train's progress
+			Rail^ rail = dynamic_cast<Rail^>(train->Tile);
+			if (rail != nullptr) {
+				train->CurrentPose = rail->Drive(train->StartDirection, train->TileProgress, TileSize); //Give train its newest pose;
+			}
+		}
+		//Signals switch	
 		panel1->Invalidate();
 
-	}
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 	}
 };
 }

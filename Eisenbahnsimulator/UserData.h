@@ -10,5 +10,6 @@ public:
 	Userdata(int _height, int _width);
 	void SaveDataToFile(String^ filename);
 	void LoadDataFromFile(String ^filename);
-	void AddTrain();
+	void AddTrain(TrainType tt, int xi, int yi);
+	int tileSize;
 };

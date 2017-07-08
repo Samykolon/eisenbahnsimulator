@@ -23,8 +23,9 @@ public:
 	Direction StartDirection;
 	Direction GoalDirection;
 	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
+	Pose CurrentPose; //The train's current pose
 public:
-	Train(TrainType typ, String ^ nm, Direction start, Direction goal, Rail ^ to, String^ _imagePath);
+	Train(TrainType typ, String ^ nm, Direction start, Direction goal, Rail ^ to, String^ _imagePath, int tileSize);
 
 	property String^ ImagePath
 	{

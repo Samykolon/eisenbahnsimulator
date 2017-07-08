@@ -36,7 +36,7 @@ Appdata::Appdata()
 	trains->Add(L"Train_electric_locomotive", gcnew Train());
 	trains->Add(L"Train_diesel_locomotive", gcnew Train());
 	*/
-	trains->Add(L"train", gcnew Train(TrainType::ElectricLocomotive, "Test Train", Direction::East, Direction::North, static_cast<Rail^>(getTile("Tile_Rail_East_South")),L"Rails/Rail_Curve_LeftTop.png"));
+	trains->Add(L"train", gcnew Train(TrainType::ElectricLocomotive, "Test Train", Direction::East, Direction::North, static_cast<Rail^>(getTile("Tile_Rail_East_South")),L"Rails/Rail_Curve_LeftTop.png", 128)); //TODO: dynamic tilesize
 
 	tiles->Add(L"FoliageTree", gcnew Decoration(DecoType::FoliageTree, L"Rails/FoliageTree.png", "FoliageTree"));
 	tiles->Add(L"Conifer", gcnew Decoration(DecoType::Conifer, L"Rails/Conifer.png", "Conifer"));
