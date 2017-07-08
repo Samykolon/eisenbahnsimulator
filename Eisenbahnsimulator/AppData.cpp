@@ -31,12 +31,9 @@ Appdata::Appdata()
 	tiles->Add(L"Tile_Rail_Signal_South_West", gcnew SignalRail(Directions::SouthWest, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
 
 	
-	/*
-	trains->Add(L"Train_steam_locomotive",gcnew Train());
-	trains->Add(L"Train_electric_locomotive", gcnew Train());
-	trains->Add(L"Train_diesel_locomotive", gcnew Train());
-	*/
-	trains->Add(L"train", gcnew Train(TrainType::ElectricLocomotive, "Test Train", Direction::East, Direction::North, static_cast<Rail^>(getTile("Tile_Rail_East_South")),L"Rails/Rail_Curve_LeftTop.png", 128)); //TODO: dynamic tilesize
+	trains->Add(L"train_electric", gcnew Train(TrainType::ElectricLocomotive, "Elektrischer Zug", L"Rails/Rail_Curve_LeftTop.png", 50));
+	trains->Add(L"train_steam", gcnew Train(TrainType::SteamEngine, "Dampfzug", L"Rails/Rail_Curve_LeftTop.png", 10));
+	trains->Add(L"train_diesel", gcnew Train(TrainType::DieselEngine, "Dieslzug", L"Rails/Rail_Curve_LeftTop.png", 30));
 
 	tiles->Add(L"FoliageTree", gcnew Decoration(DecoType::FoliageTree, L"Rails/FoliageTree.png", "FoliageTree"));
 	tiles->Add(L"Conifer", gcnew Decoration(DecoType::Conifer, L"Rails/Conifer.png", "Conifer"));
@@ -67,7 +64,9 @@ Appdata::Appdata()
 
 
 	// Items in train category in this order
-	categoryTrains->Add(L"train");
+	categoryTrains->Add(L"train_electric");
+	categoryTrains->Add(L"train_diesel");
+	categoryTrains->Add(L"train_steam");
 
 	categoryDecorations->Add(L"FoliageTree");
 	categoryDecorations->Add(L"Conifer");
@@ -129,6 +128,9 @@ Appdata::Appdata()
 	lang->Add(L"Tile_Rail_South_West", L"Schiene Süd-West");
 	lang->Add(L"Tile_Rail_South_North", L"Schiene Süd-Nord");
 	lang->Add(L"Tile_Rail_West_North", L"Schiene West-Nord");
+	lang->Add(L"train_steam", L"Dampflok");
+	lang->Add(L"train_electric", L"Elektrischer Zug");
+	lang->Add(L"train_diesel", L"Dieselzug");
 
 	lang->Add(L"FoliageTree", L"Laubbaum");
 	lang->Add(L"Conifer", L"Nadelbaum");
