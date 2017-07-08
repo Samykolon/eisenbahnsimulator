@@ -53,7 +53,6 @@ Appdata::Appdata()
 	List<String^>^ categoryRailSwitches = gcnew List<String^>;
 	List<String^>^ categoryDecorations = gcnew List<String^>;
 	List<String^>^ categoryRailStop = gcnew List<String^>;
-	List<String^>^ categoryEnvironment = gcnew List<String^>;
 	List<String^>^ categoryAll = gcnew List <String^>;
 	
 	// Items in rail category in this order
@@ -103,10 +102,6 @@ Appdata::Appdata()
 	{
 		categoryAll->Add(item);
 	}
-	for each (String^ item in categoryEnvironment)
-	{
-		categoryAll->Add(item);
-	}
 
 	// link categorie List with identifier
 	categories->Add(L"Category_Rails", categoryRails);
@@ -114,7 +109,6 @@ Appdata::Appdata()
 	categories->Add(L"Category_RailSwitches", categoryRailSwitches);
 	categories->Add(L"Category_Decoration", categoryDecorations);
 	categories->Add(L"Category_RailStops", categoryRailStop);
-	categories->Add(L"Category_Environment", categoryEnvironment);
 	categories->Add(L"Category_All", categoryAll);
 	
 	// order of categories in dropbox
@@ -150,7 +144,6 @@ Appdata::Appdata()
 	lang->Add(L"Category_RailSwitches", L"Weichen");
 	lang->Add(L"Category_Decoration", L"Dekoration");
 	lang->Add(L"Category_RailStops", L"Haltestellen");
-	lang->Add(L"Category_Environment", L"Umgebung");
 	lang->Add(L"Category_All", L"Alle");
 
 
