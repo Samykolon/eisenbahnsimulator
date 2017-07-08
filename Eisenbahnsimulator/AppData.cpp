@@ -14,12 +14,12 @@ Appdata::Appdata()
 
 
 	// Tiles will be loaded only on startup
-	tiles->Add(L"Tile_Rail_East_South", gcnew Rail(Directions::EastSouth, L"Rails/Rail_Curve_RightBottom.png", "Tile_Rail_East_South"));
+	tiles->Add(L"Tile_Rail_East_South", gcnew Rail(Directions::EastSouth, L"Rails/Rail_Curve_RightBottomC.png", "Tile_Rail_East_South"));
 	tiles->Add(L"Tile_Rail_East_West", gcnew Rail(Directions::EastWest, L"Rails/Rail_Normal_Hor.png", "Tile_Rail_East_West"));
-	tiles->Add(L"Tile_Rail_East_North", gcnew Rail(Directions::NorthEast, L"Rails/Rail_Curve_RightTop.png", "Tile_Rail_East_North"));
-	tiles->Add(L"Tile_Rail_South_West", gcnew Rail(Directions::SouthWest, L"Rails/Rail_Curve_LeftBottom.png", "Tile_Rail_South_West"));
+	tiles->Add(L"Tile_Rail_East_North", gcnew Rail(Directions::NorthEast, L"Rails/Rail_Curve_RightTopC.png", "Tile_Rail_East_North"));
+	tiles->Add(L"Tile_Rail_South_West", gcnew Rail(Directions::SouthWest, L"Rails/Rail_Curve_LeftBottomC.png", "Tile_Rail_South_West"));
 	tiles->Add(L"Tile_Rail_South_North", gcnew Rail(Directions::NorthSouth, L"Rails/Rail_Normal_Vert.png", "Tile_Rail_South_North"));
-	tiles->Add(L"Tile_Rail_West_North", gcnew Rail(Directions::NorthWest, L"Rails/Rail_Curve_LeftTop.png", "Tile_Rail_West_North"));
+	tiles->Add(L"Tile_Rail_West_North", gcnew Rail(Directions::NorthWest, L"Rails/Rail_Curve_LeftTopC.png", "Tile_Rail_West_North"));
 	
 	tiles->Add(L"Tile_Rail_Signal_North_South", gcnew SignalRail(Directions::NorthSouth, 1, 1, L"Rails/Rail_Normal_Vert_SignalGreen.png", L"Rails/Rail_Normal_Vert_SignalRed.png", L"Tile_Rail_Signal_North_South"));
 	tiles->Add(L"Tile_Rail_Signal_West_East", gcnew SignalRail(Directions::WestEast, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
