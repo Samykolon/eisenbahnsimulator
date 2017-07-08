@@ -25,11 +25,12 @@ void updateToolbox(int _categoryIndex, Appdata^ _appdata, ListView^ _listView)
 
 	ImageList^ imageList = gcnew ImageList;
 	imageList->ImageSize = Size(48, 48);
+	int i = 0;
 	for each (CategoryItem categoryItem in category)
 	{
-		// Add Descriptive Name
-		_listView->Items->Add(_appdata->getLangString(categoryItem.keyString));
-		// Add Image
+		// add descriptive name and index of image
+		_listView->Items->Add(_appdata->getLangString(categoryItem.keyString),i++);
+		// add image
 		imageList->Images->Add(_appdata->getImageFromPath(categoryItem.iconPath));
 	}
 	_listView->LargeImageList = imageList;
