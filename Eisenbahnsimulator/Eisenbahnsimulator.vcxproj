@@ -186,6 +186,8 @@
     <Image Include="Rails\FoliageTree.png" />
     <Image Include="Rails\grass.png" />
     <Image Include="Rails\House.png" />
+    <Image Include="Rails\House2.png" />
+    <Image Include="Rails\House3.png" />
     <Image Include="Rails\Rail_Curve_LeftBottom.bmp" />
     <Image Include="Rails\Rail_Curve_LeftBottom.png" />
     <Image Include="Rails\Rail_Curve_LeftBottomC.bmp" />
@@ -231,6 +233,7 @@
     <Image Include="Rails\Signal_SGreen.png" />
     <Image Include="Rails\Signal_SRed.png" />
     <Image Include="Rails\Signal_Standart.png" />
+    <Image Include="Rails\Station1.png" />
     <Image Include="Rails\Switch_Blue.png" />
     <Image Include="Rails\Switch_Yellow.png" />
   </ItemGroup>

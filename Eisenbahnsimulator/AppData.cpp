@@ -3,6 +3,7 @@
 #include "TileRail.h"
 #include "TileSignalRail.h"
 #include "TileDecoration.h"
+#include "TileTrainStop.h"
 Appdata::Appdata()
 {
 	tiles = gcnew Dictionary<String ^,TileObject^>;
@@ -41,7 +42,10 @@ Appdata::Appdata()
 	tiles->Add(L"Conifer", gcnew Decoration(DecoType::Conifer, L"Rails/Conifer.png", "Conifer"));
 	tiles->Add(L"Bush", gcnew Decoration(DecoType::Bush, L"Rails/Bush.png", "Bush"));
 	tiles->Add(L"House", gcnew Decoration(DecoType::House, L"Rails/House.png", "House"));
+	tiles->Add(L"House2", gcnew Decoration(DecoType::House, L"Rails/House2.png", "House2"));
+	tiles->Add(L"House3", gcnew Decoration(DecoType::House, L"Rails/House3.png", "House3"));
 
+	tiles->Add(L"Station", gcnew TrainStop(Directions::EastWest, 1, L"Rails/Station1.png", L"Station"));
 
 	// Create Categories for Toolbox
 	List<String^>^ categoryRails = gcnew List<String^>;
@@ -70,6 +74,10 @@ Appdata::Appdata()
 	categoryDecorations->Add(L"Conifer");
 	categoryDecorations->Add(L"Bush");
 	categoryDecorations->Add(L"House");
+	categoryDecorations->Add(L"House2");
+	categoryDecorations->Add(L"House3");
+
+	categoryRailStop->Add(L"Station");
 
 
 
@@ -116,7 +124,7 @@ Appdata::Appdata()
 	categoryList->Add(L"Category_RailSwitches");
 	categoryList->Add(L"Category_Decoration");
 	categoryList->Add(L"Category_RailStops");
-	categoryList->Add(L"Category_Environment");
+	//categoryList->Add(L"Category_Environment");
 	
 
 
@@ -132,6 +140,10 @@ Appdata::Appdata()
 	lang->Add(L"Conifer", L"Nadelbaum");
 	lang->Add(L"Bush", L"Strauch");
 	lang->Add(L"House", L"Haus");
+	lang->Add(L"House2", L"Haus");
+	lang->Add(L"House3", L"Haus");
+
+	lang->Add(L"Station", L"Bahnhof");
 
 	lang->Add(L"Category_Rails", L"Schienen");
 	lang->Add(L"Category_Trains", L"Züge");

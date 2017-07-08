@@ -270,6 +270,15 @@
     <Image Include="Rails\House.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="Rails\House2.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\House3.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Station1.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ToolboxItems.txt" />
