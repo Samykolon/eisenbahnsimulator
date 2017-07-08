@@ -12,7 +12,7 @@ inline SignalRail::SignalRail(Directions dir, double gdur, double rdur, String^ 
 
 inline void SignalRail::Tick(double time)
 {
-	timer = timer + time; //Time passes
+	timer = timer + time*20; //Time passes
 	double completeTime = greenDuration + redDuration;
 	if (timer <= greenDuration) {
 		IsGreen = true;

@@ -591,11 +591,11 @@ namespace Eisenbahnsimulator {
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
 		for (int i = 0; i < userdata->map->GetCount(); i++)
 		{
-			userdata->map->TileAt(i)->Tick(1/timer->Interval);			
+			userdata->map->TileAt(i)->Tick(1.0/timer->Interval);			
 		}
 		for each (Train^ train in userdata->trainList)
 		{
-			train->tick(1 / timer->Interval);
+			train->tick(1.0 / timer->Interval);
 		}
 		//Signals switch	
 		panel1->Invalidate();
