@@ -4,6 +4,7 @@
 #include "TileSignalRail.h"
 #include "TileDecoration.h"
 #include "TileTrainStop.h"
+#include "TileRailSwitch.h"
 Appdata::Appdata()
 {
 	tiles = gcnew Dictionary<String ^,TileObject^>;
@@ -24,13 +25,12 @@ Appdata::Appdata()
 	tiles->Add(L"Tile_Rail_West_North", gcnew Rail(Directions::NorthWest, L"Rails/Rail_Curve_LeftTop.png", "Tile_Rail_West_North"));
 
 	tiles->Add(L"Tile_Rail_Signal_North_South", gcnew SignalRail(Directions::NorthSouth, 1, 1, L"Rails/Rail_Normal_Vert_SignalGreen.png", L"Rails/Rail_Normal_Vert_SignalRed.png", L"Tile_Rail_Signal_North_South"));
-	tiles->Add(L"Tile_Rail_Signal_West_East", gcnew SignalRail(Directions::WestEast, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
+	tiles->Add(L"Tile_Rail_Signal_West_East", gcnew SignalRail(Directions::EastWest, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
 	tiles->Add(L"Tile_Rail_Signal_North_East", gcnew SignalRail(Directions::NorthEast, 1, 1, L"Rails/Rail_Curve_RightTop_SignalGreen.png", L"Rails/Rail_Curve_RightTop_SignalRed.png", L"Tile_Rail_Signal_West_East"));
-	tiles->Add(L"Tile_Rail_Signal_North_West", gcnew SignalRail(Directions::NorthWest, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
-	tiles->Add(L"Tile_Rail_Signal_South_East", gcnew SignalRail(Directions::SouthEast, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
-	tiles->Add(L"Tile_Rail_Signal_South_West", gcnew SignalRail(Directions::SouthWest, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
+	tiles->Add(L"Tile_Rail_Signal_North_West", gcnew SignalRail(Directions::NorthWest, 1, 1, L"Rails/Rail_Curve_LeftTop_SignalGreen.png", L"Rails/Rail_Curve_LeftTop_SignalRed.png", L"Tile_Rail_Signal_West_East"));
+	tiles->Add(L"Tile_Rail_Signal_South_East", gcnew SignalRail(Directions::EastSouth, 1, 1, L"Rails/Rail_Curve_RightBottom_SignalGreen.png", L"Rails/Rail_Curve_RightBottom_SignalRed.png", L"Tile_Rail_Signal_West_East"));
+	tiles->Add(L"Tile_Rail_Signal_South_West", gcnew SignalRail(Directions::SouthWest, 1, 1, L"Rails/Rail_Curve_LeftBottom_SignalGreen.png", L"Rails/Rail_Curve_LeftBottom_SignalRed.png", L"Tile_Rail_Signal_West_East"));
 
-	
 	trains->Add(L"train_electric", gcnew Train(TrainType::ElectricLocomotive, "train_electric", L"Rails/Rail_Curve_LeftTop.png", 50));
 	trains->Add(L"train_steam", gcnew Train(TrainType::SteamEngine, "train_steam", L"Rails/Rail_Curve_LeftTop.png", 10));
 	trains->Add(L"train_diesel", gcnew Train(TrainType::DieselEngine, "train_diesel", L"Rails/Rail_Curve_LeftTop.png", 100));
@@ -59,8 +59,13 @@ Appdata::Appdata()
 	categoryRails->Add(CategoryItem(L"Tile_Rail_East_North", L"Rails/Rail_Curve_RightTopC.png"));
 	categoryRails->Add(CategoryItem(L"Tile_Rail_South_West", L"Rails/Rail_Curve_LeftBottomC.png"));
 	categoryRails->Add(CategoryItem(L"Tile_Rail_West_North", L"Rails/Rail_Curve_LeftTopC.png"));
+
 	categoryRails->Add(CategoryItem(L"Tile_Rail_Signal_North_South", L"Rails/Rail_Normal_Vert_SignalBoth.png"));
 	categoryRails->Add(CategoryItem(L"Tile_Rail_Signal_West_East", L"Rails/Rail_Normal_Hor_SignalBoth.png"));
+	categoryRails->Add(CategoryItem(L"Tile_Rail_Signal_North_East", L"Rails/Rail_Curve_RightTop_Signal_C.png"));
+	categoryRails->Add(CategoryItem(L"Tile_Rail_Signal_North_West", L"Rails/Rail_Curve_LeftTop_Signal_C.png"));
+	categoryRails->Add(CategoryItem(L"Tile_Rail_Signal_South_East", L"Rails/Rail_Curve_RightBottom_Signal_C.png"));
+	categoryRails->Add(CategoryItem(L"Tile_Rail_Signal_South_West", L"Rails/Rail_Curve_LeftBottom_Signal_C.png"));
 
 
 	// Items in train category in this order
@@ -122,12 +127,21 @@ Appdata::Appdata()
 
 
 	// Load Names to indentifier
-	lang->Add(L"Tile_Rail_East_South", L"Schiene Süd-Ost");
-	lang->Add(L"Tile_Rail_East_West", L"Schiene Ost-West");
-	lang->Add(L"Tile_Rail_East_North", L"Schiene Ost-Nord");
-	lang->Add(L"Tile_Rail_South_West", L"Schiene Süd-West");
-	lang->Add(L"Tile_Rail_South_North", L"Schiene Süd-Nord");
-	lang->Add(L"Tile_Rail_West_North", L"Schiene West-Nord");
+	lang->Add(L"Tile_Rail_East_South", L"Schiene Kurve");
+	lang->Add(L"Tile_Rail_East_West", L"Schiene Gerade");
+	lang->Add(L"Tile_Rail_East_North", L"Schiene Kurve");
+	lang->Add(L"Tile_Rail_South_West", L"Schiene Kurve");
+	lang->Add(L"Tile_Rail_South_North", L"Schiene Gerade");
+	lang->Add(L"Tile_Rail_West_North", L"Schiene Kurve");
+
+	lang->Add(L"Tile_Rail_Signal_North_South", L"Signalschiene Gerade");
+	lang->Add(L"Tile_Rail_Signal_West_East", L"Signalschiene Gerade");
+	lang->Add(L"Tile_Rail_Signal_North_East", L"Signalschiene Kurve");
+	lang->Add(L"Tile_Rail_Signal_North_West", L"Signalschiene Kurve");
+	lang->Add(L"Tile_Rail_Signal_South_East", L"Signalschiene Kurve");
+	lang->Add(L"Tile_Rail_Signal_South_West", L"Signalschiene Kurve");
+
+
 	lang->Add(L"train_steam", L"Dampflok");
 	lang->Add(L"train_electric", L"Elektrischer Zug");
 	lang->Add(L"train_diesel", L"Dieselzug");
