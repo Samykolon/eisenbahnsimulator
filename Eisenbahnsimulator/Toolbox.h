@@ -17,14 +17,20 @@ void updateToolbox(int _categoryIndex, Appdata^ _appdata, ListView^ _listView)
 	_listView->Columns->Add("Element", -2, HorizontalAlignment::Left);
 
 
-	List<String ^>^ categoryList = _appdata->getCategoryList();
-	List<String^>^ category = _appdata->getCategory(categoryList[_categoryIndex]);
+	// get name list of the different categories like rails, trains,...
+	List<String ^>^ categoryList = _appdata->getCategoryList(); 
+
+	// load the elements of the currently selected category
+	List<CategoryItem>^ category = _appdata->getCategory(categoryList[_categoryIndex]);
+
 	ImageList^ imageList = gcnew ImageList;
 	imageList->ImageSize = Size(48, 48);
-	for (int i = 0; i < category->Count; i++)
+	for each (CategoryItem categoryItem in category)
 	{
-		_listView->Items->Add(_appdata->getLangString(category[i]),i);
-		imageList->Images->Add(_appdata->getImage(category[i]));
+		// Add Descriptive Name
+		_listView->Items->Add(_appdata->getLangString(categoryItem.keyString));
+		// Add Image
+		imageList->Images->Add(_appdata->getImageFromPath(categoryItem.iconPath));
 	}
 	_listView->LargeImageList = imageList;
 }

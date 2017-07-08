@@ -503,9 +503,6 @@ namespace Eisenbahnsimulator {
 		// Update Toolbox
 		updateToolbox(ComboBoxCategorySelection->SelectedIndex, appdata, listViewSelectElements);
 
-	//	updateToolbox(listViewSelectElements, ComboBoxCategorySelection, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
-
-
 	}
 
 	private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
@@ -517,7 +514,7 @@ namespace Eisenbahnsimulator {
 			{
 
 				String^ categoryKey = appdata->getCategoryList()[ComboBoxCategorySelection->SelectedIndex];
-				String^ selectedItemKey = appdata->getCategory(categoryKey)[selectedItem];
+				String^ selectedItemKey = appdata->getCategory(categoryKey)[selectedItem].keyString;
 
 				if (appdata->isTile(selectedItemKey))
 				{
