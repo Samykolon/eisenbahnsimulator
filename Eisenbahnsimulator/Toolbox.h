@@ -33,6 +33,10 @@ void updateTrainList(Userdata^ _userdata, Appdata^ _appdata, ListBox^ _listBox)
 {
 	_listBox->Items->Clear();
 	for each (Train^ train in _userdata->trainList)
-		_listBox->Items->Add(train->Name);
+	{
+		if(train->Name != nullptr)
+			_listBox->Items->Add(train->Name);
+	}
+		
 
 }

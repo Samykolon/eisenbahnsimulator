@@ -15,7 +15,7 @@ public ref class Train : public ICloneable
 {
 public:
 	TrainType Type;
-	String^ Name;
+	String^ name;
 	String^ imagePath;
 	double Speed; 
 	double MaxSpeed;
@@ -29,14 +29,16 @@ public:
 
 	property String^ ImagePath
 	{
-		String^ get() {
-			return imagePath;
-		}
-		void set(String^ _imagePath) {
-			imagePath = _imagePath;
-		}
+		String^ get();
+		void set(String^ _imagePath);
+	}
+	property String^ Name
+	{
+		String^ get();
+		void set(String^ _name);
 	}
 	
 	virtual Object ^Clone();
+	virtual Object ^Clone(String ^_name);
 
 };
