@@ -67,9 +67,7 @@ namespace Eisenbahnsimulator {
 			selectedItem = -1;
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::AllPaintingInWmPaint, true);
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::DoubleBuffer, true);
-			CoordinateOffset = Point(0, 0);
-			ra = gcnew Rail(Directions::NorthEast, L"Rails/Rail_Curve_RightTop.png", "Fuck this");
-			userdata->map->SetTile(ra, 1, 1);
+			CoordinateOffset = Point(0, 0);			
 		}
 
 	protected:
@@ -458,10 +456,7 @@ namespace Eisenbahnsimulator {
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
 
 		void AddTrain(TrainType tt, int xi, int yi);
-		Point CoordinateOffset;
-		Pose pos;
-		double tileprog = 0;
-		Rail^ ra;
+		Point CoordinateOffset;	
 
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
 	}
@@ -573,11 +568,7 @@ namespace Eisenbahnsimulator {
 			graphics->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), 0, 0, 2000, 2000); //Draw grass - what is better?
 
 			//Debug test
-	
-			
-				if(tileprog < 3.5)
-				graphics->FillRectangle(Brushes::Red, pos.X, pos.Y, 3, 3);
-
+							
 
 			for (int i = 0; i < userdata->map->GetCount(); i++)
 			{
@@ -604,10 +595,7 @@ namespace Eisenbahnsimulator {
 
 			
 		}
-		pos = ra->Drive(Direction::East, tileprog, TileSize);
-
-		tileprog += 0.05;
-		//MessageBox::Show(pos.X + " " + pos.Y + " " + tileprog);
+				
 		//Signals switch
 		//Trains drive
 		panel1->Invalidate();
