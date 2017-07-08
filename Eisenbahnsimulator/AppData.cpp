@@ -2,6 +2,7 @@
 #include "TileObject.h"
 #include "TileRail.h"
 #include "TileSignalRail.h"
+#include "TileDecoration.h"
 Appdata::Appdata()
 {
 	tiles = gcnew Dictionary<String ^,TileObject^>;
@@ -14,13 +15,13 @@ Appdata::Appdata()
 
 
 	// Tiles will be loaded only on startup
-	tiles->Add(L"Tile_Rail_East_South", gcnew Rail(Directions::EastSouth, L"Rails/Rail_Curve_RightBottomC.png", "Tile_Rail_East_South"));
+	tiles->Add(L"Tile_Rail_East_South", gcnew Rail(Directions::EastSouth, L"Rails/Rail_Curve_RightBottom.png", "Tile_Rail_East_South"));
 	tiles->Add(L"Tile_Rail_East_West", gcnew Rail(Directions::EastWest, L"Rails/Rail_Normal_Hor.png", "Tile_Rail_East_West"));
-	tiles->Add(L"Tile_Rail_East_North", gcnew Rail(Directions::NorthEast, L"Rails/Rail_Curve_RightTopC.png", "Tile_Rail_East_North"));
-	tiles->Add(L"Tile_Rail_South_West", gcnew Rail(Directions::SouthWest, L"Rails/Rail_Curve_LeftBottomC.png", "Tile_Rail_South_West"));
+	tiles->Add(L"Tile_Rail_East_North", gcnew Rail(Directions::NorthEast, L"Rails/Rail_Curve_RightTop.png", "Tile_Rail_East_North"));
+	tiles->Add(L"Tile_Rail_South_West", gcnew Rail(Directions::SouthWest, L"Rails/Rail_Curve_LeftBottom.png", "Tile_Rail_South_West"));
 	tiles->Add(L"Tile_Rail_South_North", gcnew Rail(Directions::NorthSouth, L"Rails/Rail_Normal_Vert.png", "Tile_Rail_South_North"));
-	tiles->Add(L"Tile_Rail_West_North", gcnew Rail(Directions::NorthWest, L"Rails/Rail_Curve_LeftTopC.png", "Tile_Rail_West_North"));
-	
+	tiles->Add(L"Tile_Rail_West_North", gcnew Rail(Directions::NorthWest, L"Rails/Rail_Curve_LeftTop.png", "Tile_Rail_West_North"));
+
 	tiles->Add(L"Tile_Rail_Signal_North_South", gcnew SignalRail(Directions::NorthSouth, 1, 1, L"Rails/Rail_Normal_Vert_SignalGreen.png", L"Rails/Rail_Normal_Vert_SignalRed.png", L"Tile_Rail_Signal_North_South"));
 	tiles->Add(L"Tile_Rail_Signal_West_East", gcnew SignalRail(Directions::WestEast, 1, 1, L"Rails/Rail_Normal_Hor_SignalGreen.png", L"Rails/Rail_Normal_Hor_SignalRed.png", L"Tile_Rail_Signal_West_East"));
 	tiles->Add(L"Tile_Rail_Signal_North_East", gcnew SignalRail(Directions::NorthEast, 1, 1, L"Rails/Rail_Curve_RightTop_SignalGreen.png", L"Rails/Rail_Curve_RightTop_SignalRed.png", L"Tile_Rail_Signal_West_East"));
@@ -36,14 +37,17 @@ Appdata::Appdata()
 	*/
 	trains->Add(L"train", gcnew Train(TrainType::ElectricLocomotive, "Test Train", Direction::East, Direction::North, static_cast<Rail^>(getTile("Tile_Rail_East_South")),L"Rails/Rail_Curve_LeftTop.png"));
 
-
+	tiles->Add(L"FoliageTree", gcnew Decoration(DecoType::FoliageTree, L"Rails/FoliageTree.png", "FoliageTree"));
+	tiles->Add(L"Conifer", gcnew Decoration(DecoType::Conifer, L"Rails/Conifer.png", "Conifer"));
+	tiles->Add(L"Bush", gcnew Decoration(DecoType::Bush, L"Rails/Bush.png", "Bush"));
+	tiles->Add(L"House", gcnew Decoration(DecoType::House, L"Rails/House.png", "House"));
 
 
 	// Create Categories for Toolbox
 	List<String^>^ categoryRails = gcnew List<String^>;
 	List<String^>^ categoryTrains = gcnew List<String^>;
 	List<String^>^ categoryRailSwitches = gcnew List<String^>;
-	List<String^>^ categoryDecoractions = gcnew List<String^>;
+	List<String^>^ categoryDecorations = gcnew List<String^>;
 	List<String^>^ categoryRailStop = gcnew List<String^>;
 	List<String^>^ categoryEnvironment = gcnew List<String^>;
 	List<String^>^ categoryAll = gcnew List <String^>;
@@ -62,7 +66,10 @@ Appdata::Appdata()
 	// Items in train category in this order
 	categoryTrains->Add(L"train");
 
-
+	categoryDecorations->Add(L"FoliageTree");
+	categoryDecorations->Add(L"Conifer");
+	categoryDecorations->Add(L"Bush");
+	categoryDecorations->Add(L"House");
 
 
 
@@ -80,7 +87,7 @@ Appdata::Appdata()
 	{
 		categoryAll->Add(item);
 	}
-	for each (String^ item in categoryDecoractions)
+	for each (String^ item in categoryDecorations)
 	{
 		categoryAll->Add(item);
 	}
@@ -97,7 +104,7 @@ Appdata::Appdata()
 	categories->Add(L"Category_Rails", categoryRails);
 	categories->Add(L"Category_Trains", categoryTrains);
 	categories->Add(L"Category_RailSwitches", categoryRailSwitches);
-	categories->Add(L"Category_Decoration", categoryDecoractions);
+	categories->Add(L"Category_Decoration", categoryDecorations);
 	categories->Add(L"Category_RailStops", categoryRailStop);
 	categories->Add(L"Category_Environment", categoryEnvironment);
 	categories->Add(L"Category_All", categoryAll);
@@ -121,6 +128,10 @@ Appdata::Appdata()
 	lang->Add(L"Tile_Rail_South_North", L"Schiene Süd-Nord");
 	lang->Add(L"Tile_Rail_West_North", L"Schiene West-Nord");
 
+	lang->Add(L"FoliageTree", L"Laubbaum");
+	lang->Add(L"Conifer", L"Nadelbaum");
+	lang->Add(L"Bush", L"Strauch");
+	lang->Add(L"House", L"Haus");
 
 	lang->Add(L"Category_Rails", L"Schienen");
 	lang->Add(L"Category_Trains", L"Züge");

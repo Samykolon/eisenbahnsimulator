@@ -258,6 +258,18 @@
     <Image Include="Rails\Switch_Yellow.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="Rails\Bush.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Conifer.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\FoliageTree.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\House.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ToolboxItems.txt" />
