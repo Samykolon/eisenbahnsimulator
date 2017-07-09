@@ -3,8 +3,10 @@
 #include "TileRail.h"
 #include "Map.h"
 
+ref class Train; //Forward declaration because of classes including each other
 
 #include "AppData.h"
+
 
 using namespace System;
 
@@ -50,6 +52,6 @@ public:
 	virtual Object ^Clone();
 	virtual Object ^Clone(String ^_name);
 
-	void tick(double _time, Map^ map);
+	void tick(double _time, Map^ map); //Updates the train's pose
 
 };
