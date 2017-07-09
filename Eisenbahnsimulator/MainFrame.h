@@ -506,36 +506,46 @@ namespace Eisenbahnsimulator {
 	}
 
 	private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		if (userdata != nullptr) { //Checks if the user has created a TileMap
+		int X = CalcTileCoord(e->X);	//Calculates tile coordinates the user clicks on
+		int Y = CalcTileCoord(e->Y);
+		if(e->Button == System::Windows::Forms::MouseButtons::Left){
 
-			int X = CalcTileCoord(e->X);	//Calculates tile coordinates the user clicks on
-			int Y = CalcTileCoord(e->Y);
-			if (selectedItem != -1)
-			{
-
-				String^ categoryKey = appdata->getCategoryList()[ComboBoxCategorySelection->SelectedIndex];
-				String^ selectedItemKey = appdata->getCategory(categoryKey)[selectedItem].keyString;
-
-				if (appdata->isTile(selectedItemKey))
+			if (userdata != nullptr) { //Checks if the user has created a TileMap
+								
+				if (selectedItem != -1)
 				{
-					TileObject ^temp = static_cast<TileObject^>(appdata->getTile(selectedItemKey)->Clone());
-					userdata->map->SetTile(temp, X, Y);
-				}
-				else if (appdata->isTrain(selectedItemKey))
-				{
-					Rail^ currentRail = dynamic_cast<Rail^>(userdata->map->GetTile(X, Y)); //Tries to cast the object into a Rail
-					if (currentRail != nullptr)
+
+					String^ categoryKey = appdata->getCategoryList()[ComboBoxCategorySelection->SelectedIndex];
+					String^ selectedItemKey = appdata->getCategory(categoryKey)[selectedItem].keyString;
+
+					if (appdata->isTile(selectedItemKey))
 					{
-						Train ^train = appdata->getTrain(selectedItemKey);
-						train->TileSize = userdata->tileSize;
-						train->setOnRail(currentRail);
-						
-						userdata->AddTrain(dynamic_cast<Train^>(train->Clone()));
+						TileObject ^temp = static_cast<TileObject^>(appdata->getTile(selectedItemKey)->Clone());
+						userdata->map->SetTile(temp, X, Y);
 					}
+					else if (appdata->isTrain(selectedItemKey))
+					{
+						Rail^ currentRail = dynamic_cast<Rail^>(userdata->map->GetTile(X, Y)); //Tries to cast the object into a Rail
+						if (currentRail != nullptr)
+						{
+							Train ^train = appdata->getTrain(selectedItemKey);
+							train->TileSize = userdata->tileSize;
+							train->setOnRail(currentRail);
 
-					updateTrainList(userdata, appdata, listBox1);
+							userdata->AddTrain(dynamic_cast<Train^>(train->Clone()));
+						}
+
+						updateTrainList(userdata, appdata, listBox1);
+					}
+					panel1->Invalidate();
 				}
-				panel1->Invalidate();
+			}
+		}
+		else if (e->Button == System::Windows::Forms::MouseButtons::Right) {
+			TileObject^ currentTile = userdata->map->GetTile(X, Y);
+			RailSwitch^ railSw = dynamic_cast<RailSwitch^>(currentTile);
+			if (railSw != nullptr) {
+				railSw->Switch(userdata->trainList);
 			}
 		}
 	}

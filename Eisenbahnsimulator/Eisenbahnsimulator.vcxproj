@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppData.cpp" />
+    <ClCompile Include="Pose.cpp" />
     <ClCompile Include="TileDecoration.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Map.cpp" />
