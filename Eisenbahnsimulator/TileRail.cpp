@@ -85,8 +85,7 @@ Pose Rail::Drive(Direction startDirection, double tileProgress, int tileSize)
 			else if (tileProgress < 3.57079632679) {
 				return Pose((position.X - 1) * tileSize + 0.75 * tileSize + (tileProgress - 2.57079632679) * tileSize/4.0, (position.Y - 1) * tileSize + 0.5 * tileSize, 0);
 			}
-			else
-				Windows::Forms::MessageBox::Show(L"Want next tile!");
+			else				
 				return Pose(-1, -1, 0);
 		}
 		else { //startdirection == East

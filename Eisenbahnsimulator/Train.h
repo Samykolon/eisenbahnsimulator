@@ -31,7 +31,7 @@ public:
 public:
 	Train(TrainType typ, String ^ nm, String^ _imagePath, int _maxSpeed);//, Direction start, Direction goal, Rail ^ to, String^ _imagePath, int tileSize);
 	void setOnRail(Rail^ _rail); //Initializes the train's pose, directions, tileprogress
-	void setOnRail(Rail^ _rail, Direction startDir); //Initializes the train's directions coming from another rail
+	void setOnRail(Rail^ newRail, Direction startDir); //Initializes the train's directions coming from another rail
 #pragma region Properties
 	property String^ ImagePath
 	{
