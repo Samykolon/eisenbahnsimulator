@@ -583,9 +583,9 @@ namespace Eisenbahnsimulator {
 					toBeDrawn->Position.Y < maxXTile + CoordinateOffset.Y)
 				{
 					graphics->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath),
-						(toBeDrawn->Position.X - 1 - CoordinateOffset.X) * TileSize,
-						(toBeDrawn->Position.Y - 1 - CoordinateOffset.Y) * TileSize,
-						TileSize, TileSize); //Draws all tiles in the tile map
+						(toBeDrawn->Position.X - 1 - CoordinateOffset.X) * userdata->tileSize,
+						(toBeDrawn->Position.Y - 1 - CoordinateOffset.Y) * userdata->tileSize,
+						userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
 				}
 			}
 
@@ -605,7 +605,7 @@ namespace Eisenbahnsimulator {
 		}
 		for each (Train^ train in userdata->trainList)
 		{
-			train->tick(1.0 / timer->Interval, userdata->map);
+			train->Tick(1.0 / timer->Interval, userdata->map);
 		}
 
 		panel1->Invalidate();

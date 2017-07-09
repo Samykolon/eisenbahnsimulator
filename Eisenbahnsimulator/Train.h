@@ -54,6 +54,6 @@ public:
 	virtual Object ^Clone();
 	virtual Object ^Clone(String ^_name);
 
-	void tick(double _time, Map^ map); //Updates the train's pose
+	void Tick(double _time, Map^ map); //Updates the train's pose
 
 };

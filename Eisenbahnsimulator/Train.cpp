@@ -194,7 +194,7 @@ void Train::TileSize::set(int _tileSize)
 	tileSize = _tileSize;
 }
 
-void Train::tick(double _time, Map^ map)
+void Train::Tick(double _time, Map^ map)
 {
 	
 	//String^ fileName = "textfile.txt";
