@@ -23,5 +23,6 @@ public:
 	}
 	SignalRail(Directions dir, double gdur, double rdur, String^ imagePath_1, String^ imagePath_2, String ^name);
 	void Tick(double time) override; //Time passes, activity may change
+	Pose Drive(Direction startDirection, double% tileProgress, int tileSize, double% speed, double maxSpeed) override; //Returns the pixel position of a train on a rail
 	
 };

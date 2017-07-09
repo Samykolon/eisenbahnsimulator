@@ -25,3 +25,14 @@ inline void SignalRail::Tick(double time)
 	}
 }
 
+Pose SignalRail::Drive(Direction startDirection, double % tileProgress, int tileSize, double % speed, double maxSpeed)
+{
+	double sp = 0;
+	if (IsGreen) {
+		return Rail::Drive(startDirection, tileProgress, tileSize, speed, maxSpeed);
+	}
+	else		
+		return Rail::Drive(startDirection, tileProgress, tileSize, sp, 0);
+	
+}
+

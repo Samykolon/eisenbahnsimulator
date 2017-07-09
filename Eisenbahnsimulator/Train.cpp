@@ -28,6 +28,7 @@ inline Train::Train(TrainType typ, String^ _name, String^ _imagePath, int _maxSp
 	Type = typ;
 	Name = _name;
 	MaxSpeed = _maxSpeed;
+	Speed = 0;
 	/*Tile = to;
 	StartDirection = start;
 	GoalDirection = goal;
@@ -79,24 +80,24 @@ void Train::setOnRail(Rail ^ _rail)
 	Tile = _rail;
 	StartDirection = startDirection;
 	GoalDirection = goalDirection;
-	CurrentPose = _rail->Drive(startDirection, 1, tileSize);
+	CurrentPose = _rail->Drive(startDirection, TileProgress, tileSize, Speed, MaxSpeed);
 	//Windows::Forms::MessageBox::Show(CurrentPose.X + " " + CurrentPose.Y + " " + StartDirection.ToString() + " " + tileSize);
 }
 
 void Train::setOnRail(Rail ^ newRail, Direction _startDir)
 {
 	if (newRail == nullptr) { //Do nothing if the rail is a null pointer, TODO: Implement train getting stuck
-		Windows::Forms::MessageBox::Show(L"There is no rail, error....");
+		System::Windows::Forms::MessageBox::Show(L"There is no rail, error....");
 		return;
 	}
 	if (!(newRail->LeadsTo(FindOppositeDirection(_startDir)))) { //Do nothing if the rail isn't connecting properly
-		Windows::Forms::MessageBox::Show(L"The rail is not connected properly");
+		System::Windows::Forms::MessageBox::Show(L"The rail is not connected properly");
 		return;
 	}
 	TileProgress = 0;
 	StartDirection = FindOppositeDirection(_startDir);
 	Tile = newRail;
-	CurrentPose = newRail->Drive(StartDirection, 0, tileSize);
+	CurrentPose = newRail->Drive(StartDirection, TileProgress, tileSize, Speed, MaxSpeed);
 
 
 	switch (newRail->EndDirections)
@@ -196,18 +197,17 @@ void Train::TileSize::set(int _tileSize)
 
 void Train::Tick(double _time, Map^ map)
 {
-	
 	//String^ fileName = "textfile.txt";
 	//IO::StreamWriter^ sw = IO::File::AppendText(fileName);
 	//sw->WriteLine(Tile->Position.X.ToString() + " " + Tile->Position.Y.ToString());
 	
 	if (Tile == nullptr) return; // Not placed on a tile yet/drove into an empty tile
+	
 
-	TileProgress += 0.05; //Increase the train's progress, TODO: include speed
 	Rail^ rail = dynamic_cast<Rail^>(Tile);	//Previous/current rail
 	Pose newPose;
 	if (rail != nullptr) { //If the train is on a rail
-		newPose = rail->Drive(StartDirection, TileProgress, TileSize);
+		newPose = rail->Drive(StartDirection, TileProgress, TileSize, Speed, MaxSpeed);
 
 		if (newPose.X != -1) { //Train is on the same tile 
 			//Windows::Forms::MessageBox::Show(newPose.X.ToString() + "TileProgress " + TileProgress);
