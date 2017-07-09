@@ -67,6 +67,14 @@ Appdata::Appdata()
 	categoryRails->Add(CategoryItem(L"Tile_Rail_Signal_South_East", L"Rails/Rail_Curve_RightBottom_Signal_C.png"));
 	categoryRails->Add(CategoryItem(L"Tile_Rail_Signal_South_West", L"Rails/Rail_Curve_LeftBottom_Signal_C.png"));
 
+	categoryRailSwitches->Add(CategoryItem(L"Tile_Rail_Switch_Bottom_Left", L"Rails/Rail_Switch_BottomLeft_C.png"));
+	categoryRailSwitches->Add(CategoryItem(L"Tile_Rail_Switch_Bottom_Right", L"Rails/Rail_Switch_BottomRight_C.png"));
+	categoryRailSwitches->Add(CategoryItem(L"Tile_Rail_Switch_Top_Left", L"Rails/Rail_Switch_TopLeft_C.png"));
+	categoryRailSwitches->Add(CategoryItem(L"Tile_Rail_Switch_Top_Right", L"Rails/Rail_Switch_TopRight_C.png"));
+	categoryRailSwitches->Add(CategoryItem(L"Tile_Rail_Switch_Left_Bottom", L"Rails/Rail_Switch_LeftBottom_C.png"));
+	categoryRailSwitches->Add(CategoryItem(L"Tile_Rail_Switch_Left_Top", L"Rails/Rail_Switch_LeftTop_C.png"));
+	categoryRailSwitches->Add(CategoryItem(L"Tile_Rail_Switch_Right_Bottom", L"Rails/Rail_Switch_RightBottom_C.png"));
+	categoryRailSwitches->Add(CategoryItem(L"Tile_Rail_Switch_Right_Top", L"Rails/Rail_Switch_RightTop_C.png"));
 
 	// Items in train category in this order
 	categoryTrains->Add(CategoryItem(L"train_electric", L"Rails/House.png"));
@@ -141,10 +149,18 @@ Appdata::Appdata()
 	lang->Add(L"Tile_Rail_Signal_South_East", L"Signalschiene Kurve");
 	lang->Add(L"Tile_Rail_Signal_South_West", L"Signalschiene Kurve");
 
-
 	lang->Add(L"train_steam", L"Dampflok");
 	lang->Add(L"train_electric", L"Elektrischer Zug");
 	lang->Add(L"train_diesel", L"Dieselzug");
+
+	lang->Add(L"Tile_Rail_Switch_Bottom_Left", L"Weiche");
+	lang->Add(L"Tile_Rail_Switch_Bottom_Right", L"Weiche");
+	lang->Add(L"Tile_Rail_Switch_Top_Left", L"Weiche");
+	lang->Add(L"Tile_Rail_Switch_Top_Right", L"Weiche");
+	lang->Add(L"Tile_Rail_Switch_Left_Bottom", L"Weiche");
+	lang->Add(L"Tile_Rail_Switch_Left_Top", L"Weiche");
+	lang->Add(L"Tile_Rail_Switch_Right_Bottom", L"Weiche");
+	lang->Add(L"Tile_Rail_Switch_Right_Top", L"Weiche");
 
 	lang->Add(L"FoliageTree", L"Laubbaum");
 	lang->Add(L"Conifer", L"Nadelbaum");
