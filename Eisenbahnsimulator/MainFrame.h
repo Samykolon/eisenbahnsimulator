@@ -482,7 +482,7 @@ namespace Eisenbahnsimulator {
 					MessageBox::Show(L"Beide Zahlen müssen größer als 0 sein.");
 				}
 				else {
-					userdata->map = gcnew Map(sizeX, sizeY); //Create new Map
+					userdata->map = gcnew Map(sizeX, sizeY); //Create new map
 					panel1->Invalidate(); //Draw main map
 				}
 			}
@@ -511,7 +511,7 @@ namespace Eisenbahnsimulator {
 	private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 		if (userdata != nullptr) { //Checks if the user has created a TileMap
 
-			int X = CalcTileCoord(e->X);	//Calculates Tile coordinates the user clicks on
+			int X = CalcTileCoord(e->X);	//Calculates tile coordinates the user clicks on
 			int Y = CalcTileCoord(e->Y);
 			if (selectedItem != -1)
 			{
@@ -590,7 +590,7 @@ namespace Eisenbahnsimulator {
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
 		for (int i = 0; i < userdata->map->GetCount(); i++)
 		{
-			userdata->map->TileAt(i)->Tick(0.2);			
+			userdata->map->TileAt(i)->Tick(0.2); //Let time pass for all objects
 		}
 		for each (Train^ train in userdata->trainList)
 		{
@@ -600,7 +600,7 @@ namespace Eisenbahnsimulator {
 				train->CurrentPose = rail->Drive(train->StartDirection, train->TileProgress, TileSize); //Give train its newest pose;
 			}
 		}
-		//Signals switch	
+
 		panel1->Invalidate();
 
 	}

@@ -9,7 +9,7 @@ public:
 	int Y;
 public:
 	property double Orientation { //Orientation in degrees, mathematical direction, the direction an object is facing
-		void set(double angle) {
+		void set(double angle) { //Angle is always between 0 and 360 degrees
 			while(angle >= 360){
 				angle = angle - 360;
 			}
