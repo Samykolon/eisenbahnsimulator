@@ -86,68 +86,72 @@ void Train::setOnRail(Rail ^ _rail)
 
 void Train::setOnRail(Rail ^ newRail, Direction _startDir)
 {
-	if (newRail == nullptr) { //Do nothing if the rail is a null pointer, TODO: Implement train getting stuck
-		System::Windows::Forms::MessageBox::Show(L"There is no rail, error....");
+	if (newRail == nullptr) { //Rail is empty
+		Tile = newRail; 
+		MaxSpeed = Speed = 0; //Train is stuck
 		return;
 	}
-	if (!(newRail->LeadsTo(FindOppositeDirection(_startDir)))) { //Do nothing if the rail isn't connecting properly
-		System::Windows::Forms::MessageBox::Show(L"The rail is not connected properly");
+	else if (!(newRail->LeadsTo(FindOppositeDirection(_startDir)))) {//Do nothing if the rail isn't connecting properly
+		Tile = newRail;
+		MaxSpeed = Speed = 0; //Train is stuck
 		return;
+		
 	}
-	TileProgress = 0;
-	StartDirection = FindOppositeDirection(_startDir);
-	Tile = newRail;
-	CurrentPose = newRail->Drive(StartDirection, TileProgress, tileSize, Speed, MaxSpeed);
+	else {
+		
+		TileProgress = 0;
+		StartDirection = FindOppositeDirection(_startDir);
+		Tile = newRail;
+		CurrentPose = newRail->Drive(StartDirection, TileProgress, tileSize, Speed, MaxSpeed);
 
-
-	switch (newRail->EndDirections)
-	{
-	case Directions::NorthSouth:
-		if (StartDirection == Direction::North) {
-			GoalDirection = Direction::South;
+		switch (newRail->EndDirections)
+		{
+		case Directions::NorthSouth:
+			if (StartDirection == Direction::North) {
+				GoalDirection = Direction::South;
+			}
+			else
+				GoalDirection = Direction::North;
+			break;
+		case Directions::WestEast:
+			if (StartDirection == Direction::West) {
+				GoalDirection = Direction::East;
+			}
+			else
+				GoalDirection = Direction::West;
+			break;
+		case Directions::WestNorth:
+			if (StartDirection == Direction::West) {
+				GoalDirection = Direction::North;
+			}
+			else
+				GoalDirection = Direction::West;
+			break;
+		case Directions::WestSouth:
+			if (StartDirection == Direction::West) {
+				GoalDirection = Direction::South;
+			}
+			else
+				GoalDirection = Direction::West;
+			break;
+		case Directions::NorthEast:
+			if (StartDirection == Direction::North) {
+				GoalDirection = Direction::East;
+			}
+			else
+				GoalDirection = Direction::North;
+			break;
+		case Directions::SouthEast:
+			if (StartDirection == Direction::East) {
+				GoalDirection = Direction::South;
+			}
+			else
+				GoalDirection = Direction::East;
+			break;
+		default:
+			break;
 		}
-		else
-			GoalDirection = Direction::North;
-		break;
-	case Directions::WestEast:
-		if (StartDirection == Direction::West) {
-			GoalDirection = Direction::East;
-		}
-		else
-			GoalDirection = Direction::West;
-		break;
-	case Directions::WestNorth:
-		if (StartDirection == Direction::West) {
-			GoalDirection = Direction::North;
-		}
-		else
-			GoalDirection = Direction::West;
-		break;
-	case Directions::WestSouth:
-		if (StartDirection == Direction::West) {
-			GoalDirection = Direction::South;
-		}
-		else
-			GoalDirection = Direction::West;
-		break;
-	case Directions::NorthEast:
-		if (StartDirection == Direction::North) {
-			GoalDirection = Direction::East;
-		}
-		else
-			GoalDirection = Direction::North;
-		break;
-	case Directions::SouthEast:
-		if (StartDirection == Direction::East) {
-			GoalDirection = Direction::South;
-		}
-		else
-			GoalDirection = Direction::East;
-		break;
-	default:
-		break;
 	}
-
 
 }
 
@@ -200,13 +204,13 @@ void Train::Tick(double _time, Map^ map)
 	//String^ fileName = "textfile.txt";
 	//IO::StreamWriter^ sw = IO::File::AppendText(fileName);
 	//sw->WriteLine(Tile->Position.X.ToString() + " " + Tile->Position.Y.ToString());
-	
+
 	if (Tile == nullptr) return; // Not placed on a tile yet/drove into an empty tile
-	
+
 
 	Rail^ rail = dynamic_cast<Rail^>(Tile);	//Previous/current rail
 	Pose newPose;
-	if (rail != nullptr) { //If the train is on a rail
+	if (rail != nullptr && MaxSpeed != 0) { //If the train is on a rail and actually able to drive
 		newPose = rail->Drive(StartDirection, TileProgress, TileSize, Speed, MaxSpeed);
 
 		if (newPose.X != -1) { //Train is on the same tile 
@@ -217,7 +221,7 @@ void Train::Tick(double _time, Map^ map)
 		else { //Need to fetch new tile			
 			TileProgress = 0;
 			if (!(rail->Position.X == 0 && GoalDirection == Direction::West || rail->Position.X > map->Width && GoalDirection == Direction::East || rail->Position.Y == 0 && GoalDirection == Direction::North || rail->Position.Y > map->Height && GoalDirection == Direction::South)) { //Check if the train leaves the map boundaries
-			
+
 				//sw->WriteLine("Old: " + Tile->Position.X + " " + Tile->Position.Y + "\ntileProgress: " + TileProgress + "\nStartdirection " + StartDirection.ToString() + "\nGoalDirection: " + GoalDirection.ToString() + "\n Enddirections:" + static_cast<Rail^>(Tile)->EndDirections.ToString());
 				switch (GoalDirection) //Set correct new rail depending on goaldirection
 				{
@@ -236,8 +240,8 @@ void Train::Tick(double _time, Map^ map)
 				default:
 					break;
 				}
-			
-				
+
+
 				setOnRail(rail, GoalDirection); //Sets the train on the rail, initializes its new variables, sets new Pose, resets tileProgress
 				//sw->WriteLine("New: " + Tile->Position.X + " " + Tile->Position.Y + "\ntileProgress: " + TileProgress + "\nStartdirection " + StartDirection.ToString() + "\nGoalDirection: " + GoalDirection.ToString() + "\n Enddirections:" + static_cast<Rail^>(Tile)->EndDirections.ToString());
 			}
