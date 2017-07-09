@@ -503,9 +503,6 @@ namespace Eisenbahnsimulator {
 		// Update Toolbox
 		updateToolbox(ComboBoxCategorySelection->SelectedIndex, appdata, listViewSelectElements);
 
-	//	updateToolbox(listViewSelectElements, ComboBoxCategorySelection, imageListSchienen, imageListSignale, imageListHaltepunkte, imageListUmgebung, imageListZuege, imageListAlle, Schienen, Signale, Haltepunkte, Umgebung, Zuege, Alle);
-
-
 	}
 
 	private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
@@ -517,7 +514,7 @@ namespace Eisenbahnsimulator {
 			{
 
 				String^ categoryKey = appdata->getCategoryList()[ComboBoxCategorySelection->SelectedIndex];
-				String^ selectedItemKey = appdata->getCategory(categoryKey)[selectedItem];
+				String^ selectedItemKey = appdata->getCategory(categoryKey)[selectedItem].keyString;
 
 				if (appdata->isTile(selectedItemKey))
 				{
@@ -526,11 +523,15 @@ namespace Eisenbahnsimulator {
 				}
 				else if(appdata->isTrain(selectedItemKey))
 				{
-					// TODO: Do Like Tile
-					userdata->AddTrain(TrainType::ElectricLocomotive, X, Y);
+					Rail^ currentRail = dynamic_cast<Rail^>(userdata->map->GetTile(X, Y)); //Tries to cast the object into a Rail
+					if (currentRail != nullptr)
+					{
+						Train ^train = appdata->getTrain(selectedItemKey);
+						train->setOnRail(currentRail);
+						userdata->AddTrain(dynamic_cast<Train^>(train->Clone()));
+					}
+
 					updateTrainList(userdata,appdata,listBox1);
-				//	TileMap->SetTile(appdata->getTile(selectedItemKey)->MemberwiseClone, X, Y);
-					// TileMap->AddTrain()
 				}
 				panel1->Invalidate();
 			}
@@ -541,7 +542,7 @@ namespace Eisenbahnsimulator {
 
 		if (listViewSelectElements->SelectedItems->Count > 0)
 		{
-			selectedItem = listViewSelectElements->SelectedIndices[0];//selectedTBIndex(listView1, ComboToolbox);
+			selectedItem = listViewSelectElements->SelectedIndices[0];
 		}
 		else
 			selectedItem = -1;
@@ -590,15 +591,13 @@ namespace Eisenbahnsimulator {
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
 		for (int i = 0; i < userdata->map->GetCount(); i++)
 		{
-			userdata->map->TileAt(i)->Tick(0.2); //Let time pass for all objects
+			
+			userdata->map->TileAt(i)->Tick(1.0/timer->Interval); //Let time pass for all objects		
+
 		}
 		for each (Train^ train in userdata->trainList)
 		{
-			train->TileProgress += train->Speed / 100; //Increase the train's progress
-			Rail^ rail = dynamic_cast<Rail^>(train->Tile);
-			if (rail != nullptr) {
-				train->CurrentPose = rail->Drive(train->StartDirection, train->TileProgress, TileSize); //Give train its newest pose;
-			}
+			train->tick(1.0 / timer->Interval);
 		}
 
 		panel1->Invalidate();

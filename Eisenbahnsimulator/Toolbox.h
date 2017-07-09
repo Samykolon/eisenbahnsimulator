@@ -17,14 +17,21 @@ void updateToolbox(int _categoryIndex, Appdata^ _appdata, ListView^ _listView)
 	_listView->Columns->Add("Element", -2, HorizontalAlignment::Left);
 
 
-	List<String ^>^ categoryList = _appdata->getCategoryList();
-	List<String^>^ category = _appdata->getCategory(categoryList[_categoryIndex]);
+	// get name list of the different categories like rails, trains,...
+	List<String ^>^ categoryList = _appdata->getCategoryList(); 
+
+	// load the elements of the currently selected category
+	List<CategoryItem>^ category = _appdata->getCategory(categoryList[_categoryIndex]);
+
 	ImageList^ imageList = gcnew ImageList;
 	imageList->ImageSize = Size(48, 48);
-	for (int i = 0; i < category->Count; i++)
+	int i = 0;
+	for each (CategoryItem categoryItem in category)
 	{
-		_listView->Items->Add(_appdata->getLangString(category[i]),i);
-		imageList->Images->Add(_appdata->getImage(category[i]));
+		// add descriptive name and index of image
+		_listView->Items->Add(_appdata->getLangString(categoryItem.keyString),i++);
+		// add image
+		imageList->Images->Add(_appdata->getImageFromPath(categoryItem.iconPath));
 	}
 	_listView->LargeImageList = imageList;
 }
@@ -33,6 +40,10 @@ void updateTrainList(Userdata^ _userdata, Appdata^ _appdata, ListBox^ _listBox)
 {
 	_listBox->Items->Clear();
 	for each (Train^ train in _userdata->trainList)
-		_listBox->Items->Add(train->Name);
+	{
+		if(train->Name != nullptr)
+			_listBox->Items->Add(train->Name);
+	}
+		
 
 }

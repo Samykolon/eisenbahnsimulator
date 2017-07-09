@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Map.h"
 #include "Train.h"
+#include "AppData.h"
 
 ref class Userdata
 {
@@ -10,6 +11,6 @@ public:
 	Userdata(int _height, int _width);
 	void SaveDataToFile(String^ filename);
 	void LoadDataFromFile(String ^filename);
-	void AddTrain(TrainType tt, int xi, int yi);
+	void AddTrain(Train ^_train);
 	int tileSize;
 };
