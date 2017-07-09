@@ -60,15 +60,15 @@ void Train::setOnRail(Rail ^ _rail)
 	}
 
 	//Find goalDirection
-	if (_rail->LeadsTo(Direction::North))
+	if (_rail->LeadsTo(Direction::North) && startDirection != Direction::North)
 	{
 		goalDirection = Direction::North;
 	}
-	else if (_rail->LeadsTo(Direction::West))
+	else if (_rail->LeadsTo(Direction::West) && startDirection != Direction::West)
 	{
 		goalDirection = Direction::West;
 	}
-	else if (_rail->LeadsTo(Direction::South))
+	else if (_rail->LeadsTo(Direction::South) && startDirection != Direction::South)
 	{
 		goalDirection = Direction::South;
 	}

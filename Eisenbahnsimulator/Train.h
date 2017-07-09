@@ -24,8 +24,8 @@ protected:
 	int tileSize;
 	Direction StartDirection;
 	Direction GoalDirection;
-	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
 public:
+	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
 	Pose CurrentPose; //A pose that describes the train's current position on the panel, including pixel coordinates and orientation
 	static Direction FindOppositeDirection(Direction dir);
 public:
