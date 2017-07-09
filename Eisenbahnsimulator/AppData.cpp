@@ -35,6 +35,15 @@ Appdata::Appdata()
 	trains->Add(L"train_steam", gcnew Train(TrainType::SteamEngine, "train_steam", L"Rails/Rail_Curve_LeftTop.png", 10));
 	trains->Add(L"train_diesel", gcnew Train(TrainType::DieselEngine, "train_diesel", L"Rails/Rail_Curve_LeftTop.png", 100));
 
+	tiles->Add(L"Tile_Rail_Switch_Bottom_Left", gcnew RailSwitch(Directions::WestEast, Direction::South, L"Rails/Rail_Switch_BottomLeft_No.png", L"Tile_Rail_Switch_Bottom_Left"));
+	tiles->Add(L"Tile_Rail_Switch_Bottom_Right", gcnew RailSwitch(Directions::EastWest, Direction::South, L"Rails/Rail_Switch_BottomRight_No.png", L"Tile_Rail_Switch_Bottom_Right"));
+	tiles->Add(L"Tile_Rail_Switch_Top_Left", gcnew RailSwitch(Directions::WestEast, Direction::North, L"Rails/Rail_Switch_TopLeft_No.png", L"Tile_Rail_Switch_Top_Left"));
+	tiles->Add(L"Tile_Rail_Switch_Top_Right", gcnew RailSwitch(Directions::EastWest, Direction::North, L"Rails/Rail_Switch_TopRight_No.png", L"Tile_Rail_Switch_Top_Right"));
+	tiles->Add(L"Tile_Rail_Switch_Left_Bottom", gcnew RailSwitch(Directions::SouthNorth, Direction::West, L"Rails/Rail_Switch_LeftBottom_No.png", L"Tile_Rail_Switch_Left_Bottom"));
+	tiles->Add(L"Tile_Rail_Switch_Left_Top", gcnew RailSwitch(Directions::NorthSouth, Direction::West, L"Rails/Rail_Switch_LeftTop_No.png", L"Tile_Rail_Switch_Left_Top"));
+	tiles->Add(L"Tile_Rail_Switch_Right_Bottom", gcnew RailSwitch(Directions::SouthNorth, Direction::East, L"Rails/Rail_Switch_RightBottom_No.png", L"Tile_Rail_Switch_Right_Left"));
+	tiles->Add(L"Tile_Rail_Switch_Right_Top", gcnew RailSwitch(Directions::NorthSouth, Direction::East, L"Rails/Rail_Switch_RightTop_No.png", L"Tile_Rail_Switch_Right_Top"));
+
 	tiles->Add(L"FoliageTree", gcnew Decoration(DecoType::FoliageTree, L"Rails/FoliageTree.png", "FoliageTree"));
 	tiles->Add(L"Conifer", gcnew Decoration(DecoType::Conifer, L"Rails/Conifer.png", "Conifer"));
 	tiles->Add(L"Bush", gcnew Decoration(DecoType::Bush, L"Rails/Bush.png", "Bush"));
