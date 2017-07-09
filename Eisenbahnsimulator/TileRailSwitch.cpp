@@ -1,9 +1,10 @@
 ﻿#include "TileRailSwitch.h"
 
-RailSwitch::RailSwitch(Directions railDir, Direction thirdDir, String^ imagePath, String^ name) : Rail(railDir, imagePath, name) {
+RailSwitch::RailSwitch(Directions railDir, Direction switchDir, Direction straightSwitch, String^ imagePath, String^ name) : Rail(railDir, imagePath, name) {
 	//TODO: Check if the switch direction and the rail directions are the same?
 	//TODO: Assign correct images
-	ThirdDirection = thirdDir;
+	SwitchDirection = switchDir;
+	StraightSwitchDirection = straightSwitch;
 }
 
 void RailSwitch::Switch(List<Train^> trains)
@@ -15,6 +16,12 @@ void RailSwitch::Switch(List<Train^> trains)
 			return;
 		}
 	}
-	//Insert switch code here
+	//Insert switch code here, and change ImagePath
+	if (IsStraight) {
+		//EndDirections = FixedDirection + SwitchDirection
+	}
+	else {
+		//EndDirections = FixedDirection + SwitchDirection
+	}
 }
 

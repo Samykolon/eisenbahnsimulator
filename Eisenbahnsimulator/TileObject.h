@@ -9,8 +9,6 @@ ref class TrainStop;
 ref class RailSwitch;
 ref class Decoraction;
 
-#include "Position.h"
-
 public ref class TileObject abstract : public ICloneable//A basic tile
 {
 protected:

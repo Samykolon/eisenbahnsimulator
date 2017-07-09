@@ -137,7 +137,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppData.cpp" />
-    <ClCompile Include="Position.cpp" />
     <ClCompile Include="TileDecoration.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -153,7 +152,6 @@
   <ItemGroup>
     <ClInclude Include="BetterPanel.h" />
     <ClInclude Include="Pose.h" />
-    <ClInclude Include="Position.h" />
     <ClInclude Include="TileDecoration.h" />
     <ClInclude Include="AppData.h" />
     <ClInclude Include="MainFrame.h">
