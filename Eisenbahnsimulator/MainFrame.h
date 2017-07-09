@@ -40,7 +40,7 @@ namespace Eisenbahnsimulator {
 		{
 			InitializeComponent();
 			appdata = gcnew Appdata();
-			userdata = gcnew Userdata(100,100); // Creates also map
+			userdata = gcnew Userdata(100, 100); // Creates also map
 			timer->Start();
 			// loadCategories
 			{
@@ -67,7 +67,7 @@ namespace Eisenbahnsimulator {
 			selectedItem = -1;
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::AllPaintingInWmPaint, true);
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::DoubleBuffer, true);
-			CoordinateOffset = Point(0, 0);			
+			CoordinateOffset = Point(0, 0);
 		}
 
 	protected:
@@ -454,8 +454,8 @@ namespace Eisenbahnsimulator {
 		int selectedItem;	//Number of selected toolbox item
 		int TileSize;	//Size of a tile in pixels
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
-			
-		Point CoordinateOffset;	
+
+		Point CoordinateOffset;
 
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
 	}
@@ -521,7 +521,7 @@ namespace Eisenbahnsimulator {
 					TileObject ^temp = static_cast<TileObject^>(appdata->getTile(selectedItemKey)->Clone());
 					userdata->map->SetTile(temp, X, Y);
 				}
-				else if(appdata->isTrain(selectedItemKey))
+				else if (appdata->isTrain(selectedItemKey))
 				{
 					Rail^ currentRail = dynamic_cast<Rail^>(userdata->map->GetTile(X, Y)); //Tries to cast the object into a Rail
 					if (currentRail != nullptr)
@@ -531,7 +531,7 @@ namespace Eisenbahnsimulator {
 						userdata->AddTrain(dynamic_cast<Train^>(train->Clone()));
 					}
 
-					updateTrainList(userdata,appdata,listBox1);
+					updateTrainList(userdata, appdata, listBox1);
 				}
 				panel1->Invalidate();
 			}
@@ -568,22 +568,22 @@ namespace Eisenbahnsimulator {
 			graphics->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), 0, 0, 2000, 2000); //Draw grass - what is better?
 
 			//Debug test
-							
+
 
 			for (int i = 0; i < userdata->map->GetCount(); i++)
 			{
-				
+
 				TileObject^ toBeDrawn = userdata->map->TileAt(i);
 				//Checks if the tile is out of range	
 				if (toBeDrawn->Position.X > CoordinateOffset.X &&
 					toBeDrawn->Position.Y > CoordinateOffset.Y &&
 					toBeDrawn->Position.X < maxXTile + CoordinateOffset.X &&
-					toBeDrawn->Position.Y < maxXTile + CoordinateOffset.Y) 
-				{ 			
+					toBeDrawn->Position.Y < maxXTile + CoordinateOffset.Y)
+				{
 					graphics->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath),
-									    (toBeDrawn->Position.X - 1 - CoordinateOffset.X) * TileSize,
-									    (toBeDrawn->Position.Y - 1 - CoordinateOffset.Y) * TileSize,
-									    TileSize, TileSize); //Draws all tiles in the tile map
+						(toBeDrawn->Position.X - 1 - CoordinateOffset.X) * TileSize,
+						(toBeDrawn->Position.Y - 1 - CoordinateOffset.Y) * TileSize,
+						TileSize, TileSize); //Draws all tiles in the tile map
 				}
 			}
 		}
@@ -591,17 +591,17 @@ namespace Eisenbahnsimulator {
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
 		for (int i = 0; i < userdata->map->GetCount(); i++)
 		{
-			
-			userdata->map->TileAt(i)->Tick(1.0/timer->Interval); //Let time pass for all objects		
+
+			userdata->map->TileAt(i)->Tick(1.0 / timer->Interval); //Let time pass for all objects		
 
 		}
 		for each (Train^ train in userdata->trainList)
 		{
-			train->tick(1.0 / timer->Interval);
+			train->tick(1.0 / timer->Interval, userdata->map);
 		}
 
 		panel1->Invalidate();
 
 	}
-};
+	};
 }

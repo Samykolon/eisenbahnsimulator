@@ -21,7 +21,7 @@ void Train::setOnRail(Rail ^ _rail)
 	int directionsFound = 0;
 	//Find startDirection
 	if (_rail->LeadsTo(Direction::East))
-	{ 
+	{
 		startDirection = Direction::East;
 	}
 	else if (_rail->LeadsTo(Direction::North))
@@ -32,14 +32,14 @@ void Train::setOnRail(Rail ^ _rail)
 	{
 		startDirection = Direction::West;
 	}
-	else 
+	else
 	{
 		throw gcnew System::Exception("Wrong track... " + "This shouldn't happen");
 	}
 
 	//Find goalDirection
 	if (_rail->LeadsTo(Direction::North))
-	{ 
+	{
 		goalDirection = Direction::North;
 	}
 	else if (_rail->LeadsTo(Direction::West))
@@ -50,7 +50,7 @@ void Train::setOnRail(Rail ^ _rail)
 	{
 		goalDirection = Direction::South;
 	}
-	else 
+	else
 	{
 		throw gcnew System::Exception("Wrong track... " + "This shouldn't happen");
 	}
@@ -105,13 +105,55 @@ void Train::TileSize::set(int _tileSize)
 	tileSize = _tileSize;
 }
 
-void Train::tick(double _time)
+void Train::tick(double _time, Map^ map)
 {
 	if (Tile == nullptr) return; // Not placed on a tile yet
 
 	TileProgress += Speed / 100; //Increase the train's progress
 	Rail^ rail = dynamic_cast<Rail^>(Tile);
+	Pose newPose;
 	if (rail != nullptr) {
-		CurrentPose = rail->Drive(StartDirection, TileProgress, TileSize); //Give train its newest pose;
+		newPose = rail->Drive(StartDirection, TileProgress, TileSize);
+		if (newPose.X != -1) { //Train is on the same tile
+			CurrentPose = newPose;   //Give train its newest pose;
+		}
+		else { //Need to fetch new tile
+			if (!(rail->Position.X == 0 && GoalDirection == Direction::West || rail->Position.X > map->Width && GoalDirection == Direction::East || rail->Position.Y == 0 && GoalDirection == Direction::North || rail->Position.Y > map->Height && GoalDirection == Direction::South)) { //Check if the train leaves the map boundaries
+				switch (GoalDirection)
+				{
+				case Direction::East:
+					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X + 1, Tile->Position.Y)); //Fetch next tile
+					if (rail != nullptr) { //Train is still on a rail
+						TileProgress = 0;
+						CurrentPose = rail->Drive(StartDirection, TileProgress, TileSize);
+					}
+					break;
+				case Direction::North:
+					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X, Tile->Position.Y - 1));
+					if (rail != nullptr) {
+						TileProgress = 0;
+						CurrentPose = rail->Drive(StartDirection, TileProgress, TileSize);
+					}
+					break;
+				case Direction::West:
+					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X - 1, Tile->Position.Y));
+					if (rail != nullptr) {
+						TileProgress = 0;
+						CurrentPose = rail->Drive(StartDirection, TileProgress, TileSize);
+					}
+					break;
+				case Direction::South:
+					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X, Tile->Position.Y + 1));
+					if (rail != nullptr) {
+						TileProgress = 0;
+						CurrentPose = rail->Drive(StartDirection, TileProgress, TileSize);
+					}
+					break;
+				default:
+					break;
+				}
+
+			}
+		}
 	}
 }

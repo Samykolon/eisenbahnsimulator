@@ -1,11 +1,10 @@
 ﻿#pragma once
 #include "TileObject.h"
 #include "TileRail.h"
+#include "Map.h"
 
-ref class Train;
 
 #include "AppData.h"
-
 
 using namespace System;
 
@@ -19,7 +18,7 @@ protected:
 	String^ imagePath;
 	double Speed;
 	double MaxSpeed;
-	double TileProgress;	//A number between 0 and 2+pi/4 (curve) or 4 that determines the location of the train on the tile
+	double TileProgress;	//A number between 0 and 2+pi/2 (curve) or 4 that determines the location of the train on the tile
 	int tileSize;
 	Direction StartDirection;
 	Direction GoalDirection;
@@ -41,7 +40,7 @@ public:
 		String^ get();
 		void set(String^ _name);
 	}
-	
+
 	property int TileSize
 	{
 		int get();
@@ -51,6 +50,6 @@ public:
 	virtual Object ^Clone();
 	virtual Object ^Clone(String ^_name);
 
-	void tick(double _time);
+	void tick(double _time, Map^ map);
 
 };
