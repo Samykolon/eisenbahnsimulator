@@ -117,9 +117,6 @@
     <Image Include="Rails\grass.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="Rails\Rail_Curve_LeftBottom.bmp">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
     <Image Include="Rails\Rail_Curve_LeftBottom.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
@@ -132,13 +129,7 @@
     <Image Include="Rails\Rail_Curve_LeftBottom_SignalRed.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="Rails\Rail_Curve_LeftBottomC.bmp">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
     <Image Include="Rails\Rail_Curve_LeftBottomC.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Curve_LeftTop.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Rails\Rail_Curve_LeftTop.png">
@@ -153,13 +144,7 @@
     <Image Include="Rails\Rail_Curve_LeftTop_SignalRed.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="Rails\Rail_Curve_LeftTopC.bmp">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
     <Image Include="Rails\Rail_Curve_LeftTopC.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Curve_RightBottom.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Rails\Rail_Curve_RightBottom.png">
@@ -174,13 +159,7 @@
     <Image Include="Rails\Rail_Curve_RightBottom_SignalRed.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="Rails\Rail_Curve_RightBottomC.bmp">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
     <Image Include="Rails\Rail_Curve_RightBottomC.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Curve_RightTop.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Rails\Rail_Curve_RightTop.png">
@@ -195,13 +174,7 @@
     <Image Include="Rails\Rail_Curve_RightTop_SignalRed.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="Rails\Rail_Curve_RightTopC.bmp">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
     <Image Include="Rails\Rail_Curve_RightTopC.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Normal_Hor.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Rails\Rail_Normal_Hor.png">
@@ -216,9 +189,6 @@
     <Image Include="Rails\Rail_Normal_Hor_SignalRed.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="Rails\Rail_Normal_Vert.bmp">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
     <Image Include="Rails\Rail_Normal_Vert.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
@@ -229,15 +199,6 @@
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Rails\Rail_Normal_Vert_SignalRed.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Switch_BL.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Switch_BL_C.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Rails\Rail_Switch_TR.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Rails\Signal_None.png">
@@ -277,6 +238,78 @@
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Rails\Station1.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_BottomLeft_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_BottomLeft_No.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_BottomLeft_Yes.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_BottomRight_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_BottomRight_No.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_BottomRight_Yes.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_LeftBottom_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_LeftBottom_No.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_LeftBottom_Yes.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_LeftTop_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_LeftTop_No.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_LeftTop_Yes.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_RightBottom_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_RightBottom_No.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_RightBottom_Yes.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_RightTop_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_RightTop_No.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_RightTop_Yes.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_TopLeft_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_TopLeft_No.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_TopLeft_Yes.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_TopRight_C.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_TopRight_No.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Switch_TopRight_Yes.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>

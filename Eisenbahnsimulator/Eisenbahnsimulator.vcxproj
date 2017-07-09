@@ -23,7 +23,6 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>Eisenbahnsimulator</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -188,47 +187,58 @@
     <Image Include="Rails\House.png" />
     <Image Include="Rails\House2.png" />
     <Image Include="Rails\House3.png" />
-    <Image Include="Rails\Rail_Curve_LeftBottom.bmp" />
     <Image Include="Rails\Rail_Curve_LeftBottom.png" />
-    <Image Include="Rails\Rail_Curve_LeftBottomC.bmp" />
     <Image Include="Rails\Rail_Curve_LeftBottomC.png" />
     <Image Include="Rails\Rail_Curve_LeftBottom_SignalGreen.png" />
     <Image Include="Rails\Rail_Curve_LeftBottom_SignalRed.png" />
     <Image Include="Rails\Rail_Curve_LeftBottom_Signal_C.png" />
-    <Image Include="Rails\Rail_Curve_LeftTop.bmp" />
     <Image Include="Rails\Rail_Curve_LeftTop.png" />
-    <Image Include="Rails\Rail_Curve_LeftTopC.bmp" />
     <Image Include="Rails\Rail_Curve_LeftTopC.png" />
     <Image Include="Rails\Rail_Curve_LeftTop_SignalGreen.png" />
     <Image Include="Rails\Rail_Curve_LeftTop_SignalRed.png" />
     <Image Include="Rails\Rail_Curve_LeftTop_Signal_C.png" />
-    <Image Include="Rails\Rail_Curve_RightBottom.bmp" />
     <Image Include="Rails\Rail_Curve_RightBottom.png" />
-    <Image Include="Rails\Rail_Curve_RightBottomC.bmp" />
     <Image Include="Rails\Rail_Curve_RightBottomC.png" />
     <Image Include="Rails\Rail_Curve_RightBottom_SignalGreen.png" />
     <Image Include="Rails\Rail_Curve_RightBottom_SignalRed.png" />
     <Image Include="Rails\Rail_Curve_RightBottom_Signal_C.png" />
-    <Image Include="Rails\Rail_Curve_RightTop.bmp" />
     <Image Include="Rails\Rail_Curve_RightTop.png" />
-    <Image Include="Rails\Rail_Curve_RightTopC.bmp" />
     <Image Include="Rails\Rail_Curve_RightTopC.png" />
     <Image Include="Rails\Rail_Curve_RightTop_SignalGreen.png" />
     <Image Include="Rails\Rail_Curve_RightTop_SignalRed.png" />
     <Image Include="Rails\Rail_Curve_RightTop_Signal_C.png" />
-    <Image Include="Rails\Rail_Normal_Hor.bmp" />
     <Image Include="Rails\Rail_Normal_Hor.png" />
     <Image Include="Rails\Rail_Normal_Hor_SignalBoth.png" />
     <Image Include="Rails\Rail_Normal_Hor_SignalGreen.png" />
     <Image Include="Rails\Rail_Normal_Hor_SignalRed.png" />
-    <Image Include="Rails\Rail_Normal_Vert.bmp" />
     <Image Include="Rails\Rail_Normal_Vert.png" />
     <Image Include="Rails\Rail_Normal_Vert_SignalBoth.png" />
     <Image Include="Rails\Rail_Normal_Vert_SignalGreen.png" />
     <Image Include="Rails\Rail_Normal_Vert_SignalRed.png" />
-    <Image Include="Rails\Rail_Switch_BL.png" />
-    <Image Include="Rails\Rail_Switch_BL_C.png" />
-    <Image Include="Rails\Rail_Switch_TR.png" />
+    <Image Include="Rails\Rail_Switch_BottomLeft_C.png" />
+    <Image Include="Rails\Rail_Switch_BottomLeft_No.png" />
+    <Image Include="Rails\Rail_Switch_BottomLeft_Yes.png" />
+    <Image Include="Rails\Rail_Switch_BottomRight_C.png" />
+    <Image Include="Rails\Rail_Switch_BottomRight_No.png" />
+    <Image Include="Rails\Rail_Switch_BottomRight_Yes.png" />
+    <Image Include="Rails\Rail_Switch_LeftBottom_C.png" />
+    <Image Include="Rails\Rail_Switch_LeftBottom_No.png" />
+    <Image Include="Rails\Rail_Switch_LeftBottom_Yes.png" />
+    <Image Include="Rails\Rail_Switch_LeftTop_C.png" />
+    <Image Include="Rails\Rail_Switch_LeftTop_No.png" />
+    <Image Include="Rails\Rail_Switch_LeftTop_Yes.png" />
+    <Image Include="Rails\Rail_Switch_RightBottom_C.png" />
+    <Image Include="Rails\Rail_Switch_RightBottom_No.png" />
+    <Image Include="Rails\Rail_Switch_RightBottom_Yes.png" />
+    <Image Include="Rails\Rail_Switch_RightTop_C.png" />
+    <Image Include="Rails\Rail_Switch_RightTop_No.png" />
+    <Image Include="Rails\Rail_Switch_RightTop_Yes.png" />
+    <Image Include="Rails\Rail_Switch_TopLeft_C.png" />
+    <Image Include="Rails\Rail_Switch_TopLeft_No.png" />
+    <Image Include="Rails\Rail_Switch_TopLeft_Yes.png" />
+    <Image Include="Rails\Rail_Switch_TopRight_C.png" />
+    <Image Include="Rails\Rail_Switch_TopRight_No.png" />
+    <Image Include="Rails\Rail_Switch_TopRight_Yes.png" />
     <Image Include="Rails\Signal_None.png" />
     <Image Include="Rails\Signal_SGreen.png" />
     <Image Include="Rails\Signal_SRed.png" />
