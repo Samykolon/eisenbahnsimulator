@@ -27,9 +27,11 @@ protected:
 	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
 public:
 	Pose CurrentPose; //A pose that describes the train's current position on the panel, including pixel coordinates and orientation
+	static Direction FindOppositeDirection(Direction dir);
 public:
 	Train(TrainType typ, String ^ nm, String^ _imagePath, int _maxSpeed);//, Direction start, Direction goal, Rail ^ to, String^ _imagePath, int tileSize);
-	void setOnRail(Rail^ _rail);
+	void setOnRail(Rail^ _rail); //Initializes the train's pose, directions, tileprogress
+	void setOnRail(Rail^ _rail, Direction startDir); //Initializes the train's directions coming from another rail
 #pragma region Properties
 	property String^ ImagePath
 	{

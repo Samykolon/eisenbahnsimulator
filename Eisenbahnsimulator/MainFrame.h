@@ -527,7 +527,9 @@ namespace Eisenbahnsimulator {
 					if (currentRail != nullptr)
 					{
 						Train ^train = appdata->getTrain(selectedItemKey);
+						train->TileSize = userdata->tileSize;
 						train->setOnRail(currentRail);
+						
 						userdata->AddTrain(dynamic_cast<Train^>(train->Clone()));
 					}
 
@@ -585,6 +587,12 @@ namespace Eisenbahnsimulator {
 						(toBeDrawn->Position.Y - 1 - CoordinateOffset.Y) * TileSize,
 						TileSize, TileSize); //Draws all tiles in the tile map
 				}
+			}
+
+			Pen^ redPen = gcnew Pen(Color::Red);
+			for each (Train^ train in userdata->trainList) { //Draw all trains' current poses
+				//MessageBox::Show(train->CurrentPose.X + " " + train->CurrentPose.Y);
+				graphics->DrawRectangle(redPen, train->CurrentPose.X, train->CurrentPose.Y, 3, 3);
 			}
 		}
 	}
