@@ -3,10 +3,7 @@
 
 public ref class SignalRail : Rail { //A rail with a signal
 private:
-	
-	double greenDuration;
-	double redDuration;
-	double timer;
+		
 	String ^imagePath1, ^imagePath2;
 	//TODO: ImagePath property
 public:
@@ -21,8 +18,7 @@ public:
 				return imagePath2;//(imagePath->Remove(imagePath->Length - 4) + L"_SignalRed.png");
 		}		
 	}
-	SignalRail(Directions dir, double gdur, double rdur, String^ imagePath_1, String^ imagePath_2, String ^name);
-	Pose Drive(Direction startDirection, double% tileProgress, int tileSize, double% speed, double maxSpeed, double speedLimit) override; //Returns the pixel position of a train on a rail
+	SignalRail(Directions dir, String^ imagePath_1, String^ imagePath_2, String ^name);
 	void Switch(); //Switches the signal from green to red an vice versa
 
 };

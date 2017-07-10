@@ -400,6 +400,7 @@ namespace Eisenbahnsimulator {
 			// 
 			// timer
 			// 
+			this->timer->Interval = 13;
 			this->timer->Tick += gcnew System::EventHandler(this, &MainFrame::timer_Tick);
 			// 
 			// MainFrame
@@ -604,12 +605,12 @@ namespace Eisenbahnsimulator {
 		for (int i = 0; i < userdata->map->GetCount(); i++)
 		{
 
-			userdata->map->TileAt(i)->Tick(1.0 / timer->Interval); //Let time pass for all objects		
+			userdata->map->TileAt(i)->Tick(timer->Interval / 1000.0); //Let time pass for all objects		
 
 		}
 		for each (Train^ train in userdata->trainList)
 		{
-			train->Tick(1.0 / timer->Interval, userdata->map);
+			train->Tick(timer->Interval / 1000.0, userdata->map);
 		}
 
 		panel1->Invalidate();
