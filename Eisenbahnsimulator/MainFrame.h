@@ -630,12 +630,19 @@ namespace Eisenbahnsimulator {
 						userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
 				}
 			}
-
+			Drawing2D::GraphicsState^ normalState = graphics->Save();
 			Pen^ redPen = gcnew Pen(Color::Red);
 			for each (Train^ train in userdata->trainList) { //Draw all trains' current poses
 				//MessageBox::Show(train->CurrentPose.X + " " + train->CurrentPose.Y);
-				graphics->DrawRectangle(redPen, train->CurrentPose.X, train->CurrentPose.Y, 3, 3);
-			}
+				
+				Image^ trainPic = Image::FromFile(train->ImagePath); //Is garbage collected
+				
+				float halfSize = trainPic->Size.Width / 2.0; //Assume the image is quadratic
+				graphics->TranslateTransform(halfSize + train->CurrentPose.X, halfSize + train->CurrentPose.Y);
+				graphics->RotateTransform(train->CurrentPose.Orientation);
+				graphics->DrawImage(trainPic, (float)halfSize, (float)halfSize);
+				graphics->Restore(normalState);
+			}			
 		}
 	}
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
