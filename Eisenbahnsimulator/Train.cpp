@@ -254,9 +254,13 @@ void Train::Tick(double _time, Map^ map)
 	if (rail != nullptr && MaxSpeed != 0) { //If the train is on a rail and actually able to drive
 		if (rail->IsGreen)
 		{
-			if (Speed < MaxSpeed) { //Accelerate train
-				Speed += _time * 10;
+			if (Speed < MaxSpeed && Speed < SpeedLimit) { //Accelerate train
+				Speed += 0.01;
 			}
+			else if (Speed > SpeedLimit)
+				Speed -= 0.01;
+			else if (SpeedLimit == MaxSpeed)
+				Speed = Speed;
 			TileProgress += Speed*_time;
 		}
 		newPose = rail->getPose(StartDirection, TileProgress, TileSize);
