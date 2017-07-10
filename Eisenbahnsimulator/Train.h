@@ -19,7 +19,6 @@ protected:
 	String^ name;
 	String^ imagePath;
 	double Speed;
-	double MaxSpeed;
 	double TileProgress;	//A number between 0 and 2+pi/2 (curve) or 4 that determines the location of the train on the tile
 	int tileSize;
 	Direction StartDirection;
@@ -28,6 +27,7 @@ public:
 	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
 	Pose CurrentPose; //A pose that describes the train's current position on the panel, including pixel coordinates and orientation
 	static Direction FindOppositeDirection(Direction dir);
+	double MaxSpeed;
 public:
 	Train(TrainType typ, String ^ nm, String^ _imagePath, int _maxSpeed);//, Direction start, Direction goal, Rail ^ to, String^ _imagePath, int tileSize);
 	void setOnRail(Rail^ _rail); //Initializes the train's pose, directions, tileprogress

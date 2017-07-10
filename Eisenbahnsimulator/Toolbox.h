@@ -47,6 +47,9 @@ void updateTrainList(Userdata^ _userdata, Appdata^ _appdata, ListBox^ _listBox, 
 			_listBox->Items->Add(train->Name);
 			_comboBox->Items->Add(train->Name);
 			
+			if(_listBox->Items->Count == 1)
+				_comboBox->Text = _listBox->GetItemText(_listBox->Items[0]);
+			
 		
 		}
 	}

@@ -366,6 +366,7 @@ namespace Eisenbahnsimulator {
 			this->button4->TabIndex = 5;
 			this->button4->Text = L"Zug entfernen";
 			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &MainFrame::button4_Click);
 			// 
 			// button2
 			// 
@@ -377,6 +378,7 @@ namespace Eisenbahnsimulator {
 			this->button2->TabIndex = 3;
 			this->button2->Text = L"Stop";
 			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MainFrame::button2_Click);
 			// 
 			// label2
 			// 
@@ -404,10 +406,11 @@ namespace Eisenbahnsimulator {
 			this->comboBox2->FormattingEnabled = true;
 			this->comboBox2->Location = System::Drawing::Point(296, 710);
 			this->comboBox2->Margin = System::Windows::Forms::Padding(4);
+			this->comboBox2->MaxDropDownItems = 100;
 			this->comboBox2->Name = L"comboBox2";
 			this->comboBox2->Size = System::Drawing::Size(265, 24);
 			this->comboBox2->TabIndex = 6;
-			this->comboBox2->Text = L"Auswahl Zug";
+			this->comboBox2->DropDownClosed += gcnew System::EventHandler(this, &MainFrame::comboBox2_DropDownClosed);
 			// 
 			// textBox1
 			// 
@@ -470,6 +473,8 @@ namespace Eisenbahnsimulator {
 #pragma endregion
 		Appdata^ appdata;
 		Userdata^ userdata;
+		Train^ SelectedTrain;
+		int i;
 
 		int selectedItem;	//Number of selected toolbox item
 		int TileSize;	//Size of a tile in pixels
@@ -642,5 +647,37 @@ namespace Eisenbahnsimulator {
 		panel1->Invalidate();
 
 	}
-	};
+	private: System::Void comboBox2_DropDownClosed(System::Object^  sender, System::EventArgs^  e) {
+
+		
+		String^ Name;
+		
+
+		if (listBox1->Items->Count == 1) {
+			i = 0;
+			Name = listBox1->GetItemText(listBox1->Items[0]);
+			MessageBox::Show(i.ToString());
+		}
+		else if (listBox1->Items->Count > 1) {
+			i = comboBox2->SelectedIndex;
+			Name = comboBox2->GetItemText(comboBox2->SelectedItem);
+			MessageBox::Show(i.ToString());
+		}
+
+		
+		SelectedTrain = userdata->trainList[i];
+			
+		
+	}
+private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	userdata->trainList->Remove(SelectedTrain);
+	updateTrainList(userdata, appdata, listBox1, comboBox2);
+
+}
+private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	SelectedTrain->MaxSpeed = 0;
+}
+};
 }
