@@ -36,18 +36,14 @@ void updateToolbox(int _categoryIndex, Appdata^ _appdata, ListView^ _listView)
 	_listView->LargeImageList = imageList;
 }
 
-void updateTrainList(Userdata^ _userdata, Appdata^ _appdata, ListBox^ _listBox, ComboBox^ _comboBox)
+void updateTrainList(Userdata^ _userdata, Appdata^ _appdata, ListBox^ _listBox)
 {
 	_listBox->Items->Clear();
-	_comboBox->Items->Clear();
 	
 	for each (Train^ train in _userdata->trainList)
 	{
 		if (train->Name != nullptr) {
-			_listBox->Items->Add(train->Name);
-			_comboBox->Items->Add(train->Name);
-			
-						
+			_listBox->Items->Add(train->Name);						
 		
 		}
 	}

@@ -12,5 +12,5 @@ public:
 
 public:
 	Rail(Directions _dir, String^ imagePath, String^ name);
-	virtual Pose Drive(Direction startDirection, double% tileProgress, int tileSize, double% speed, double maxSpeed); //Returns the pixel position of a train on a rail
+	virtual Pose Drive(Direction startDirection, double% tileProgress, int tileSize, double% speed, double maxSpeed, double speedLimit); //Returns the pixel position of a train on a rail
 };

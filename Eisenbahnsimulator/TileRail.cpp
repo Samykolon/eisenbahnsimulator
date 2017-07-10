@@ -69,11 +69,14 @@ inline Rail::Rail(Directions _dir, String^ imagePath, String^ name) :TileObject(
 	EndDirections = _dir;
 }
 
-Pose Rail::Drive(Direction startDirection, double% tileProgress, int tileSize, double% speed, double MaxSpeed) 
+Pose Rail::Drive(Direction startDirection, double% tileProgress, int tileSize, double% speed, double MaxSpeed, double speedLimit) 
 {
-	if (speed < MaxSpeed) { //Accelerate train
+	if (speed < MaxSpeed && speed < speedLimit) { //Accelerate train
 		speed += 1;
 	}
+	else if (speed > speedLimit)     //Slow train down
+		speed -= 1;
+
 	tileProgress += speed / 200.0;
 	//System::Windows::Forms::MessageBox::Show(tileProgress + " " + speed);
 	switch (EndDirections)

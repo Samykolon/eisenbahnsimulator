@@ -22,7 +22,7 @@ public:
 		}		
 	}
 	SignalRail(Directions dir, double gdur, double rdur, String^ imagePath_1, String^ imagePath_2, String ^name);
-	Pose Drive(Direction startDirection, double% tileProgress, int tileSize, double% speed, double maxSpeed) override; //Returns the pixel position of a train on a rail
+	Pose Drive(Direction startDirection, double% tileProgress, int tileSize, double% speed, double maxSpeed, double speedLimit) override; //Returns the pixel position of a train on a rail
 	void Switch(); //Switches the signal from green to red an vice versa
 
 };
