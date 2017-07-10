@@ -10,20 +10,6 @@ inline SignalRail::SignalRail(Directions dir, double gdur, double rdur, String^ 
 	
 }
 
-inline void SignalRail::Tick(double time)
-{
-	timer = timer + time*20; //Time passes
-	double completeTime = greenDuration + redDuration;
-	if (timer <= greenDuration) {
-		IsGreen = true;
-	}
-	else if (timer <= completeTime) {
-		IsGreen = false;
-	}
-	else {
-		timer = 0;
-	}
-}
 
 Pose SignalRail::Drive(Direction startDirection, double % tileProgress, int tileSize, double % speed, double maxSpeed)
 {
@@ -34,5 +20,15 @@ Pose SignalRail::Drive(Direction startDirection, double % tileProgress, int tile
 	else		
 		return Rail::Drive(startDirection, tileProgress, tileSize, sp, 0);
 	
+}
+
+void SignalRail::Switch()
+{
+	if (IsGreen) {
+		IsGreen = false;
+	}
+	else {
+		IsGreen = true;
+	}
 }
 
