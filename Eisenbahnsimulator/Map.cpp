@@ -38,7 +38,7 @@ void Map::SetTile(TileObject ^ _obj, int _posX, int _posY) //Sets the object at 
 		if (TMap[i]->Position == _obj->Position)
 		{
 			TMap->RemoveAt(i); //Remove objects that are overwritten
-			break; // TODO : Maybe dont break I don't know
+			break; 
 		}
 	}
 	TMap->Add(_obj); //Add object 	
