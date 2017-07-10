@@ -547,6 +547,12 @@ namespace Eisenbahnsimulator {
 			if (railSw != nullptr) {
 				railSw->Switch(userdata->trainList);
 			}
+			else {
+				SignalRail^ sRail = dynamic_cast<SignalRail^>(currentTile);
+				if (sRail != nullptr) {
+					sRail->Switch();
+				}
+			}
 		}
 	}
 
