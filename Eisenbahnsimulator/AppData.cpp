@@ -31,9 +31,9 @@ Appdata::Appdata()
 	tiles->Add(L"Tile_Rail_Signal_South_East", gcnew SignalRail(Directions::EastSouth, L"Rails/Rail_Curve_RightBottom_SignalGreen.png", L"Rails/Rail_Curve_RightBottom_SignalRed.png", L"Tile_Rail_Signal_West_East"));
 	tiles->Add(L"Tile_Rail_Signal_South_West", gcnew SignalRail(Directions::SouthWest, L"Rails/Rail_Curve_LeftBottom_SignalGreen.png", L"Rails/Rail_Curve_LeftBottom_SignalRed.png", L"Tile_Rail_Signal_West_East"));
 
-	trains->Add(L"train_electric", gcnew Train(TrainType::ElectricLocomotive, "train_electric", L"Rails/Rail_Curve_LeftTop.png", 50));
-	trains->Add(L"train_steam", gcnew Train(TrainType::SteamEngine, "train_steam", L"Rails/Rail_Curve_LeftTop.png", 10));
-	trains->Add(L"train_diesel", gcnew Train(TrainType::DieselEngine, "train_diesel", L"Rails/Rail_Curve_LeftTop.png", 100));
+	trains->Add(L"train_electric", gcnew Train(TrainType::ElectricLocomotive, "train_electric", L"Rails/Rail_Curve_LeftTop.png", 5));
+	trains->Add(L"train_steam", gcnew Train(TrainType::SteamEngine, "train_steam", L"Rails/Rail_Curve_LeftTop.png", 1));
+	trains->Add(L"train_diesel", gcnew Train(TrainType::DieselEngine, "train_diesel", L"Rails/Rail_Curve_LeftTop.png", 10));
 
 	tiles->Add(L"Tile_Rail_Switch_Bottom_Left", gcnew RailSwitch(Directions::WestEast, Direction::South, Direction::East, L"Rails/Rail_Switch_BottomLeft_No.png", L"Tile_Rail_Switch_Bottom_Left"));
 	tiles->Add(L"Tile_Rail_Switch_Bottom_Right", gcnew RailSwitch(Directions::EastWest, Direction::South, Direction::West, L"Rails/Rail_Switch_BottomRight_No.png", L"Tile_Rail_Switch_Bottom_Right"));
