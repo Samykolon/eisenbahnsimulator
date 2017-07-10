@@ -18,9 +18,9 @@ protected:
 	TrainType Type;
 	String^ name;
 	String^ imagePath;
-	double Speed;
 	double TileProgress;	//A number between 0 and 2+pi/2 (curve) or 4 that determines the location of the train on the tile
 	int tileSize;
+	double Speed;
 	Direction StartDirection;
 	Direction GoalDirection;
 public:
