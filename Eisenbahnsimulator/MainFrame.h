@@ -615,8 +615,12 @@ namespace Eisenbahnsimulator {
 
 		panel1->Invalidate();
 
-		if(SelectedTrain != nullptr && trackbarinuse == 0)
-			trackBar2->Value = SelectedTrain->CurrentSpeed;
+		if (SelectedTrain != nullptr && trackbarinuse == 0)
+			if (SelectedTrain->SpeedLimit == SelectedTrain->MaximumSpeed)
+				trackBar2->Value = SelectedTrain->MaximumSpeed * 10;
+			else
+				trackBar2->Value = SelectedTrain->CurrentSpeed * 10;
+
 
 	}
 
@@ -635,7 +639,8 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 }
 private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
 
-	SelectedTrain->SpeedLimit = trackBar2->Value;
+	if (SelectedTrain != nullptr)
+	SelectedTrain->SpeedLimit = trackBar2->Value/10;
 }
 private: System::Void radioButton4_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	
@@ -674,8 +679,9 @@ private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, Sys
 	if (SelectedTI > -1)
 	{
 		SelectedTrain = userdata->trainList[SelectedTI];
-		trackBar2->Value = SelectedTrain->CurrentSpeed;
-		trackBar2->Maximum = SelectedTrain->MaximumSpeed;
+		trackBar2->Maximum = SelectedTrain->MaximumSpeed*10;
+		trackBar2->Value = SelectedTrain->CurrentSpeed*10;
+
 
 		if (SelectedTrain->ForOrBack == 0)   // Forward and backward Direction 
 			radioButton2->Checked = true;
