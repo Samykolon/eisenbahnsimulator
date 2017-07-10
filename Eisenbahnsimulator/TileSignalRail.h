@@ -7,10 +7,10 @@ private:
 	String ^imagePath1, ^imagePath2;
 	//TODO: ImagePath property
 public:
-	Boolean IsGreen;
+	//Boolean IsGreen;
 	property String^ ImagePath {
 		String^ get() override{
-			if (IsGreen) {
+			if (isGreen) {
 				return imagePath1;//(imagePath->Remove(imagePath->Length - 4) + L"_SignalGreen.png");//Append correct signal to standard imagePath
 
 			}
