@@ -600,11 +600,12 @@ namespace Eisenbahnsimulator {
 				Image^ trainPic = Image::FromFile(train->ImagePath); //Is garbage collected
 				graphics->InterpolationMode = Drawing2D::InterpolationMode::HighQualityBicubic;
 				float halfSize = userdata->tileSize / 2.0; //Assume the image is quadratic
-				graphics->TranslateTransform(halfSize + train->CurrentPose.X, halfSize + train->CurrentPose.Y);
+				graphics->TranslateTransform(train->CurrentPose.X - halfSize, train->CurrentPose.Y - halfSize);
 				graphics->RotateTransform(-train->CurrentPose.Orientation);
-				graphics->TranslateTransform(-halfSize, -halfSize);
-				graphics->DrawImage(trainPic, (float)halfSize, (float)halfSize, (float)userdata->tileSize, (float)userdata->tileSize);
+				
+				graphics->DrawImage(trainPic, -halfSize, - halfSize, (float)userdata->tileSize, (float)userdata->tileSize);
 				graphics->ResetTransform();
+				//graphics->DrawImage(trainPic, (float)train->CurrentPose.X, (float)train->CurrentPose.Y, (float)userdata->tileSize, (float)userdata->tileSize);
 			}
 		}
 	}
