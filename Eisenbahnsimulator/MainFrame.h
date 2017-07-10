@@ -503,10 +503,10 @@ namespace Eisenbahnsimulator {
 	private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 		int X = CalcTileCoord(e->X);	//Calculates tile coordinates the user clicks on
 		int Y = CalcTileCoord(e->Y);
-		if(e->Button == System::Windows::Forms::MouseButtons::Left){
+		if (e->Button == System::Windows::Forms::MouseButtons::Left) {
 
 			if (userdata != nullptr) { //Checks if the user has created a TileMap
-								
+
 				if (selectedItem != -1)
 				{
 
@@ -528,7 +528,7 @@ namespace Eisenbahnsimulator {
 							train->setOnRail(currentRail);
 
 							userdata->AddTrain(dynamic_cast<Train^>(train->Clone()));
-							
+
 						}
 
 						updateTrainList(userdata, appdata, listBox1, comboBox2);
@@ -599,20 +599,20 @@ namespace Eisenbahnsimulator {
 						(toBeDrawn->Position.Y - 1 - CoordinateOffset.Y) * userdata->tileSize,
 						userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
 				}
-			}
-			Drawing2D::GraphicsState^ normalState = graphics->Save();
+			}			
 			Pen^ redPen = gcnew Pen(Color::Red);
 			for each (Train^ train in userdata->trainList) { //Draw all trains' current poses
 				//MessageBox::Show(train->CurrentPose.X + " " + train->CurrentPose.Y);
-				
+
 				Image^ trainPic = Image::FromFile(train->ImagePath); //Is garbage collected
-				
-				float halfSize = trainPic->Size.Width / 2.0; //Assume the image is quadratic
+				graphics->InterpolationMode = Drawing2D::InterpolationMode::HighQualityBicubic;
+				float halfSize = userdata->tileSize / 2.0; //Assume the image is quadratic
 				graphics->TranslateTransform(halfSize + train->CurrentPose.X, halfSize + train->CurrentPose.Y);
 				graphics->RotateTransform(train->CurrentPose.Orientation);
-				graphics->DrawImage(trainPic, (float)halfSize, (float)halfSize);
-				graphics->Restore(normalState);
-			}			
+				graphics->TranslateTransform(--halfSize, -halfSize);
+				graphics->DrawImage(trainPic, (float)halfSize, (float)halfSize, (float)userdata->tileSize, (float)userdata->tileSize);
+				graphics->ResetTransform();
+			}
 		}
 	}
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
@@ -632,7 +632,7 @@ namespace Eisenbahnsimulator {
 	}
 	private: System::Void comboBox2_DropDownClosed(System::Object^  sender, System::EventArgs^  e) {
 
-		
+
 
 		if (listBox1->Items->Count == 1) {
 			i = 0;
@@ -644,30 +644,30 @@ namespace Eisenbahnsimulator {
 			comboBox2->Text = "Zugauswahl";
 			return;
 		}
-			
 
-		
+
+
 		SelectedTrain = userdata->trainList[i];
 		trackBar2->Value = SelectedTrain->MaxSpeed;
-			
-		
+
+
 	}
-private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	userdata->trainList->Remove(SelectedTrain);
-	updateTrainList(userdata, appdata, listBox1, comboBox2);
-	if (listBox1->Items->Count < 1)
-		comboBox2->Text = "Zugauswahl";
-	
+		userdata->trainList->Remove(SelectedTrain);
+		updateTrainList(userdata, appdata, listBox1, comboBox2);
+		if (listBox1->Items->Count < 1)
+			comboBox2->Text = "Zugauswahl";
 
-}
-private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	SelectedTrain->MaxSpeed = 0;
-}
-private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	SelectedTrain->MaxSpeed = trackBar2->Value;
-}
-};
+		SelectedTrain->MaxSpeed = 0;
+	}
+	private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
+
+		SelectedTrain->MaxSpeed = trackBar2->Value;
+	}
+	};
 }
