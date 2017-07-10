@@ -5,11 +5,12 @@ RailSwitch::RailSwitch(Directions railDir, Direction switchDir, Direction straig
 	//TODO: Assign correct images
 	SwitchDirection = switchDir;
 	StraightSwitchDirection = straightSwitch;
+	FixedDirection = Train::FindOppositeDirection(straightSwitch);
+	IsStraight = true;
 }
 
 void RailSwitch::Switch(List<Train^>^ trains)
 {
-	System::Windows::Forms::MessageBox::Show("Old directions: " + EndDirections.ToString());
 	//Check if no train is on the same tile
 	for each (Train^ tr in trains)
 	{
@@ -21,11 +22,11 @@ void RailSwitch::Switch(List<Train^>^ trains)
 	if (IsStraight) {
 		EndDirections = AddDirections(FixedDirection, SwitchDirection); //Change logical enddirections
 		//TODO: Change Imagepath
-		System::Windows::Forms::MessageBox::Show("New directions: " + EndDirections.ToString());
+		IsStraight = false;
 	}
 	else {
 		EndDirections = AddDirections(FixedDirection, StraightSwitchDirection);
-		System::Windows::Forms::MessageBox::Show("New directions: " + EndDirections.ToString());
+		IsStraight = true;
 	}
 }
 
