@@ -66,16 +66,12 @@ inline Rail::Rail(Directions _dir, String^ imagePath, String^ name) :TileObject(
 	default:
 		break;
 	}*/
+	isGreen = true;
 	EndDirections = _dir;
 }
 
-Pose Rail::Drive(Direction startDirection, double% tileProgress, int tileSize, double% speed, double MaxSpeed)
+Pose Rail::getPose(Direction startDirection, double tileProgress, int tileSize)
 {
-	if (speed < MaxSpeed) { //Accelerate train
-		speed += 1;
-	}
-	tileProgress += speed / 200.0;
-	//System::Windows::Forms::MessageBox::Show(tileProgress + " " + speed);
 	switch (EndDirections)
 	{
 	case Directions::NorthEast:
@@ -232,4 +228,9 @@ Pose Rail::Drive(Direction startDirection, double% tileProgress, int tileSize, d
 		break;
 	}
 
+}
+
+bool Rail::IsGreen::get()
+{
+	return isGreen;
 }

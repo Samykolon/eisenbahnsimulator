@@ -7,10 +7,10 @@ private:
 	String ^imagePath1, ^imagePath2;
 	//TODO: ImagePath property
 public:
-	Boolean IsGreen;
+	//Boolean IsGreen;
 	property String^ ImagePath {
 		String^ get() override{
-			if (IsGreen) {
+			if (isGreen) {
 				return imagePath1;//(imagePath->Remove(imagePath->Length - 4) + L"_SignalGreen.png");//Append correct signal to standard imagePath
 
 			}
@@ -19,7 +19,6 @@ public:
 		}		
 	}
 	SignalRail(Directions dir, String^ imagePath_1, String^ imagePath_2, String ^name);
-	Pose Drive(Direction startDirection, double% tileProgress, int tileSize, double% speed, double maxSpeed) override; //Returns the pixel position of a train on a rail
 	void Switch(); //Switches the signal from green to red an vice versa
 
 };

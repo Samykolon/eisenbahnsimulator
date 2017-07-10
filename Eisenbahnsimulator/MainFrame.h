@@ -95,7 +95,7 @@ namespace Eisenbahnsimulator {
 
 	private: System::Windows::Forms::GroupBox^  groupBox3;
 
-	private: System::Windows::Forms::ComboBox^  comboBox2;
+
 	private: System::Windows::Forms::ComboBox^  ComboBoxCategorySelection;
 
 
@@ -155,7 +155,6 @@ namespace Eisenbahnsimulator {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->trackBar2 = (gcnew System::Windows::Forms::TrackBar());
-			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
@@ -249,7 +248,7 @@ namespace Eisenbahnsimulator {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel1->Location = System::Drawing::Point(222, 28);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(1195, 543);
+			this->panel1->Size = System::Drawing::Size(1195, 569);
 			this->panel1->TabIndex = 1;
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainFrame::panel1_Paint);
 			this->panel1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseDown);
@@ -317,13 +316,14 @@ namespace Eisenbahnsimulator {
 			this->radioButton4->Name = L"radioButton4";
 			this->radioButton4->Size = System::Drawing::Size(71, 17);
 			this->radioButton4->TabIndex = 6;
-			this->radioButton4->TabStop = true;
 			this->radioButton4->Text = L"rückwärts";
 			this->radioButton4->UseVisualStyleBackColor = true;
+			this->radioButton4->CheckedChanged += gcnew System::EventHandler(this, &MainFrame::radioButton4_CheckedChanged);
 			// 
 			// radioButton2
 			// 
 			this->radioButton2->AutoSize = true;
+			this->radioButton2->Checked = true;
 			this->radioButton2->Location = System::Drawing::Point(10, 83);
 			this->radioButton2->Name = L"radioButton2";
 			this->radioButton2->Size = System::Drawing::Size(65, 17);
@@ -373,27 +373,17 @@ namespace Eisenbahnsimulator {
 			this->trackBar2->TabIndex = 1;
 			this->trackBar2->TickStyle = System::Windows::Forms::TickStyle::TopLeft;
 			this->trackBar2->Scroll += gcnew System::EventHandler(this, &MainFrame::trackBar2_Scroll);
-			// 
-			// comboBox2
-			// 
-			this->comboBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
-			this->comboBox2->FormattingEnabled = true;
-			this->comboBox2->Location = System::Drawing::Point(222, 577);
-			this->comboBox2->MaxDropDownItems = 100;
-			this->comboBox2->Name = L"comboBox2";
-			this->comboBox2->Size = System::Drawing::Size(200, 21);
-			this->comboBox2->TabIndex = 6;
-			this->comboBox2->Text = L"Zugauswahl";
-			this->comboBox2->DropDownClosed += gcnew System::EventHandler(this, &MainFrame::comboBox2_DropDownClosed);
+			this->trackBar2->MouseEnter += gcnew System::EventHandler(this, &MainFrame::trackBar2_MouseEnter);
+			this->trackBar2->MouseLeave += gcnew System::EventHandler(this, &MainFrame::trackBar2_MouseLeave);
 			// 
 			// textBox1
 			// 
 			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->textBox1->Location = System::Drawing::Point(427, 575);
+			this->textBox1->Location = System::Drawing::Point(427, 603);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(991, 201);
+			this->textBox1->Size = System::Drawing::Size(991, 173);
 			this->textBox1->TabIndex = 8;
 			this->textBox1->Text = L"MessageBox/Konsole";
 			// 
@@ -406,9 +396,11 @@ namespace Eisenbahnsimulator {
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(201, 173);
 			this->listBox1->TabIndex = 9;
+			this->listBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MainFrame::listBox1_SelectedIndexChanged);
 			// 
 			// timer
 			// 
+			this->timer->Interval = 13;
 			this->timer->Tick += gcnew System::EventHandler(this, &MainFrame::timer_Tick);
 			// 
 			// MainFrame
@@ -418,7 +410,6 @@ namespace Eisenbahnsimulator {
 			this->ClientSize = System::Drawing::Size(1426, 782);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->listBox1);
-			this->Controls->Add(this->comboBox2);
 			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->panel1);
@@ -443,8 +434,9 @@ namespace Eisenbahnsimulator {
 #pragma endregion
 		Appdata^ appdata;
 		Userdata^ userdata;
-		Train^ SelectedTrain;
-		int i;
+		Train^ SelectedTrain; 
+		int SelectedTI = -1;    //Selected Trainindex - connected with the listbox
+		Boolean trackbarinuse = 0;  // Determines if user hovers over trackbar or not
 
 		int selectedItem;	//Number of selected toolbox item
 		int TileSize;	//Size of a tile in pixels
@@ -526,12 +518,13 @@ namespace Eisenbahnsimulator {
 							Train ^train = appdata->getTrain(selectedItemKey);
 							train->TileSize = userdata->tileSize;
 							train->setOnRail(currentRail);
+							train->ForOrBack = 0;    // set Direction to "Forward"
 
 							userdata->AddTrain(dynamic_cast<Train^>(train->Clone()));
 
 						}
 
-						updateTrainList(userdata, appdata, listBox1, comboBox2);
+						updateTrainList(userdata, appdata, listBox1);
 					}
 					panel1->Invalidate();
 				}
@@ -619,55 +612,84 @@ namespace Eisenbahnsimulator {
 		for (int i = 0; i < userdata->map->GetCount(); i++)
 		{
 
-			userdata->map->TileAt(i)->Tick(1.0 / timer->Interval); //Let time pass for all objects		
+			userdata->map->TileAt(i)->Tick(timer->Interval / 1000.0); //Let time pass for all objects		
 
 		}
 		for each (Train^ train in userdata->trainList)
 		{
-			train->Tick(1.0 / timer->Interval, userdata->map);
+			train->Tick(timer->Interval / 1000.0, userdata->map);
 		}
 
 		panel1->Invalidate();
 
+		if(SelectedTrain != nullptr && trackbarinuse == 0)
+			trackBar2->Value = SelectedTrain->CurrentSpeed;
+
 	}
-	private: System::Void comboBox2_DropDownClosed(System::Object^  sender, System::EventArgs^  e) {
 
+private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 
+	userdata->trainList->Remove(SelectedTrain);
+	updateTrainList(userdata, appdata, listBox1);
+	if (listBox1->Items->Count < 1)
+		listBox1->Text = "Liste der vorhandenen Züge";
+	
 
-		if (listBox1->Items->Count == 1) {
-			i = 0;
-		}
-		else if (listBox1->Items->Count > 1) {
-			i = comboBox2->SelectedIndex;
+}
+private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	SelectedTrain->SpeedLimit = 0;
+}
+private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
+
+	SelectedTrain->SpeedLimit = trackBar2->Value;
+}
+private: System::Void radioButton4_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+	
+	if (SelectedTrain != nullptr) {
+		if (radioButton4->Checked == true) {
+			SelectedTrain->ForOrBack = 1;
+			//SelectedTrain->MaximumSpeed = -30;
 		}
 		else {
-			comboBox2->Text = "Zugauswahl";
-			return;
+			SelectedTrain->ForOrBack = 0;
+			//SelectedTrain->MaximumSpeed *= -1;
 		}
-
-
-
-		SelectedTrain = userdata->trainList[i];
-		trackBar2->Value = SelectedTrain->MaxSpeed;
-
-
 	}
-	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void trackBar2_MouseEnter(System::Object^  sender, System::EventArgs^  e) {   
 
-		userdata->trainList->Remove(SelectedTrain);
-		updateTrainList(userdata, appdata, listBox1, comboBox2);
-		if (listBox1->Items->Count < 1)
-			comboBox2->Text = "Zugauswahl";
+	trackbarinuse = 1;
+}
+private: System::Void trackBar2_MouseLeave(System::Object^  sender, System::EventArgs^  e) {
 
+	trackbarinuse = 0;
+}
+private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 
+	if (listBox1->Items->Count == 1 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
+		SelectedTI = 0;   // If there is no train there yet
 	}
-	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-
-		SelectedTrain->MaxSpeed = 0;
+	else if (listBox1->Items->Count > 1) {
+		SelectedTI = listBox1->SelectedIndex;
 	}
-	private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
-
-		SelectedTrain->MaxSpeed = trackBar2->Value;
+	else {
+		listBox1->Text = "Liste der vorhandenen Züge";
+		return;
 	}
-	};
+
+	if (SelectedTI > -1)
+	{
+		SelectedTrain = userdata->trainList[SelectedTI];
+		trackBar2->Value = SelectedTrain->CurrentSpeed;
+		trackBar2->Maximum = SelectedTrain->MaximumSpeed;
+
+		if (SelectedTrain->ForOrBack == 0)   // Forward and backward Direction 
+			radioButton2->Checked = true;
+		else
+			radioButton4->Checked = true;
+	}
+
+}
+};
 }
