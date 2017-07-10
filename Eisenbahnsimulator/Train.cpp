@@ -81,7 +81,7 @@ void Train::setOnRail(Rail ^ _rail)
 	Tile = _rail;
 	StartDirection = startDirection;
 	GoalDirection = goalDirection;
-	CurrentPose = _rail->Drive(startDirection, TileProgress, tileSize, Speed, MaxSpeed, SpeedLimit);
+	CurrentPose = _rail->getPose(StartDirection, TileProgress, tileSize);
 	//Windows::Forms::MessageBox::Show(CurrentPose.X + " " + CurrentPose.Y + " " + StartDirection.ToString() + " " + tileSize);
 }
 
@@ -103,7 +103,7 @@ void Train::setOnRail(Rail ^ newRail, Direction _startDir)
 		TileProgress = 0;
 		StartDirection = FindOppositeDirection(_startDir);
 		Tile = newRail;
-		CurrentPose = newRail->Drive(StartDirection, TileProgress, tileSize, Speed, MaxSpeed, SpeedLimit);
+		CurrentPose = newRail->getPose(StartDirection, TileProgress, tileSize);
 
 		switch (newRail->EndDirections)
 		{
@@ -252,7 +252,14 @@ void Train::Tick(double _time, Map^ map)
 	Rail^ rail = dynamic_cast<Rail^>(Tile);	//Previous/current rail
 	Pose newPose;
 	if (rail != nullptr && MaxSpeed != 0) { //If the train is on a rail and actually able to drive
-		newPose = rail->Drive(StartDirection, TileProgress, TileSize, Speed, MaxSpeed, SpeedLimit);
+		if (rail->IsGreen)
+		{
+			if (Speed < MaxSpeed) { //Accelerate train
+				Speed += _time * 10;
+			}
+			TileProgress += Speed*_time;
+		}
+		newPose = rail->getPose(StartDirection, TileProgress, TileSize);
 
 		if (newPose.X != -1) { //Train is on the same tile 
 			//Windows::Forms::MessageBox::Show(newPose.X.ToString() + "TileProgress " + TileProgress);
