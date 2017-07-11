@@ -31,6 +31,24 @@ namespace Eisenbahnsimulator {
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
+
+	public ref class ExtendedListView : public System::Windows::Forms::ListView
+	{
+	public:
+		ExtendedListView();
+
+		virtual void KeyPress(KeyEventArgs e) override
+		{
+			if (e.KeyCode == Keys::W || e.KeyCode == Keys::A || e.KeyCode == Keys::S || e.KeyCode == Keys::D)
+			{
+				MessageBox::Show("Test");
+				return;
+			}			
+		}
+		
+	};
+
+
 	public ref class MainFrame : public System::Windows::Forms::Form
 	{
 		
@@ -111,7 +129,7 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::ListBox^  listBox1;
 	private: System::Windows::Forms::ToolStripMenuItem^  überToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  einstellungenToolStripMenuItem;
-	private: System::Windows::Forms::ListView^  listViewSelectElements;
+	private: ExtendedListView^  listViewSelectElements;
 
 	private: System::Windows::Forms::Timer^  timer;
 	private: System::Windows::Forms::SaveFileDialog^  saveFileDialog1;
@@ -148,7 +166,7 @@ namespace Eisenbahnsimulator {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->ComboBoxCategorySelection = (gcnew System::Windows::Forms::ComboBox());
-			this->listViewSelectElements = (gcnew System::Windows::Forms::ListView());
+			this->listViewSelectElements = (gcnew ExtendedListView());
 			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
 			this->radioButton4 = (gcnew System::Windows::Forms::RadioButton());
 			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
@@ -194,28 +212,28 @@ namespace Eisenbahnsimulator {
 			// neuToolStripMenuItem
 			// 
 			this->neuToolStripMenuItem->Name = L"neuToolStripMenuItem";
-			this->neuToolStripMenuItem->Size = System::Drawing::Size(181, 26);
+			this->neuToolStripMenuItem->Size = System::Drawing::Size(149, 26);
 			this->neuToolStripMenuItem->Text = L"Neu";
 			this->neuToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::neuToolStripMenuItem_Click);
 			// 
 			// speichernToolStripMenuItem
 			// 
 			this->speichernToolStripMenuItem->Name = L"speichernToolStripMenuItem";
-			this->speichernToolStripMenuItem->Size = System::Drawing::Size(181, 26);
+			this->speichernToolStripMenuItem->Size = System::Drawing::Size(149, 26);
 			this->speichernToolStripMenuItem->Text = L"Speichern";
 			this->speichernToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::speichernToolStripMenuItem_Click);
 			// 
 			// ladenToolStripMenuItem
 			// 
 			this->ladenToolStripMenuItem->Name = L"ladenToolStripMenuItem";
-			this->ladenToolStripMenuItem->Size = System::Drawing::Size(181, 26);
+			this->ladenToolStripMenuItem->Size = System::Drawing::Size(149, 26);
 			this->ladenToolStripMenuItem->Text = L"Laden";
 			this->ladenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::ladenToolStripMenuItem_Click);
 			// 
 			// schließenToolStripMenuItem
 			// 
 			this->schließenToolStripMenuItem->Name = L"schließenToolStripMenuItem";
-			this->schließenToolStripMenuItem->Size = System::Drawing::Size(181, 26);
+			this->schließenToolStripMenuItem->Size = System::Drawing::Size(149, 26);
 			this->schließenToolStripMenuItem->Text = L"Schließen";
 			this->schließenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::schließenToolStripMenuItem_Click);
 			// 
@@ -287,10 +305,12 @@ namespace Eisenbahnsimulator {
 			// 
 			// listViewSelectElements
 			// 
+			this->listViewSelectElements->Activation = System::Windows::Forms::ItemActivation::OneClick;
 			this->listViewSelectElements->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->listViewSelectElements->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->listViewSelectElements->ImeMode = System::Windows::Forms::ImeMode::NoControl;
 			this->listViewSelectElements->Location = System::Drawing::Point(7, 52);
 			this->listViewSelectElements->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->listViewSelectElements->MultiSelect = false;
@@ -438,6 +458,7 @@ namespace Eisenbahnsimulator {
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->menuStrip1);
+			this->KeyPreview = true;
 			this->MainMenuStrip = this->menuStrip1;
 			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->MinimumSize = System::Drawing::Size(797, 593);
@@ -445,6 +466,7 @@ namespace Eisenbahnsimulator {
 			this->ShowIcon = false;
 			this->Text = L"Eisenbahnsimulator";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
+			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainFrame::MainFrame_KeyPress);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->groupBox1->ResumeLayout(false);
@@ -464,6 +486,7 @@ namespace Eisenbahnsimulator {
 
 		int selectedItem;	//Number of selected toolbox item
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
+		void CheckMessageBox();
 
 		Point CoordinateOffset;
 
@@ -544,6 +567,8 @@ namespace Eisenbahnsimulator {
 							train->DrivesForward = 1;    // set Direction to "Forward"
 
 							userdata->AddTrain(dynamic_cast<Train^>(train->Clone()));
+							CheckMessageBox();
+							textBox1->AppendText(train->Name + L" wurde erfolgreich hinzugefügt!\r\n");
 							
 						}
 
@@ -678,13 +703,11 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 		}
 	}
 	if (listBox1->Items->Count > 0 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
-		if (textBox1->Text == "MessageBox/Konsole")
-			textBox1->Clear();
+		CheckMessageBox();
 		textBox1->AppendText(L"Alle Züge wurden gestoppt!\r\n");
 	}
 	else {
-		if (textBox1->Text == "MessageBox/Konsole")
-			textBox1->Clear();
+		CheckMessageBox();
 		textBox1->AppendText(L"Keine Züge vorhanden!\r\n");
 	}
 
@@ -763,7 +786,10 @@ private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, 
 			bf->Serialize(fs, userdata);
 		} 
 		fs->Close();
+		CheckMessageBox();
+		textBox1->AppendText(L"Schienennetz wurde erfolgreich gespeichert!\r\n");
 	}
+
 	
 }
 private: System::Void ladenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -776,7 +802,13 @@ private: System::Void ladenToolStripMenuItem_Click(System::Object^  sender, Syst
 		fs->Close();
 		panel1->Invalidate();
 		updateTrainList(userdata, appdata, listBox1);
+		CheckMessageBox();
+		textBox1->AppendText(L"Schienennetz wurde erfolgreich geladen!\r\n");
 	}
+}
+private: System::Void MainFrame_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	panel1->Focus();
+	MessageBox::Show("Test");
 }
 };
 }
