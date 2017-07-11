@@ -595,17 +595,26 @@ namespace Eisenbahnsimulator {
 			}
 		}
 		else if (e->Button == System::Windows::Forms::MouseButtons::Right) {
-			TileObject^ currentTile = userdata->map->GetTile(X, Y);
-			RailSwitch^ railSw = dynamic_cast<RailSwitch^>(currentTile);
-			if (railSw != nullptr) {
-				railSw->Switch(userdata->trainList);
-			}
-			else {
-				SignalRail^ sRail = dynamic_cast<SignalRail^>(currentTile);
-				if (sRail != nullptr) {
-					sRail->Switch();
+			if (selectedItem == -1)
+			{
+				TileObject^ currentTile = userdata->map->GetTile(X, Y);
+				RailSwitch^ railSw = dynamic_cast<RailSwitch^>(currentTile);
+				if (railSw != nullptr) {
+					railSw->Switch(userdata->trainList);
+				}
+				else {
+					SignalRail^ sRail = dynamic_cast<SignalRail^>(currentTile);
+					if (sRail != nullptr) {
+						sRail->Switch();
+					}
 				}
 			}
+			else
+			{
+				selectedItem = -1;
+				listViewSelectElements->SelectedIndices->Clear();
+			}
+
 		}
 
 		else if (e->Button == System::Windows::Forms::MouseButtons::Middle) {
