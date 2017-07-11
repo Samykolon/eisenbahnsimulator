@@ -699,7 +699,7 @@ namespace Eisenbahnsimulator {
 				graphics->DrawImage(trainPic, (float)train->CurrentPose.X - halfSize, (float)train->CurrentPose.Y -halfSize, (float)userdata->tileSize, (float)userdata->tileSize);			
 			}
 			
-			Pen^ penRed = gcnew Pen(Color::Red);
+			Pen^ penRed = gcnew Pen(Color::Green);
 			// Highlights the tile where the mouse is over
 			if (mouseOverPanel)
 			{
@@ -943,6 +943,10 @@ private: System::Void panel1_MouseLeave(System::Object^  sender, System::EventAr
 				 userdata->tileSize += value;
 			 else if ((userdata->tileSize == 140) && value < 0)
 				 userdata->tileSize += value;
+			 for each (Train^ tr in userdata->trainList)
+			 {
+				 tr->TileSize = userdata->tileSize;
+			 }
 
 		 }
 };
