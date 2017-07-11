@@ -32,7 +32,7 @@ Appdata::Appdata()
 	tiles->Add(L"Tile_Rail_Signal_South_West", gcnew SignalRail(Directions::SouthWest, L"Rails/Rail_Curve_LeftBottom_SignalGreen.png", L"Rails/Rail_Curve_LeftBottom_SignalRed.png", L"Tile_Rail_Signal_West_East"));
 	
 	trains->Add(L"train_electric", gcnew Train(TrainType::ElectricLocomotive, "Elektrischer Zug", L"Rails/Bush.png", 5));
-	trains->Add(L"train_steam", gcnew Train(TrainType::SteamEngine, "Dampflok", L"Rails/Bush.png", 1));
+	trains->Add(L"train_steam", gcnew Train(TrainType::SteamEngine, "Dampflok", L"Rails/SteamTrain1.png", 1));
 	trains->Add(L"train_diesel", gcnew Train(TrainType::DieselEngine, "Dieselzug", L"Rails/Bush.png", 10));
 
 	tiles->Add(L"Tile_Rail_Switch_Bottom_Left", gcnew RailSwitch(Directions::WestEast, Direction::South, Direction::East, L"Rails/Rail_Switch_BottomLeft_No.png", L"Tile_Rail_Switch_Bottom_Left"));
@@ -90,7 +90,7 @@ Appdata::Appdata()
 	// Items in train category in this order
 	categoryTrains->Add(CategoryItem(L"train_electric", L"Rails/House.png"));
 	categoryTrains->Add(CategoryItem(L"train_diesel", L"Rails/House.png"));
-	categoryTrains->Add(CategoryItem(L"train_steam", L"Rails/House.png"));
+	categoryTrains->Add(CategoryItem(L"train_steam", L"Rails/SteamTrain1.png"));
 
 	categoryDecorations->Add(CategoryItem(L"FoliageTree", L"Rails/FoliageTree.png"));
 	categoryDecorations->Add(CategoryItem(L"Conifer", L"Rails/Conifer.png"));
