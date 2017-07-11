@@ -517,6 +517,8 @@ namespace Eisenbahnsimulator {
 				else {
 					userdata->map = gcnew Map(sizeX, sizeY); //Create new map
 					panel1->Invalidate(); //Draw main map
+					textBox1->AppendText(L"Neue Arbeitsfläche wurde erfolgreich erstellt!!\r\n");
+					
 				}
 			}
 			timer->Start();
@@ -772,6 +774,10 @@ private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, Sys
 }
 private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
+	saveFileDialog1->DefaultExt = L".mpd";
+	saveFileDialog1->AddExtension;
+	saveFileDialog1->Filter = L"Map-Datei (*.mpd)|*.mpd";
+	
 	if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 	{
 		System::IO::FileStream^ fs = System::IO::File::Create(saveFileDialog1->FileName);
@@ -786,19 +792,32 @@ private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, 
 	
 	
 }
-private: System::Void ladenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void ladenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-	{
-		System::IO::FileStream^ fs = System::IO::File::OpenRead(openFileDialog1->FileName);
-		BinaryFormatter^ bf = gcnew BinaryFormatter();
-		userdata = (Userdata^)bf->Deserialize(fs);
-		fs->Close();
-		panel1->Invalidate();
-		updateTrainList(userdata, appdata, listBox1);
-		CheckMessageBox();
-		textBox1->AppendText(L"Schienennetz wurde erfolgreich geladen!\r\n");
-	}
+		openFileDialog1->FileName = "";
+		openFileDialog1->DefaultExt = L".mpd";
+		openFileDialog1->AddExtension;
+		openFileDialog1->Filter = L"Map-Datei (*.mpd)|*.mpd";
+
+		try {
+			if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+			{
+				System::IO::FileStream^ fs = System::IO::File::OpenRead(openFileDialog1->FileName);
+				BinaryFormatter^ bf = gcnew BinaryFormatter();
+				userdata = (Userdata^)bf->Deserialize(fs);
+				fs->Close();
+				panel1->Invalidate();
+				updateTrainList(userdata, appdata, listBox1);
+				CheckMessageBox();
+				textBox1->AppendText(L"Schienennetz wurde erfolgreich geladen!\r\n");
+			}
+		}
+		catch (Exception^ ex)
+		{
+			textBox1->AppendText(L"Ungültiges Format/Datei fehlerhaft!");
+		}
+		
+	
 	}
 private: System::Void MainFrame_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
 	panel1->Focus();
