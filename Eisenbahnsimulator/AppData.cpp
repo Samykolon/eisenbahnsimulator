@@ -50,7 +50,7 @@ Appdata::Appdata()
 	tiles->Add(L"House", gcnew Decoration(DecoType::House, L"Rails/House.png", "House"));
 	tiles->Add(L"House2", gcnew Decoration(DecoType::House, L"Rails/House2.png", "House2"));
 	tiles->Add(L"House3", gcnew Decoration(DecoType::House, L"Rails/House3.png", "House3"));
-	tiles->Add(L"Station", gcnew Decoration(DecoType::House, L"Rails/Station.png", "Station"));
+	tiles->Add(L"Station", gcnew Decoration(DecoType::House, L"Rails/Station1.png", "Station"));
 
 	tiles->Add(L"Tile_Rail_Stop_East_West", gcnew TrainStop(Directions::EastWest, 100000, L"Rails/Rail_Stop_Hor.png", L"Tile_Rail_Stop_East_West"));
 	tiles->Add(L"Tile_Rail_Stop_North_South", gcnew TrainStop(Directions::NorthSouth, 100000, L"Rails/Rail_Stop_Vert.png", L"Tile_Rail_Stop_North_South"));
