@@ -66,7 +66,7 @@ namespace Eisenbahnsimulator {
 			selectedItem = -1;
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::AllPaintingInWmPaint, true);
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::DoubleBuffer, true);
-			CoordinateOffset = Point(0, 0);
+			CoordinateOffset = Point(128,128);
 		}
 
 	protected:
@@ -516,8 +516,9 @@ namespace Eisenbahnsimulator {
 	}
 
 	private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-		int X = CalcTileCoord(e->X);	//Calculates tile coordinates the user clicks on
-		int Y = CalcTileCoord(e->Y);
+		int X = CalcTileCoord(e->X + CoordinateOffset.X);	//Calculates the logical tile coordinates the user clicks on
+		int Y = CalcTileCoord(e->Y + CoordinateOffset.Y);
+		
 		if(e->Button == System::Windows::Forms::MouseButtons::Left){
 
 			if (userdata != nullptr) { //Checks if the user has created a TileMap
@@ -592,6 +593,7 @@ namespace Eisenbahnsimulator {
 	}
 
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  paintEventArgs) { //Draws everything
+		
 
 		if (userdata != nullptr) { //If a TileMap has been created
 			int maxXTile = Math::Min(userdata->map->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
@@ -608,7 +610,7 @@ namespace Eisenbahnsimulator {
 			//}
 
 			graphics->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), 0, 0, 2000, 2000); //Draw grass - what is better?
-
+			graphics->TranslateTransform(-CoordinateOffset.X, -CoordinateOffset.Y);
 			//Debug test
 
 
@@ -617,16 +619,16 @@ namespace Eisenbahnsimulator {
 
 				TileObject^ toBeDrawn = userdata->map->TileAt(i);
 				//Checks if the tile is out of range	
-				if (toBeDrawn->Position.X > CoordinateOffset.X &&
+				/*if (toBeDrawn->Position.X > CoordinateOffset.X &&
 					toBeDrawn->Position.Y > CoordinateOffset.Y &&
 					toBeDrawn->Position.X < maxXTile + CoordinateOffset.X &&
 					toBeDrawn->Position.Y < maxXTile + CoordinateOffset.Y)
-				{
+				{*/
 					graphics->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath),
-						(toBeDrawn->Position.X - 1 - CoordinateOffset.X) * userdata->tileSize,
-						(toBeDrawn->Position.Y - 1 - CoordinateOffset.Y) * userdata->tileSize,
+						(toBeDrawn->Position.X - 1 ) * userdata->tileSize,
+						(toBeDrawn->Position.Y - 1 ) * userdata->tileSize,
 						userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
-				}
+				/*}*/
 			}
 
 			Pen^ redPen = gcnew Pen(Color::Red);
