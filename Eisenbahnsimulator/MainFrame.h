@@ -278,6 +278,7 @@ namespace Eisenbahnsimulator {
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainFrame::panel1_Paint);
 			this->panel1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseDown);
 			this->panel1->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseMove);
+			this->panel1->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseUp);
 			// 
 			// groupBox1
 			// 
@@ -601,12 +602,10 @@ namespace Eisenbahnsimulator {
 		}
 
 		else if (e->Button == System::Windows::Forms::MouseButtons::Middle) {
-			if (userdata->map->GetTile(X, Y) != nullptr) {
-				TileObject^ obj = userdata->map->GetTile(X, Y);
-				userdata->map->DeleteTile(obj, X, Y);
-				panel1->Invalidate();
-			}
-
+			
+			xWhenMiddleButtonPressed = e->X;
+			yWhenMiddleButtonPressed = e->Y;
+			// delete function in Mouse up event
 		}
 	}
 
@@ -657,9 +656,9 @@ namespace Eisenbahnsimulator {
 			int maxXTile = Math::Min(userdata->map->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
 			int maxYTile = Math::Min(userdata->map->Height, CalcTileCoord(panel1->Height - 2));
 			Graphics^ graphics = paintEventArgs->Graphics;
-
-			graphics->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), 0, 0, 2000, 2000); //Draw grass - what is better?
 			graphics->TranslateTransform(-CoordinateOffset.X, -CoordinateOffset.Y); //Move the panel
+
+			graphics->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), CoordinateOffset.X - CoordinateOffset.X%userdata->tileSize, CoordinateOffset.Y - CoordinateOffset.Y%userdata->tileSize, 2000, 2000); //Draw grass - what is better?
 			//Debug test
 
 			for (int i = 0; i < userdata->map->GetCount(); i++)
@@ -845,6 +844,7 @@ namespace Eisenbahnsimulator {
 	}
 	private:
 		int x, y;
+		int xWhenMiddleButtonPressed, yWhenMiddleButtonPressed;
 	private: System::Void panel1_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 		int deltaX = e->X - x;
 		int deltaY = e->Y - y;
@@ -861,5 +861,22 @@ namespace Eisenbahnsimulator {
 			if (CoordinateOffset.Y > userdata->map->Height * userdata->tileSize) CoordinateOffset.Y = userdata->map->Height * userdata->tileSize;
 		}
 	}
+private: System::Void panel1_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+	int X = CalcTileCoord(e->X + CoordinateOffset.X);	//Calculates the logical tile coordinates the user clicks on
+	int Y = CalcTileCoord(e->Y + CoordinateOffset.Y);
+	if (e->Button == System::Windows::Forms::MouseButtons::Middle)
+	{
+		// delete tile if not moved
+		if (e->X == xWhenMiddleButtonPressed && e->Y == yWhenMiddleButtonPressed)
+		{
+			if (userdata->map->GetTile(X, Y) != nullptr) {
+				TileObject^ obj = userdata->map->GetTile(X, Y);
+				userdata->map->DeleteTile(obj, X, Y);
+				panel1->Invalidate();
+			}
+		}
+	}
+	}
+
 };
 }
