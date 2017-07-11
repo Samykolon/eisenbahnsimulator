@@ -31,5 +31,9 @@ void Eisenbahnsimulator::MainFrame::CheckMessageBox()
 		textBox1->Clear();
 		
 }
-
-
+/*
+Eisenbahnsimulator::ExtendedListView::ExtendedListView()
+{
+	//throw gcnew System::NotImplementedException();
+}
+*/
