@@ -32,7 +32,4 @@ void Eisenbahnsimulator::MainFrame::CheckMessageBox()
 		
 }
 
-Eisenbahnsimulator::ExtendedListView::ExtendedListView()
-{
-	//throw gcnew System::NotImplementedException();
-}
+

@@ -50,8 +50,10 @@ Appdata::Appdata()
 	tiles->Add(L"House", gcnew Decoration(DecoType::House, L"Rails/House.png", "House"));
 	tiles->Add(L"House2", gcnew Decoration(DecoType::House, L"Rails/House2.png", "House2"));
 	tiles->Add(L"House3", gcnew Decoration(DecoType::House, L"Rails/House3.png", "House3"));
+	tiles->Add(L"Station", gcnew Decoration(DecoType::House, L"Rails/Station.png", "Station"));
 
-	tiles->Add(L"Station", gcnew TrainStop(Directions::EastWest, 1, L"Rails/Station1.png", L"Station"));
+	tiles->Add(L"Tile_Rail_Stop_East_West", gcnew TrainStop(Directions::EastWest, 100000, L"Rails/Rail_Stop_Hor.png", L"Tile_Rail_Stop_East_West"));
+	tiles->Add(L"Tile_Rail_Stop_North_South", gcnew TrainStop(Directions::NorthSouth, 100000, L"Rails/Rail_Stop_Vert.png", L"Tile_Rail_Stop_North_South"));
 
 	// Create Categories for Toolbox
 	List<CategoryItem>^ categoryRails = gcnew List<CategoryItem>;
@@ -96,8 +98,10 @@ Appdata::Appdata()
 	categoryDecorations->Add(CategoryItem(L"House", L"Rails/House.png"));
 	categoryDecorations->Add(CategoryItem(L"House2", L"Rails/House2.png"));
 	categoryDecorations->Add(CategoryItem(L"House3", L"Rails/House3.png"));
+	categoryDecorations->Add(CategoryItem(L"Station", L"Rails/Station1.png"));
 
-	categoryRailStop->Add(CategoryItem(L"Station", L"Rails/Station1.png"));
+	categoryRailStop->Add(CategoryItem(L"Tile_Rail_Stop_East_West", L"Rails/Rail_Stop_Hor.png"));
+	categoryRailStop->Add(CategoryItem(L"Tile_Rail_Stop_North_South", L"Rails/Rail_Stop_Vert.png"));
 
 
 
@@ -177,8 +181,10 @@ Appdata::Appdata()
 	lang->Add(L"House", L"Haus");
 	lang->Add(L"House2", L"Haus");
 	lang->Add(L"House3", L"Haus");
-
 	lang->Add(L"Station", L"Bahnhof");
+	
+	lang->Add(L"Tile_Rail_Stop_East_West", L"Halteschiene");
+	lang->Add(L"Tile_Rail_Stop_North_South", L"Halteschiene");
 
 	lang->Add(L"Category_Rails", L"Schienen");
 	lang->Add(L"Category_Trains", L"Züge");
