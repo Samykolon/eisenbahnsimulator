@@ -248,7 +248,7 @@ namespace Eisenbahnsimulator {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel1->Location = System::Drawing::Point(296, 34);
-			this->panel1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->panel1->Margin = System::Windows::Forms::Padding(4);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(1593, 700);
 			this->panel1->TabIndex = 1;
@@ -262,9 +262,9 @@ namespace Eisenbahnsimulator {
 			this->groupBox1->Controls->Add(this->ComboBoxCategorySelection);
 			this->groupBox1->Controls->Add(this->listViewSelectElements);
 			this->groupBox1->Location = System::Drawing::Point(17, 34);
-			this->groupBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->groupBox1->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Padding = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->groupBox1->Padding = System::Windows::Forms::Padding(4);
 			this->groupBox1->Size = System::Drawing::Size(268, 700);
 			this->groupBox1->TabIndex = 2;
 			this->groupBox1->TabStop = false;
@@ -307,9 +307,9 @@ namespace Eisenbahnsimulator {
 			this->groupBox3->Controls->Add(this->label2);
 			this->groupBox3->Controls->Add(this->trackBar2);
 			this->groupBox3->Location = System::Drawing::Point(293, 742);
-			this->groupBox3->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->groupBox3->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox3->Name = L"groupBox3";
-			this->groupBox3->Padding = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->groupBox3->Padding = System::Windows::Forms::Padding(4);
 			this->groupBox3->Size = System::Drawing::Size(268, 212);
 			this->groupBox3->TabIndex = 4;
 			this->groupBox3->TabStop = false;
@@ -319,7 +319,7 @@ namespace Eisenbahnsimulator {
 			// 
 			this->radioButton4->AutoSize = true;
 			this->radioButton4->Location = System::Drawing::Point(164, 102);
-			this->radioButton4->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton4->Margin = System::Windows::Forms::Padding(4);
 			this->radioButton4->Name = L"radioButton4";
 			this->radioButton4->Size = System::Drawing::Size(89, 21);
 			this->radioButton4->TabIndex = 6;
@@ -332,7 +332,7 @@ namespace Eisenbahnsimulator {
 			this->radioButton2->AutoSize = true;
 			this->radioButton2->Checked = true;
 			this->radioButton2->Location = System::Drawing::Point(13, 102);
-			this->radioButton2->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton2->Margin = System::Windows::Forms::Padding(4);
 			this->radioButton2->Name = L"radioButton2";
 			this->radioButton2->Size = System::Drawing::Size(82, 21);
 			this->radioButton2->TabIndex = 5;
@@ -345,7 +345,7 @@ namespace Eisenbahnsimulator {
 			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->button4->Location = System::Drawing::Point(13, 139);
-			this->button4->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->button4->Margin = System::Windows::Forms::Padding(4);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(247, 28);
 			this->button4->TabIndex = 5;
@@ -357,7 +357,7 @@ namespace Eisenbahnsimulator {
 			// 
 			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->button2->Location = System::Drawing::Point(12, 175);
-			this->button2->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->button2->Margin = System::Windows::Forms::Padding(4);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(247, 28);
 			this->button2->TabIndex = 3;
@@ -378,7 +378,7 @@ namespace Eisenbahnsimulator {
 			// trackBar2
 			// 
 			this->trackBar2->Location = System::Drawing::Point(8, 26);
-			this->trackBar2->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->trackBar2->Margin = System::Windows::Forms::Padding(4);
 			this->trackBar2->Maximum = 110;
 			this->trackBar2->Name = L"trackBar2";
 			this->trackBar2->Size = System::Drawing::Size(251, 56);
@@ -393,7 +393,7 @@ namespace Eisenbahnsimulator {
 			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->textBox1->Location = System::Drawing::Point(569, 742);
-			this->textBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->textBox1->Margin = System::Windows::Forms::Padding(4);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(1320, 212);
@@ -407,7 +407,7 @@ namespace Eisenbahnsimulator {
 			this->listBox1->ItemHeight = 16;
 			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(1) { L"Liste der vorhandenen Züge" });
 			this->listBox1->Location = System::Drawing::Point(17, 742);
-			this->listBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->listBox1->Margin = System::Windows::Forms::Padding(4);
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(267, 212);
 			this->listBox1->TabIndex = 9;
@@ -656,8 +656,16 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 
 		}
 	}
-
-	textBox1->Text += "Alle Züge wurden gestoppt";
+	if (listBox1->Items->Count > 0 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
+		if (textBox1->Text == "MessageBox/Konsole")
+			textBox1->Clear();
+		textBox1->AppendText(L"Alle Züge wurden gestoppt!\r\n");
+	}
+	else {
+		if (textBox1->Text == "MessageBox/Konsole")
+			textBox1->Clear();
+		textBox1->AppendText(L"Keine Züge vorhanden!\r\n");
+	}
 
 	//SelectedTrain->SpeedLimit = 0;
 }
