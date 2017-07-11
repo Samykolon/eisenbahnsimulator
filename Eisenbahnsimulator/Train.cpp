@@ -255,10 +255,10 @@ void Train::Tick(double _time, Map^ map)
 		if (rail->IsGreen)
 		{
 			if (Speed < MaxSpeed && Speed < SpeedLimit) { //Accelerate train
-				Speed += 0.03;
+				Speed += _time*2;
 			}
 			else if (Speed > SpeedLimit)
-				Speed -= 0.03;
+				Speed -= _time*2;
 
 			TileProgress += Speed*_time;
 		}
