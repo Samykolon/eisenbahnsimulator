@@ -215,6 +215,8 @@
     <Image Include="Rails\Rail_Normal_Vert_SignalBoth.png" />
     <Image Include="Rails\Rail_Normal_Vert_SignalGreen.png" />
     <Image Include="Rails\Rail_Normal_Vert_SignalRed.png" />
+    <Image Include="Rails\Rail_Stop_Hor.png" />
+    <Image Include="Rails\Rail_Stop_Vert.png" />
     <Image Include="Rails\Rail_Switch_BottomLeft_C.png" />
     <Image Include="Rails\Rail_Switch_BottomLeft_No.png" />
     <Image Include="Rails\Rail_Switch_BottomLeft_Yes.png" />

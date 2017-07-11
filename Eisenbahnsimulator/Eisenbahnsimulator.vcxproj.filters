@@ -309,6 +309,12 @@
     <Image Include="Rails\Rail_Switch_TopRight_Yes.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="Rails\Rail_Stop_Vert.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Rail_Stop_Hor.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ToolboxItems.txt" />
