@@ -33,7 +33,7 @@ namespace Eisenbahnsimulator {
 	/// </summary>
 	public ref class MainFrame : public System::Windows::Forms::Form
 	{
-		
+
 	public:
 		MainFrame(void)
 		{
@@ -66,7 +66,7 @@ namespace Eisenbahnsimulator {
 			selectedItem = -1;
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::AllPaintingInWmPaint, true);
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::DoubleBuffer, true);
-			CoordinateOffset = Point(128,128);
+			CoordinateOffset = Point(0, 0);
 		}
 
 	protected:
@@ -458,7 +458,7 @@ namespace Eisenbahnsimulator {
 #pragma endregion
 		Appdata^ appdata;
 		Userdata^ userdata;
-		Train^ SelectedTrain; 
+		Train^ SelectedTrain;
 		int SelectedTI = -1;    //Selected Trainindex - connected with the listbox
 		Boolean trackbarinuse = 0;  // Determines if user hovers over trackbar or not
 
@@ -518,11 +518,11 @@ namespace Eisenbahnsimulator {
 	private: System::Void panel1_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 		int X = CalcTileCoord(e->X + CoordinateOffset.X);	//Calculates the logical tile coordinates the user clicks on
 		int Y = CalcTileCoord(e->Y + CoordinateOffset.Y);
-		
-		if(e->Button == System::Windows::Forms::MouseButtons::Left){
+
+		if (e->Button == System::Windows::Forms::MouseButtons::Left) {
 
 			if (userdata != nullptr) { //Checks if the user has created a TileMap
-								
+
 				if (selectedItem != -1)
 				{
 
@@ -545,7 +545,7 @@ namespace Eisenbahnsimulator {
 							train->DrivesForward = 1;    // set Direction to "Forward"
 
 							userdata->AddTrain(dynamic_cast<Train^>(train->Clone()));
-							
+
 						}
 
 						updateTrainList(userdata, appdata, listBox1);
@@ -569,7 +569,7 @@ namespace Eisenbahnsimulator {
 					sRail->Switch();
 				}
 			}
-		} 
+		}
 
 		else if (e->Button == System::Windows::Forms::MouseButtons::Middle) {
 			if (userdata->map->GetTile(X, Y) != nullptr) {
@@ -593,42 +593,32 @@ namespace Eisenbahnsimulator {
 	}
 
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  paintEventArgs) { //Draws everything
-		
+
 
 		if (userdata != nullptr) { //If a TileMap has been created
 			int maxXTile = Math::Min(userdata->map->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
 			int maxYTile = Math::Min(userdata->map->Height, CalcTileCoord(panel1->Height - 2));
 			Graphics^ graphics = paintEventArgs->Graphics;
-
-			//for (int x = 0; x < maxXTile; x++) //Draw background tiles
-			//{
-			//	for (int y = 0; y < maxYTile; y++)
-			//	{
-			//		g->DrawImage(Image::FromFile(L"Rails/grass.png"), x * TileSize, y * TileSize, TileSize, TileSize); //Draw grass
-
-			//	}
-			//}
-
+			
 			graphics->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), 0, 0, 2000, 2000); //Draw grass - what is better?
-			graphics->TranslateTransform(-CoordinateOffset.X, -CoordinateOffset.Y);
+			graphics->TranslateTransform(-CoordinateOffset.X, -CoordinateOffset.Y); //Move the panel
 			//Debug test
-
-
+			
 			for (int i = 0; i < userdata->map->GetCount(); i++)
 			{
 
 				TileObject^ toBeDrawn = userdata->map->TileAt(i);
-				//Checks if the tile is out of range	
+				//TODO: Check if the tile is out of range	
 				/*if (toBeDrawn->Position.X > CoordinateOffset.X &&
 					toBeDrawn->Position.Y > CoordinateOffset.Y &&
 					toBeDrawn->Position.X < maxXTile + CoordinateOffset.X &&
 					toBeDrawn->Position.Y < maxXTile + CoordinateOffset.Y)
 				{*/
-					graphics->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath),
-						(toBeDrawn->Position.X - 1 ) * userdata->tileSize,
-						(toBeDrawn->Position.Y - 1 ) * userdata->tileSize,
-						userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
-				/*}*/
+				graphics->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath),
+					(toBeDrawn->Position.X - 1) * userdata->tileSize,
+					(toBeDrawn->Position.Y - 1) * userdata->tileSize,
+					userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
+			/*}*/
 			}
 
 			Pen^ redPen = gcnew Pen(Color::Red);
@@ -636,6 +626,8 @@ namespace Eisenbahnsimulator {
 				//MessageBox::Show(train->CurrentPose.X + " " + train->CurrentPose.Y);
 				graphics->DrawRectangle(redPen, train->CurrentPose.X, train->CurrentPose.Y, 3, 3);
 			}
+			
+			
 		}
 	}
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
@@ -655,130 +647,130 @@ namespace Eisenbahnsimulator {
 		if (SelectedTrain != nullptr && trackbarinuse == 0)
 			if (SelectedTrain->SpeedLimit == SelectedTrain->MaximumSpeed)
 				trackBar2->Value = SelectedTrain->MaximumSpeed * 10;
-			//else
-				//trackBar2->Value = SelectedTrain->CurrentSpeed * 10; 
+		//else
+			//trackBar2->Value = SelectedTrain->CurrentSpeed * 10; 
 
 
 	}
 
-private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	userdata->trainList->Remove(SelectedTrain);
-	updateTrainList(userdata, appdata, listBox1);
-	if (listBox1->Items->Count < 1)
-		listBox1->Text = "Liste der vorhandenen Züge";
-	
+		userdata->trainList->Remove(SelectedTrain);
+		updateTrainList(userdata, appdata, listBox1);
+		if (listBox1->Items->Count < 1)
+			listBox1->Text = "Liste der vorhandenen Züge";
 
-}
-private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	for each (Train^ train in userdata->trainList)
-	{
-		if (train->Name != nullptr) {
-			train->SpeedLimit = 0;
+	}
+	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 
+		for each (Train^ train in userdata->trainList)
+		{
+			if (train->Name != nullptr) {
+				train->SpeedLimit = 0;
+
+			}
 		}
-	}
-	if (listBox1->Items->Count > 0 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
-		if (textBox1->Text == "MessageBox/Konsole")
-			textBox1->Clear();
-		textBox1->AppendText(L"Alle Züge wurden gestoppt!\r\n");
-	}
-	else {
-		if (textBox1->Text == "MessageBox/Konsole")
-			textBox1->Clear();
-		textBox1->AppendText(L"Keine Züge vorhanden!\r\n");
-	}
-
-	//SelectedTrain->SpeedLimit = 0;
-}
-private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
-
-	if (SelectedTrain != nullptr)
-	SelectedTrain->SpeedLimit = trackBar2->Value/10;
-}
-private: System::Void radioButton4_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-	
-	if (SelectedTrain != nullptr) {
-		if (radioButton4->Checked == true) {
-			SelectedTrain->DrivesForward = 0;
-			//SelectedTrain->MaximumSpeed = -30;
+		if (listBox1->Items->Count > 0 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
+			if (textBox1->Text == "MessageBox/Konsole")
+				textBox1->Clear();
+			textBox1->AppendText(L"Alle Züge wurden gestoppt!\r\n");
 		}
 		else {
-			SelectedTrain->DrivesForward = 1;
-			//SelectedTrain->MaximumSpeed *= -1;
+			if (textBox1->Text == "MessageBox/Konsole")
+				textBox1->Clear();
+			textBox1->AppendText(L"Keine Züge vorhanden!\r\n");
 		}
-		SelectedTrain->SwitchDirection(); //Change the train's direction by 180 degrees
-		Rail^ currentRail = dynamic_cast<Rail^>(SelectedTrain->Tile);
-		if (currentRail != nullptr) {
-			if (currentRail->EndDirections == Directions::NorthSouth || currentRail->EndDirections == Directions::WestEast) {
-				SelectedTrain->TileProgress = 4 - SelectedTrain->TileProgress;
+
+		//SelectedTrain->SpeedLimit = 0;
+	}
+	private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
+
+		if (SelectedTrain != nullptr)
+			SelectedTrain->SpeedLimit = trackBar2->Value / 10;
+	}
+	private: System::Void radioButton4_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+
+		if (SelectedTrain != nullptr) {
+			if (radioButton4->Checked == true) {
+				SelectedTrain->DrivesForward = 0;
+				//SelectedTrain->MaximumSpeed = -30;
 			}
 			else {
-				SelectedTrain->TileProgress = 3.57079632679 - SelectedTrain->TileProgress;
+				SelectedTrain->DrivesForward = 1;
+				//SelectedTrain->MaximumSpeed *= -1;
+			}
+			SelectedTrain->SwitchDirection(); //Change the train's direction by 180 degrees
+			Rail^ currentRail = dynamic_cast<Rail^>(SelectedTrain->Tile);
+			if (currentRail != nullptr) {
+				if (currentRail->EndDirections == Directions::NorthSouth || currentRail->EndDirections == Directions::WestEast) {
+					SelectedTrain->TileProgress = 4 - SelectedTrain->TileProgress;
+				}
+				else {
+					SelectedTrain->TileProgress = 3.57079632679 - SelectedTrain->TileProgress;
+				}
 			}
 		}
 	}
-}
-private: System::Void trackBar2_MouseEnter(System::Object^  sender, System::EventArgs^  e) {   
+	private: System::Void trackBar2_MouseEnter(System::Object^  sender, System::EventArgs^  e) {
 
-	trackbarinuse = 1;
-}
-private: System::Void trackBar2_MouseLeave(System::Object^  sender, System::EventArgs^  e) {
-
-	trackbarinuse = 0;
-}
-private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
-
-	if (listBox1->Items->Count == 1 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
-		SelectedTI = 0;   // If there is no train there yet
+		trackbarinuse = 1;
 	}
-	else if (listBox1->Items->Count > 1) {
-		SelectedTI = listBox1->SelectedIndex;
+	private: System::Void trackBar2_MouseLeave(System::Object^  sender, System::EventArgs^  e) {
+
+		trackbarinuse = 0;
 	}
-	else {
-		listBox1->Text = "Liste der vorhandenen Züge";
-		return;
+	private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+
+		if (listBox1->Items->Count == 1 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
+			SelectedTI = 0;   // If there is no train there yet
+		}
+		else if (listBox1->Items->Count > 1) {
+			SelectedTI = listBox1->SelectedIndex;
+		}
+		else {
+			listBox1->Text = "Liste der vorhandenen Züge";
+			return;
+		}
+
+		if (SelectedTI > -1)
+		{
+			SelectedTrain = userdata->trainList[SelectedTI];
+			trackBar2->Maximum = SelectedTrain->MaximumSpeed * 10;
+			trackBar2->Value = SelectedTrain->CurrentSpeed * 10;
+
+
+			if (SelectedTrain->DrivesForward == 1)   // Forward and backward Direction 
+				radioButton2->Checked = true;
+			else
+				radioButton4->Checked = true;
+		}
+
 	}
+	private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	if (SelectedTI > -1)
-	{
-		SelectedTrain = userdata->trainList[SelectedTI];
-		trackBar2->Maximum = SelectedTrain->MaximumSpeed*10;
-		trackBar2->Value = SelectedTrain->CurrentSpeed*10;
+		if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		{
+			System::IO::FileStream^ fs = System::IO::File::Create(saveFileDialog1->FileName);
+			BinaryFormatter^ bf = gcnew BinaryFormatter();
+			if (userdata != nullptr) {
+				bf->Serialize(fs, userdata);
+			}
+			fs->Close();
+		}
 
-
-		if (SelectedTrain->DrivesForward == 1)   // Forward and backward Direction 
-			radioButton2->Checked = true;
-		else
-			radioButton4->Checked = true;
 	}
+	private: System::Void ladenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
-}
-private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-
-	if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-	{
-		System::IO::FileStream^ fs = System::IO::File::Create(saveFileDialog1->FileName);
-		BinaryFormatter^ bf = gcnew BinaryFormatter();
-		if (userdata != nullptr) {
-			bf->Serialize(fs, userdata);
-		} 
-		fs->Close();
+		if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		{
+			System::IO::FileStream^ fs = System::IO::File::OpenRead(openFileDialog1->FileName);
+			BinaryFormatter^ bf = gcnew BinaryFormatter();
+			userdata = (Userdata^)bf->Deserialize(fs);
+			fs->Close();
+			panel1->Invalidate();
+			updateTrainList(userdata, appdata, listBox1);
+		}
 	}
-	
-}
-private: System::Void ladenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-
-	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-	{
-		System::IO::FileStream^ fs = System::IO::File::OpenRead(openFileDialog1->FileName);
-		BinaryFormatter^ bf = gcnew BinaryFormatter();
-		userdata = (Userdata^)bf->Deserialize(fs);
-		fs->Close();
-		panel1->Invalidate();
-		updateTrainList(userdata, appdata, listBox1);
-	}
-}
-};
+	};
 }
