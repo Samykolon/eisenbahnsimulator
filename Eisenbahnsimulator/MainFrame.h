@@ -32,9 +32,7 @@ namespace Eisenbahnsimulator {
 	/// </summary>
 	public ref class MainFrame : public System::Windows::Forms::Form
 	{
-
-
-
+		
 	public:
 		MainFrame(void)
 		{
@@ -677,7 +675,7 @@ private: System::Void radioButton4_CheckedChanged(System::Object^  sender, Syste
 			SelectedTrain->DrivesForward = 1;
 			//SelectedTrain->MaximumSpeed *= -1;
 		}
-		SelectedTrain->SwitchDirection();
+		SelectedTrain->SwitchDirection(); //Change the train's direction by 180 degrees
 		Rail^ currentRail = dynamic_cast<Rail^>(SelectedTrain->Tile);
 		if (currentRail != nullptr) {
 			if (currentRail->EndDirections == Directions::NorthSouth || currentRail->EndDirections == Directions::WestEast) {
