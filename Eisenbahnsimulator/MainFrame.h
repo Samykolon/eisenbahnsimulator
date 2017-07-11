@@ -495,6 +495,7 @@ namespace Eisenbahnsimulator {
 
 		Point CoordinateOffset;
 		bool mouseOverPanel; // True if mouse is over panel
+		Int32 lastTc; // Ticks since startup
 
 		int x, y; // position of mouse over panel
 		int xWhenMiddleButtonPressed, yWhenMiddleButtonPressed; // position of mouse when middle button is pressed
@@ -680,7 +681,20 @@ namespace Eisenbahnsimulator {
 			Graphics^ graphics = paintEventArgs->Graphics;
 			graphics->TranslateTransform(-CoordinateOffset.X, -CoordinateOffset.Y); //Move the panel
 
-			graphics->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), CoordinateOffset.X - CoordinateOffset.X%userdata->tileSize, CoordinateOffset.Y - CoordinateOffset.Y%userdata->tileSize, 2000, 2000); //Draw grass - what is better?
+			// 2000 is image width and height
+			// 128 is fitted for image
+			int sizeX = (2000 / 128) * userdata->tileSize;
+			int sizeY = (2000 / 128) * userdata->tileSize;
+			int repeatX = 2000 / sizeX + 1;
+			int repeatY = 2000 / sizeY + 1;
+			for (int i = 0; i < repeatX; i++)
+			{
+				for (int i2 = 0; i2 < repeatY; i2++)
+				{
+					graphics->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), CoordinateOffset.X - CoordinateOffset.X%userdata->tileSize + sizeX*i, CoordinateOffset.Y - CoordinateOffset.Y%userdata->tileSize + sizeY*i2, sizeX, sizeY); //Draw grass - what is better?
+				}
+
+			}
 			//Debug test
 
 			for (int i = 0; i < userdata->map->GetCount(); i++)
@@ -701,7 +715,7 @@ namespace Eisenbahnsimulator {
 			}
 			
 			Pen^ penRed = gcnew Pen(Color::Green);
-			// Highlights the tile where the mouse is over
+			// Highlights the tile over which the mouse is over
 			if (mouseOverPanel)
 			{
 				if (selectedItem != -1)
@@ -734,15 +748,20 @@ namespace Eisenbahnsimulator {
 		}
 	}
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
+
+		Int32 passedTicks = Environment::TickCount - lastTc;
+		lastTc = Environment::TickCount;
+		double passedTime = passedTicks / 1000.0;
+		
 		for (int i = 0; i < userdata->map->GetCount(); i++)
 		{
 
-			userdata->map->TileAt(i)->Tick(timer->Interval / 1000.0); //Let time pass for all objects		
+			userdata->map->TileAt(i)->Tick(passedTime); //Let time pass for all objects		
 
 		}
 		for each (Train^ train in userdata->trainList)
 		{
-			train->Tick(timer->Interval / 1000.0, userdata->map);
+			train->Tick(passedTime, userdata->map);
 		}
 
 		panel1->Invalidate();
@@ -752,7 +771,13 @@ namespace Eisenbahnsimulator {
 				trackBar2->Value = SelectedTrain->MaximumSpeed * 10;
 		//else
 			//trackBar2->Value = SelectedTrain->CurrentSpeed * 10; 
-
+		static int count = 0;
+		count += 60* passedTime;
+		if (count >= 60)
+		{
+			count = 0;
+			textBox1->AppendText(L"Framerate: " + 1/ passedTime + "\r\n");
+		}
 
 	}
 
@@ -940,8 +965,10 @@ private: System::Void panel1_MouseLeave(System::Object^  sender, System::EventAr
 			 int biggestTileSize = 180; // Zoomed in
 			// value = 0;
 			 // Zoom to
-			 int zoomToX = CoordinateOffset.X;
-			 int zoomToY = CoordinateOffset.Y;
+			 int zoomToX = 0;
+			// int zoomToX = CoordinateOffset.X;
+			 int zoomToY = 0;
+			// int zoomToY = CoordinateOffset.Y;
 
 
 			 // Zoom out
