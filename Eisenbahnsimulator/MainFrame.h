@@ -281,6 +281,7 @@ namespace Eisenbahnsimulator {
 			this->panel1->MouseLeave += gcnew System::EventHandler(this, &MainFrame::panel1_MouseLeave);
 			this->panel1->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseMove);
 			this->panel1->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseUp);
+			this->panel1->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseWheel);
 			// 
 			// groupBox1
 			// 
@@ -930,5 +931,19 @@ private: System::Void panel1_MouseEnter(System::Object^  sender, System::EventAr
 private: System::Void panel1_MouseLeave(System::Object^  sender, System::EventArgs^  e) {
 	mouseOverPanel = false;
 }
+		 private: System::Void panel1_MouseWheel(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+
+			 int value = (e->Delta) / 10;
+			 if ((userdata->tileSize > 56) && (userdata->tileSize < 140))
+			 {
+				 userdata->tileSize += value;
+
+			 }
+			 else if ((userdata->tileSize == 56) && value > 0)
+				 userdata->tileSize += value;
+			 else if ((userdata->tileSize == 140) && value < 0)
+				 userdata->tileSize += value;
+
+		 }
 };
 }
