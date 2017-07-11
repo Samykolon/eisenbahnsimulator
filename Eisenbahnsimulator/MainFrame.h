@@ -277,6 +277,7 @@ namespace Eisenbahnsimulator {
 			this->panel1->TabIndex = 1;
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainFrame::panel1_Paint);
 			this->panel1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseDown);
+			this->panel1->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseMove);
 			// 
 			// groupBox1
 			// 
@@ -466,7 +467,6 @@ namespace Eisenbahnsimulator {
 			this->ShowIcon = false;
 			this->Text = L"Eisenbahnsimulator";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
-			// this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainFrame::MainFrame_KeyPress);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->groupBox1->ResumeLayout(false);
@@ -843,5 +843,23 @@ namespace Eisenbahnsimulator {
 		}
 
 	}
-	};
+	private:
+		int x, y;
+	private: System::Void panel1_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+		int deltaX = e->X - x;
+		int deltaY = e->Y - y;
+		x = e->X;
+		y = e->Y;
+		if (e->Button == System::Windows::Forms::MouseButtons::Middle)
+		{
+			CoordinateOffset.X -= deltaX;
+			CoordinateOffset.Y -= deltaY;
+			
+			if (CoordinateOffset.X < 0) CoordinateOffset.X = 0;
+			if (CoordinateOffset.Y < 0) CoordinateOffset.Y = 0;
+			if (CoordinateOffset.X > userdata->map->Width * userdata->tileSize) CoordinateOffset.X = userdata->map->Width * userdata->tileSize;
+			if (CoordinateOffset.Y > userdata->map->Height * userdata->tileSize) CoordinateOffset.Y = userdata->map->Height * userdata->tileSize;
+		}
+	}
+};
 }
