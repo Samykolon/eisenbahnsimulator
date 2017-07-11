@@ -4,7 +4,7 @@ inline TrainStop::TrainStop(Directions dir, double waitTime, String^ imagePath, 
 	WaitingTime = waitTime;
 }
 
-void TrainStop::Tick()
+void TrainStop::Tick(double time)
 {
 	
 }
