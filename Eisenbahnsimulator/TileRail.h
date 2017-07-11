@@ -4,6 +4,7 @@
 
 using namespace System;
 
+[Serializable]
 public ref class Rail : TileObject
 {
 protected:

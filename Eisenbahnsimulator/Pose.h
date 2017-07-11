@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+using namespace System;
 using namespace System::Drawing;
 
 public enum class Directions { //Two cardinal directions
@@ -12,6 +13,7 @@ public enum class Direction { East, North, West, South }; //One cardinal directi
 
 Directions AddDirections(Direction d1, Direction d2); //Returns Directions for two directions
 
+[Serializable]
 public value class Pose {
 	double orientation;
 public:

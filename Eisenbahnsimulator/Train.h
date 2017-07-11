@@ -11,22 +11,23 @@ ref class Train; //Forward declaration because of classes including each other
 using namespace System;
 
 public enum class TrainType { SteamEngine, DieselEngine, ElectricLocomotive };
-
+[Serializable]
 public ref class Train : public ICloneable
 {
 protected:
-	TrainType Type;
 	String^ name;
 	String^ imagePath;
-	double TileProgress;	//A number between 0 and 2+pi/2 (curve) or 4 that determines the location of the train on the tile
+		//A number between 0 and 2+pi/2 (curve) or 4 that determines the location of the train on the tile
 	int tileSize;
 	double Speed;
 	double MaxSpeed;
 	double speedLimit;
 	Direction StartDirection;
-	Direction GoalDirection;
-	Boolean fororback;
+	Boolean drivesforward;
 public:
+	property Direction GoalDirection;
+	property double TileProgress;
+	property TrainType Type;
 	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
 	Pose CurrentPose; //A pose that describes the train's current position on the panel, including pixel coordinates and orientation
 	static Direction FindOppositeDirection(Direction dir);
@@ -57,10 +58,10 @@ public:
 		double get();
 		void set(double _MaxSpeed);
 	}
-	property Boolean ForOrBack
+	property Boolean DrivesForward
 	{
 		Boolean get();
-		void set(Boolean _fororback);
+		void set(Boolean _drivesforward);
 	}
 	property double SpeedLimit
 	{
@@ -78,5 +79,6 @@ public:
 	virtual Object ^Clone(String ^_name);
 
 	void Tick(double _time, Map^ map); //Updates the train's pose
+	void SwitchDirection();
 
 };

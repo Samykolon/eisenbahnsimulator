@@ -2,6 +2,7 @@
 #include "TileRail.h"
 #include "Train.h"
 
+[Serializable]
 public ref class RailSwitch : Rail{	
 public:
 	Boolean IsStraight;	//The direction currently enabled
