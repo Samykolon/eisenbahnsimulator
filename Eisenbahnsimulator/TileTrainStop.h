@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "TileRail.h"
 
+[Serializable]
 public ref class TrainStop : Rail { //A train stop
 public:
 	int Importance; //The likeliness of a train stopping there

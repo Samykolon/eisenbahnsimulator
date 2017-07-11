@@ -26,6 +26,7 @@ namespace Eisenbahnsimulator {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Collections::Generic;
+	using namespace System::Runtime::Serialization::Formatters::Binary;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -115,6 +116,8 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::ListView^  listViewSelectElements;
 
 	private: System::Windows::Forms::Timer^  timer;
+	private: System::Windows::Forms::SaveFileDialog^  saveFileDialog1;
+	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
 
 
 	private: System::ComponentModel::IContainer^  components;
@@ -158,6 +161,8 @@ namespace Eisenbahnsimulator {
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->menuStrip1->SuspendLayout();
 			this->groupBox1->SuspendLayout();
 			this->groupBox3->SuspendLayout();
@@ -191,26 +196,28 @@ namespace Eisenbahnsimulator {
 			// neuToolStripMenuItem
 			// 
 			this->neuToolStripMenuItem->Name = L"neuToolStripMenuItem";
-			this->neuToolStripMenuItem->Size = System::Drawing::Size(149, 26);
+			this->neuToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->neuToolStripMenuItem->Text = L"Neu";
 			this->neuToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::neuToolStripMenuItem_Click);
 			// 
 			// speichernToolStripMenuItem
 			// 
 			this->speichernToolStripMenuItem->Name = L"speichernToolStripMenuItem";
-			this->speichernToolStripMenuItem->Size = System::Drawing::Size(149, 26);
+			this->speichernToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->speichernToolStripMenuItem->Text = L"Speichern";
+			this->speichernToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::speichernToolStripMenuItem_Click);
 			// 
 			// ladenToolStripMenuItem
 			// 
 			this->ladenToolStripMenuItem->Name = L"ladenToolStripMenuItem";
-			this->ladenToolStripMenuItem->Size = System::Drawing::Size(149, 26);
+			this->ladenToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->ladenToolStripMenuItem->Text = L"Laden";
+			this->ladenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::ladenToolStripMenuItem_Click);
 			// 
 			// schließenToolStripMenuItem
 			// 
 			this->schließenToolStripMenuItem->Name = L"schließenToolStripMenuItem";
-			this->schließenToolStripMenuItem->Size = System::Drawing::Size(149, 26);
+			this->schließenToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->schließenToolStripMenuItem->Text = L"Schließen";
 			this->schließenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::schließenToolStripMenuItem_Click);
 			// 
@@ -417,6 +424,10 @@ namespace Eisenbahnsimulator {
 			// 
 			this->timer->Interval = 13;
 			this->timer->Tick += gcnew System::EventHandler(this, &MainFrame::timer_Tick);
+			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->FileName = L"openFileDialog1";
 			// 
 			// MainFrame
 			// 
@@ -731,6 +742,31 @@ private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, Sys
 			radioButton4->Checked = true;
 	}
 
+}
+private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	{
+		System::IO::FileStream^ fs = System::IO::File::Create(saveFileDialog1->FileName);
+		BinaryFormatter^ bf = gcnew BinaryFormatter();
+		if (userdata != nullptr) {
+			bf->Serialize(fs, userdata);
+		} 
+		fs->Close();
+	}
+	
+}
+private: System::Void ladenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	{
+		System::IO::FileStream^ fs = System::IO::File::OpenRead(openFileDialog1->FileName);
+		BinaryFormatter^ bf = gcnew BinaryFormatter();
+		userdata = (Userdata^)bf->Deserialize(fs);
+		fs->Close();
+		panel1->Invalidate();
+		updateTrainList(userdata, appdata, listBox1);
+	}
 }
 };
 }

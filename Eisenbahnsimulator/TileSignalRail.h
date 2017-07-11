@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "TileRail.h"
 
+[Serializable]
 public ref class SignalRail : Rail { //A rail with a signal
 private:
 		
