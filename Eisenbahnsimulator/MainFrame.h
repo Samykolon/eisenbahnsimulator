@@ -277,6 +277,8 @@ namespace Eisenbahnsimulator {
 			this->panel1->TabIndex = 1;
 			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MainFrame::panel1_Paint);
 			this->panel1->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseDown);
+			this->panel1->MouseEnter += gcnew System::EventHandler(this, &MainFrame::panel1_MouseEnter);
+			this->panel1->MouseLeave += gcnew System::EventHandler(this, &MainFrame::panel1_MouseLeave);
 			this->panel1->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseMove);
 			this->panel1->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MainFrame::panel1_MouseUp);
 			// 
@@ -490,6 +492,11 @@ namespace Eisenbahnsimulator {
 		void CheckMessageBox();
 
 		Point CoordinateOffset;
+		bool mouseOverPanel; // True if mouse is over panel
+
+		int x, y; // position of mouse over panel
+		int xWhenMiddleButtonPressed, yWhenMiddleButtonPressed; // position of mouse when middle button is pressed
+
 
 	private: System::Void trackBar1_Scroll(System::Object^  sender, System::EventArgs^  e) {
 	}
@@ -653,6 +660,10 @@ namespace Eisenbahnsimulator {
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  paintEventArgs) { //Draws everything
 		
 		if (userdata != nullptr) { //If a TileMap has been created
+
+			int X = CalcTileCoord(x + CoordinateOffset.X);	//Calculates the logical tile coordinates the user clicks on
+			int Y = CalcTileCoord(y + CoordinateOffset.Y);
+
 			int maxXTile = Math::Min(userdata->map->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
 			int maxYTile = Math::Min(userdata->map->Height, CalcTileCoord(panel1->Height - 2));
 			Graphics^ graphics = paintEventArgs->Graphics;
@@ -677,8 +688,38 @@ namespace Eisenbahnsimulator {
 				trainPic = (RotateImage(trainPic, Point(halfSize, halfSize), -train->CurrentPose.Orientation));
 				graphics->DrawImage(trainPic, (float)train->CurrentPose.X - halfSize, (float)train->CurrentPose.Y -halfSize, (float)userdata->tileSize, (float)userdata->tileSize);			
 			}
+			
+			Pen^ penRed = gcnew Pen(Color::Red);
+			// Highlights the tile where the mouse is over
+			if (mouseOverPanel)
+			{
+				if (selectedItem != -1)
+				{
+					// Selected Toolbox item:
+					String^ categoryKey = appdata->getCategoryList()[ComboBoxCategorySelection->SelectedIndex];
+					String^ selectedItemKey = appdata->getCategory(categoryKey)[selectedItem].keyString;
+					String^ path = "";
+					// draw preview
+					if (appdata->isTile(selectedItemKey))
+					{
+						path = appdata->getTile(selectedItemKey)->ImagePath;
+					}
+					if (appdata->isTrain(selectedItemKey))
+					{
+						path = appdata->getTrain(selectedItemKey)->ImagePath;
+					}
+					if (path != "")
+					{
+						graphics->DrawImage(appdata->getImageFromPath(path),
+							(X - 1) * userdata->tileSize,
+							(Y - 1) * userdata->tileSize,
+							userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
+					}
+				}
 
+				graphics->DrawRectangle(penRed, (X - 1) * userdata->tileSize, (Y - 1) * userdata->tileSize, userdata->tileSize, userdata->tileSize);
 
+			}
 		}
 	}
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
@@ -842,9 +883,6 @@ namespace Eisenbahnsimulator {
 		}
 
 	}
-	private:
-		int x, y;
-		int xWhenMiddleButtonPressed, yWhenMiddleButtonPressed;
 	private: System::Void panel1_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
 		int deltaX = e->X - x;
 		int deltaY = e->Y - y;
@@ -877,6 +915,11 @@ private: System::Void panel1_MouseUp(System::Object^  sender, System::Windows::F
 		}
 	}
 	}
-
+private: System::Void panel1_MouseEnter(System::Object^  sender, System::EventArgs^  e) {
+	mouseOverPanel = true;
+}
+private: System::Void panel1_MouseLeave(System::Object^  sender, System::EventArgs^  e) {
+	mouseOverPanel = false;
+}
 };
 }
