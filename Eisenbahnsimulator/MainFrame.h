@@ -685,6 +685,16 @@ private: System::Void radioButton4_CheckedChanged(System::Object^  sender, Syste
 			SelectedTrain->DrivesForward = 1;
 			//SelectedTrain->MaximumSpeed *= -1;
 		}
+		SelectedTrain->SwitchDirection();
+		Rail^ currentRail = dynamic_cast<Rail^>(SelectedTrain->Tile);
+		if (currentRail != nullptr) {
+			if (currentRail->EndDirections == Directions::NorthSouth || currentRail->EndDirections == Directions::WestEast) {
+				SelectedTrain->TileProgress = 4 - SelectedTrain->TileProgress;
+			}
+			else {
+				SelectedTrain->TileProgress = 3.57079632679 - SelectedTrain->TileProgress;
+			}
+		}
 	}
 }
 private: System::Void trackBar2_MouseEnter(System::Object^  sender, System::EventArgs^  e) {   
