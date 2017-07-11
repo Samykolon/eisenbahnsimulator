@@ -18,7 +18,7 @@ int Eisenbahnsimulator::MainFrame::CalcTileCoord(int pixCoord)
 {
 	int X = 1;
 	while (true) {
-		if (pixCoord < X * TileSize) {
+		if (pixCoord < X * userdata->tileSize) {
 			return X;
 		}
 		X++;

@@ -301,3 +301,10 @@ void Train::Tick(double _time, Map^ map)
 	}
 	//sw->Close();
 }
+
+void Train::SwitchDirection()
+{
+	Direction temp = StartDirection;
+	StartDirection = GoalDirection;
+	GoalDirection = temp;
+}

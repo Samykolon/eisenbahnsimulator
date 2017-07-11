@@ -78,5 +78,6 @@ public:
 	virtual Object ^Clone(String ^_name);
 
 	void Tick(double _time, Map^ map); //Updates the train's pose
+	void SwitchDirection();
 
 };

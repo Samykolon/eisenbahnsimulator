@@ -63,7 +63,7 @@ namespace Eisenbahnsimulator {
 			//
 			//TODO: Add the constructor code here
 			//
-			TileSize = 128;
+
 			selectedItem = -1;
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::AllPaintingInWmPaint, true);
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::DoubleBuffer, true);
@@ -439,7 +439,6 @@ namespace Eisenbahnsimulator {
 		Boolean trackbarinuse = 0;  // Determines if user hovers over trackbar or not
 
 		int selectedItem;	//Number of selected toolbox item
-		int TileSize;	//Size of a tile in pixels
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
 
 		Point CoordinateOffset;
