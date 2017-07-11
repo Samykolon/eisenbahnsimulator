@@ -44,6 +44,20 @@ void Map::SetTile(TileObject ^ _obj, int _posX, int _posY) //Sets the object at 
 	TMap->Add(_obj); //Add object 	
 }
 
+void Map::DeleteTile(TileObject^ _obj, int _posX, int _posY)
+{
+	_obj->Position = Point(_posX, _posY);
+	for (int i = TMap->Count - 1; i >= 0; i--) //Reverse for loop, to make deletion possible
+	{
+		if (TMap[i]->Position == _obj->Position)
+		{
+			TMap->RemoveAt(i);
+			TMap->Remove(_obj);//Remove objects that are overwritten
+			break; // TODO : Maybe dont break I don't know
+		}
+	}
+}
+
 int Map::GetCount()
 {
 	return TMap->Count;	

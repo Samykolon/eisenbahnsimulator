@@ -568,6 +568,15 @@ namespace Eisenbahnsimulator {
 					sRail->Switch();
 				}
 			}
+		} 
+
+		else if (e->Button == System::Windows::Forms::MouseButtons::Middle) {
+			if (userdata->map->GetTile(X, Y) != nullptr) {
+				TileObject^ obj = userdata->map->GetTile(X, Y);
+				userdata->map->DeleteTile(obj, X, Y);
+				panel1->Invalidate();
+			}
+
 		}
 	}
 
