@@ -3,6 +3,7 @@
 
 enum class DecoType { FoliageTree, Conifer, Bush, House };
 
+[Serializable]
 public ref class Decoration : TileObject {
 protected:
 	DecoType Type;

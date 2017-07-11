@@ -26,6 +26,7 @@ namespace Eisenbahnsimulator {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Collections::Generic;
+	using namespace System::Runtime::Serialization::Formatters::Binary;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -113,6 +114,8 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::ListView^  listViewSelectElements;
 
 	private: System::Windows::Forms::Timer^  timer;
+	private: System::Windows::Forms::SaveFileDialog^  saveFileDialog1;
+	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
 
 
 	private: System::ComponentModel::IContainer^  components;
@@ -156,6 +159,8 @@ namespace Eisenbahnsimulator {
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->menuStrip1->SuspendLayout();
 			this->groupBox1->SuspendLayout();
 			this->groupBox3->SuspendLayout();
@@ -189,26 +194,28 @@ namespace Eisenbahnsimulator {
 			// neuToolStripMenuItem
 			// 
 			this->neuToolStripMenuItem->Name = L"neuToolStripMenuItem";
-			this->neuToolStripMenuItem->Size = System::Drawing::Size(149, 26);
+			this->neuToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->neuToolStripMenuItem->Text = L"Neu";
 			this->neuToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::neuToolStripMenuItem_Click);
 			// 
 			// speichernToolStripMenuItem
 			// 
 			this->speichernToolStripMenuItem->Name = L"speichernToolStripMenuItem";
-			this->speichernToolStripMenuItem->Size = System::Drawing::Size(149, 26);
+			this->speichernToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->speichernToolStripMenuItem->Text = L"Speichern";
+			this->speichernToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::speichernToolStripMenuItem_Click);
 			// 
 			// ladenToolStripMenuItem
 			// 
 			this->ladenToolStripMenuItem->Name = L"ladenToolStripMenuItem";
-			this->ladenToolStripMenuItem->Size = System::Drawing::Size(149, 26);
+			this->ladenToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->ladenToolStripMenuItem->Text = L"Laden";
+			this->ladenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::ladenToolStripMenuItem_Click);
 			// 
 			// schließenToolStripMenuItem
 			// 
 			this->schließenToolStripMenuItem->Name = L"schließenToolStripMenuItem";
-			this->schließenToolStripMenuItem->Size = System::Drawing::Size(149, 26);
+			this->schließenToolStripMenuItem->Size = System::Drawing::Size(181, 26);
 			this->schließenToolStripMenuItem->Text = L"Schließen";
 			this->schließenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::schließenToolStripMenuItem_Click);
 			// 
@@ -246,7 +253,7 @@ namespace Eisenbahnsimulator {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel1->Location = System::Drawing::Point(296, 34);
-			this->panel1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->panel1->Margin = System::Windows::Forms::Padding(4);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(1593, 700);
 			this->panel1->TabIndex = 1;
@@ -260,9 +267,9 @@ namespace Eisenbahnsimulator {
 			this->groupBox1->Controls->Add(this->ComboBoxCategorySelection);
 			this->groupBox1->Controls->Add(this->listViewSelectElements);
 			this->groupBox1->Location = System::Drawing::Point(17, 34);
-			this->groupBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->groupBox1->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Padding = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->groupBox1->Padding = System::Windows::Forms::Padding(4);
 			this->groupBox1->Size = System::Drawing::Size(268, 700);
 			this->groupBox1->TabIndex = 2;
 			this->groupBox1->TabStop = false;
@@ -305,9 +312,9 @@ namespace Eisenbahnsimulator {
 			this->groupBox3->Controls->Add(this->label2);
 			this->groupBox3->Controls->Add(this->trackBar2);
 			this->groupBox3->Location = System::Drawing::Point(293, 742);
-			this->groupBox3->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->groupBox3->Margin = System::Windows::Forms::Padding(4);
 			this->groupBox3->Name = L"groupBox3";
-			this->groupBox3->Padding = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->groupBox3->Padding = System::Windows::Forms::Padding(4);
 			this->groupBox3->Size = System::Drawing::Size(268, 212);
 			this->groupBox3->TabIndex = 4;
 			this->groupBox3->TabStop = false;
@@ -317,7 +324,7 @@ namespace Eisenbahnsimulator {
 			// 
 			this->radioButton4->AutoSize = true;
 			this->radioButton4->Location = System::Drawing::Point(164, 102);
-			this->radioButton4->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton4->Margin = System::Windows::Forms::Padding(4);
 			this->radioButton4->Name = L"radioButton4";
 			this->radioButton4->Size = System::Drawing::Size(89, 21);
 			this->radioButton4->TabIndex = 6;
@@ -330,7 +337,7 @@ namespace Eisenbahnsimulator {
 			this->radioButton2->AutoSize = true;
 			this->radioButton2->Checked = true;
 			this->radioButton2->Location = System::Drawing::Point(13, 102);
-			this->radioButton2->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton2->Margin = System::Windows::Forms::Padding(4);
 			this->radioButton2->Name = L"radioButton2";
 			this->radioButton2->Size = System::Drawing::Size(82, 21);
 			this->radioButton2->TabIndex = 5;
@@ -343,7 +350,7 @@ namespace Eisenbahnsimulator {
 			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->button4->Location = System::Drawing::Point(13, 139);
-			this->button4->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->button4->Margin = System::Windows::Forms::Padding(4);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(247, 28);
 			this->button4->TabIndex = 5;
@@ -355,7 +362,7 @@ namespace Eisenbahnsimulator {
 			// 
 			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->button2->Location = System::Drawing::Point(12, 175);
-			this->button2->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->button2->Margin = System::Windows::Forms::Padding(4);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(247, 28);
 			this->button2->TabIndex = 3;
@@ -376,7 +383,7 @@ namespace Eisenbahnsimulator {
 			// trackBar2
 			// 
 			this->trackBar2->Location = System::Drawing::Point(8, 26);
-			this->trackBar2->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->trackBar2->Margin = System::Windows::Forms::Padding(4);
 			this->trackBar2->Maximum = 110;
 			this->trackBar2->Name = L"trackBar2";
 			this->trackBar2->Size = System::Drawing::Size(251, 56);
@@ -391,7 +398,7 @@ namespace Eisenbahnsimulator {
 			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->textBox1->Location = System::Drawing::Point(569, 742);
-			this->textBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->textBox1->Margin = System::Windows::Forms::Padding(4);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(1320, 212);
@@ -405,7 +412,7 @@ namespace Eisenbahnsimulator {
 			this->listBox1->ItemHeight = 16;
 			this->listBox1->Items->AddRange(gcnew cli::array< System::Object^  >(1) { L"Liste der vorhandenen Züge" });
 			this->listBox1->Location = System::Drawing::Point(17, 742);
-			this->listBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->listBox1->Margin = System::Windows::Forms::Padding(4);
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(267, 212);
 			this->listBox1->TabIndex = 9;
@@ -415,6 +422,10 @@ namespace Eisenbahnsimulator {
 			// 
 			this->timer->Interval = 13;
 			this->timer->Tick += gcnew System::EventHandler(this, &MainFrame::timer_Tick);
+			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->FileName = L"openFileDialog1";
 			// 
 			// MainFrame
 			// 
@@ -654,8 +665,16 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 
 		}
 	}
-
-	textBox1->Text += "Alle Züge wurden gestoppt";
+	if (listBox1->Items->Count > 0 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
+		if (textBox1->Text == "MessageBox/Konsole")
+			textBox1->Clear();
+		textBox1->AppendText(L"Alle Züge wurden gestoppt!\r\n");
+	}
+	else {
+		if (textBox1->Text == "MessageBox/Konsole")
+			textBox1->Clear();
+		textBox1->AppendText(L"Keine Züge vorhanden!\r\n");
+	}
 
 	//SelectedTrain->SpeedLimit = 0;
 }
@@ -721,6 +740,31 @@ private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, Sys
 			radioButton4->Checked = true;
 	}
 
+}
+private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	{
+		System::IO::FileStream^ fs = System::IO::File::Create(saveFileDialog1->FileName);
+		BinaryFormatter^ bf = gcnew BinaryFormatter();
+		if (userdata != nullptr) {
+			bf->Serialize(fs, userdata);
+		} 
+		fs->Close();
+	}
+	
+}
+private: System::Void ladenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	{
+		System::IO::FileStream^ fs = System::IO::File::OpenRead(openFileDialog1->FileName);
+		BinaryFormatter^ bf = gcnew BinaryFormatter();
+		userdata = (Userdata^)bf->Deserialize(fs);
+		fs->Close();
+		panel1->Invalidate();
+		updateTrainList(userdata, appdata, listBox1);
+	}
 }
 };
 }

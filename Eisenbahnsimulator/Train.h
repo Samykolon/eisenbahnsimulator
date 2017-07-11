@@ -11,11 +11,10 @@ ref class Train; //Forward declaration because of classes including each other
 using namespace System;
 
 public enum class TrainType { SteamEngine, DieselEngine, ElectricLocomotive };
-
+[Serializable]
 public ref class Train : public ICloneable
 {
 protected:
-	TrainType Type;
 	String^ name;
 	String^ imagePath;
 		//A number between 0 and 2+pi/2 (curve) or 4 that determines the location of the train on the tile
@@ -24,10 +23,11 @@ protected:
 	double MaxSpeed;
 	double speedLimit;
 	Direction StartDirection;
-	Direction GoalDirection;
 	Boolean drivesforward;
 public:
+	property Direction GoalDirection;
 	property double TileProgress;
+	property TrainType Type;
 	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
 	Pose CurrentPose; //A pose that describes the train's current position on the panel, including pixel coordinates and orientation
 	static Direction FindOppositeDirection(Direction dir);

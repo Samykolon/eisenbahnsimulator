@@ -6,6 +6,7 @@ using namespace System;
 using namespace System::Collections::Generic;
 using namespace System::Drawing;
 
+[Serializable]
 public ref class Map
 {
 	List<TileObject^>^ TMap;
