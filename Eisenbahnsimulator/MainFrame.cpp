@@ -22,7 +22,7 @@ int Eisenbahnsimulator::MainFrame::CalcTileCoord(int pixCoord)
 			return X;
 		}
 		X++;
-	}	
+	}
 }
 
 void Eisenbahnsimulator::MainFrame::CheckMessageBox()
