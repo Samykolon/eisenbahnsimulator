@@ -87,6 +87,7 @@ void Train::setOnRail(Rail ^ _rail)
 
 void Train::setOnRail(Rail ^ newRail, Direction _startDir)
 {
+	hasAlreadyStopped = false;
 	if (newRail == nullptr) { //Rail is empty
 		Tile = newRail; 
 		MaxSpeed = Speed = 0; //Train is stuck
@@ -247,7 +248,14 @@ void Train::Tick(double _time, Map^ map)
 	//sw->WriteLine(Tile->Position.X.ToString() + " " + Tile->Position.Y.ToString());
 
 	if (Tile == nullptr) return; // Not placed on a tile yet/drove into an empty tile
-
+	if (hasAlreadyStopped == true && waitingTimeLeft > 0) {
+		waitingTimeLeft -= 10000 * _time;
+		return;
+	} else if (hasAlreadyStopped == false && TileProgress > 2 && Tile->GetType() == TrainStop::typeid) { //Train stops to wait for passengers
+		waitingTimeLeft = static_cast<TrainStop^>(Tile)->WaitingTime;
+		hasAlreadyStopped = true;
+		return;
+	}
 
 	Rail^ rail = dynamic_cast<Rail^>(Tile);	//Previous/current rail
 	Pose newPose;

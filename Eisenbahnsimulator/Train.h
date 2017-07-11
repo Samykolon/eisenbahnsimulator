@@ -6,6 +6,7 @@
 ref class Train; //Forward declaration because of classes including each other
 
 #include "AppData.h"
+#include "TileTrainStop.h"
 
 
 using namespace System;
@@ -24,9 +25,11 @@ protected:
 	double speedLimit;
 	Direction StartDirection;
 	Boolean drivesforward;
+	double waitingTimeLeft;
+	Boolean hasAlreadyStopped;
 public:
 	property Direction GoalDirection;
-	property double TileProgress;
+	property double TileProgress;	
 	property TrainType Type;
 	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
 	Pose CurrentPose; //A pose that describes the train's current position on the panel, including pixel coordinates and orientation
