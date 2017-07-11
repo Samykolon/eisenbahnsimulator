@@ -216,3 +216,4 @@ _Pvt_Extensions/
 ModelManifest.xml
 *.opendb
 Eisenbahnsimulator.VC.db
+/Eisenbahnsimulator/Rails/Thumbs.db
