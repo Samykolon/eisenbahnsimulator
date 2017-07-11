@@ -550,6 +550,9 @@ namespace Eisenbahnsimulator {
 						}
 
 						updateTrainList(userdata, appdata, listBox1);
+						if (listBox1->Items->Count == 1 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge"))
+							listBox1->SelectedIndex = 0;
+
 					}
 					panel1->Invalidate();
 				}
