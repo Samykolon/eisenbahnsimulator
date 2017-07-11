@@ -32,7 +32,7 @@ namespace Eisenbahnsimulator {
 	/// Summary for MyForm
 	/// </summary>
 
-	public ref class ExtendedListView : public System::Windows::Forms::ListView
+	/*public ref class ExtendedListView : public System::Windows::Forms::ListView
 	{
 	public:
 		ExtendedListView();
@@ -46,7 +46,7 @@ namespace Eisenbahnsimulator {
 			}
 		}
 
-	};
+	}; */
 
 
 	public ref class MainFrame : public System::Windows::Forms::Form
@@ -129,7 +129,7 @@ namespace Eisenbahnsimulator {
 	private: System::Windows::Forms::ListBox^  listBox1;
 	private: System::Windows::Forms::ToolStripMenuItem^  überToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  einstellungenToolStripMenuItem;
-	private: ExtendedListView^  listViewSelectElements;
+	private: System::Windows::Forms::ListView^  listViewSelectElements;
 
 	private: System::Windows::Forms::Timer^  timer;
 	private: System::Windows::Forms::SaveFileDialog^  saveFileDialog1;
@@ -166,7 +166,7 @@ namespace Eisenbahnsimulator {
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->ComboBoxCategorySelection = (gcnew System::Windows::Forms::ComboBox());
-			this->listViewSelectElements = (gcnew ExtendedListView());
+			this->listViewSelectElements = (gcnew System::Windows::Forms::ListView());
 			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
 			this->radioButton4 = (gcnew System::Windows::Forms::RadioButton());
 			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
