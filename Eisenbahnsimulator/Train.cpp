@@ -210,14 +210,14 @@ void Train::MaximumSpeed::set(double _MaxSpeed)
 	MaxSpeed = _MaxSpeed;
 }
 
-Boolean Train::ForOrBack::get()
+Boolean Train::DrivesForward::get()
 {
-	return fororback;
+	return drivesforward;
 }
 
-void Train::ForOrBack::set(Boolean _fororback)
+void Train::DrivesForward::set(Boolean _drivesforward)
 {
-	fororback = _fororback;
+	drivesforward = _drivesforward;
 }
 
 double Train::SpeedLimit::get()
@@ -255,12 +255,11 @@ void Train::Tick(double _time, Map^ map)
 		if (rail->IsGreen)
 		{
 			if (Speed < MaxSpeed && Speed < SpeedLimit) { //Accelerate train
-				Speed += 0.01;
+				Speed += 0.03;
 			}
 			else if (Speed > SpeedLimit)
-				Speed -= 0.01;
-			else if (SpeedLimit == MaxSpeed)
-				Speed = Speed;
+				Speed -= 0.03;
+
 			TileProgress += Speed*_time;
 		}
 		newPose = rail->getPose(StartDirection, TileProgress, TileSize);

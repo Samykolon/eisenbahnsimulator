@@ -25,7 +25,7 @@ protected:
 	double speedLimit;
 	Direction StartDirection;
 	Direction GoalDirection;
-	Boolean fororback;
+	Boolean drivesforward;
 public:
 	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
 	Pose CurrentPose; //A pose that describes the train's current position on the panel, including pixel coordinates and orientation
@@ -57,10 +57,10 @@ public:
 		double get();
 		void set(double _MaxSpeed);
 	}
-	property Boolean ForOrBack
+	property Boolean DrivesForward
 	{
 		Boolean get();
-		void set(Boolean _fororback);
+		void set(Boolean _drivesforward);
 	}
 	property double SpeedLimit
 	{
