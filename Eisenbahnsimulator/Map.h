@@ -21,6 +21,7 @@ public ref class Map
 	TileObject^ TileAt(int i); //Returns object at specified index
 
 	void SetTile(TileObject^ _obj, int _posX, int _posY);	//Adds image at x, y to its list and overwrites objects that are already there
+	void DeleteTile(TileObject^ obj, int _posX, int _posY); // Deletes tile at specific Location
 	
 	int GetCount(); //Returns the number of objects it contains
 };

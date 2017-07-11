@@ -22,7 +22,17 @@ int Eisenbahnsimulator::MainFrame::CalcTileCoord(int pixCoord)
 			return X;
 		}
 		X++;
-	}	
+	}
 }
 
+void Eisenbahnsimulator::MainFrame::CheckMessageBox()
+{
+	if (textBox1->Text == "MessageBox/Konsole")
+		textBox1->Clear();
+		
+}
 
+Eisenbahnsimulator::ExtendedListView::ExtendedListView()
+{
+	//throw gcnew System::NotImplementedException();
+}
