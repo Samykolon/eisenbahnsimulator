@@ -17,7 +17,7 @@ public:
 
 public:
 	Rail(Directions _dir, String^ imagePath, String^ name);
-	virtual Pose getPose(Direction startDirection, double tileProgress, int tileSize); //Returns the pixel position of a train on a rail
+	virtual Pose getPose(Direction startDirection, double tileProgress); //Returns the position of a train on a rail
 	property bool IsGreen
 	{
 		bool get();

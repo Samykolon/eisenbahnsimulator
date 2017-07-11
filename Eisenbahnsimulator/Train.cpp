@@ -81,7 +81,7 @@ void Train::setOnRail(Rail ^ _rail)
 	Tile = _rail;
 	StartDirection = startDirection;
 	GoalDirection = goalDirection;
-	CurrentPose = _rail->getPose(StartDirection, TileProgress, tileSize);
+	CurrentPose = _rail->getPose(StartDirection, TileProgress);
 	//Windows::Forms::MessageBox::Show(CurrentPose.X + " " + CurrentPose.Y + " " + StartDirection.ToString() + " " + tileSize);
 }
 
@@ -104,7 +104,7 @@ void Train::setOnRail(Rail ^ newRail, Direction _startDir)
 		TileProgress = 0;
 		StartDirection = FindOppositeDirection(_startDir);
 		Tile = newRail;
-		CurrentPose = newRail->getPose(StartDirection, TileProgress, tileSize);
+		CurrentPose = newRail->getPose(StartDirection, TileProgress);
 
 		switch (newRail->EndDirections)
 		{
@@ -270,7 +270,7 @@ void Train::Tick(double _time, Map^ map)
 
 			TileProgress += Speed*_time;
 		}
-		newPose = rail->getPose(StartDirection, TileProgress, TileSize);
+		newPose = rail->getPose(StartDirection, TileProgress);
 
 		if (newPose.X != -1) { //Train is on the same tile 
 			//Windows::Forms::MessageBox::Show(newPose.X.ToString() + "TileProgress " + TileProgress);
@@ -314,4 +314,14 @@ void Train::SwitchDirection()
 	Direction temp = StartDirection;
 	StartDirection = GoalDirection;
 	GoalDirection = temp;
+}
+
+Pose Train::CurrentPose::get()
+{
+	return currentPose*tileSize;
+}
+
+void Train::CurrentPose::set(Pose _pose)
+{
+	currentPose = _pose;
 }

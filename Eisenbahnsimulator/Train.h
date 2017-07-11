@@ -27,12 +27,12 @@ protected:
 	Boolean drivesforward;
 	double waitingTimeLeft;
 	Boolean hasAlreadyStopped;
+	Pose currentPose; //A pose that describes the train's current position on the panel, coordinates and orientation
 public:
 	property Direction GoalDirection;
 	property double TileProgress;	
 	property TrainType Type;
 	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
-	Pose CurrentPose; //A pose that describes the train's current position on the panel, including pixel coordinates and orientation
 	static Direction FindOppositeDirection(Direction dir);
 public:
 	Train(TrainType typ, String ^ nm, String^ _imagePath, int _maxSpeed);//, Direction start, Direction goal, Rail ^ to, String^ _imagePath, int tileSize);
@@ -75,6 +75,12 @@ public:
 	{
 		double get();
 		void set(double _speed);
+	}
+
+	property Pose CurrentPose
+	{
+		Pose get();
+		void set(Pose pose);
 	}
 
 #pragma endregion

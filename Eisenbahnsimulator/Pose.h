@@ -17,8 +17,8 @@ Directions AddDirections(Direction d1, Direction d2); //Returns Directions for t
 public value class Pose {
 	double orientation;
 public:
-	property int X;
-	property int Y;
+	property double X;
+	property double Y;
 public:
 	property double Orientation { //Orientation in degrees, mathematical direction, the direction an object is facing
 		void set(double angle) { //Angle is always between 0 and 360 degrees
@@ -34,10 +34,18 @@ public:
 			return orientation;
 		}
 	}
-	Pose(int xi, int yi, double ori) {
+	Pose(double xi, double yi, double ori) {
 		X = xi;
 		Y = yi;
 		orientation = ori;
 	}
 
+	Pose operator *(int factor)
+	{
+		Pose pose;
+		pose.Orientation = orientation;
+		pose.X = X * factor;
+		pose.Y = Y * factor;
+		return pose;
+	}
 };

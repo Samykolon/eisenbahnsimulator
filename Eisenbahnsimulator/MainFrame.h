@@ -27,6 +27,7 @@ namespace Eisenbahnsimulator {
 	using namespace System::Drawing;
 	using namespace System::Collections::Generic;
 	using namespace System::Runtime::Serialization::Formatters::Binary;
+	using namespace System::Drawing::Drawing2D;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -643,8 +644,8 @@ namespace Eisenbahnsimulator {
 			throw gcnew ArgumentNullException("image");
 
 		//create a new empty bitmap to hold rotated image
-		Bitmap^ rotatedBmp = gcnew Bitmap(image->Width, image->Height);
-		rotatedBmp->SetResolution(image->HorizontalResolution, image->VerticalResolution);
+		Bitmap^ rotatedBmp = gcnew Bitmap(userdata->tileSize, userdata->tileSize);
+		rotatedBmp->SetResolution(image->HorizontalResolution* userdata->tileSize/ image->Width , image->VerticalResolution* userdata->tileSize / image->Height);
 
 		//make a graphics object from the empty bitmap
 		Graphics^ g = Graphics::FromImage(rotatedBmp);
@@ -660,11 +661,11 @@ namespace Eisenbahnsimulator {
 
 		//draw passed in image onto graphics object
 		g->DrawImage(image, Point(0, 0));
-
+		/*
+		Pen^ pen = gcnew Pen(Color::Red);
+		g->DrawRectangle(pen, 0, 0, userdata->tileSize, userdata->tileSize);*/
 		return rotatedBmp;
 	}
-
-
 
 
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  paintEventArgs) { //Draws everything
@@ -933,21 +934,50 @@ private: System::Void panel1_MouseLeave(System::Object^  sender, System::EventAr
 }
 		 private: System::Void panel1_MouseWheel(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 
+			 int oldTileSize = userdata->tileSize;
 			 int value = (e->Delta) / 10;
-			 if ((userdata->tileSize > 56) && (userdata->tileSize < 140))
+			 int smallesTileSize = 56; // Zoomed out
+			 int biggestTileSize = 180; // Zoomed in
+			// value = 0;
+			 // Zoom to
+			 int zoomToX = CoordinateOffset.X;
+			 int zoomToY = CoordinateOffset.Y;
+
+
+			 // Zoom out
+			 if (value < 0)
 			 {
-				 userdata->tileSize += value;
+				 if (userdata->tileSize > smallesTileSize)
+				 {
+					 userdata->tileSize += value;
+				 }
+				 if (userdata->tileSize < smallesTileSize) // Check if tileSize too small
+				 {
+					 userdata->tileSize = smallesTileSize;
+				 }
+				 CoordinateOffset.X = zoomToX * userdata->tileSize / oldTileSize;
+				 CoordinateOffset.Y = zoomToY * userdata->tileSize / oldTileSize;
 
 			 }
-			 else if ((userdata->tileSize == 56) && value > 0)
-				 userdata->tileSize += value;
-			 else if ((userdata->tileSize == 140) && value < 0)
-				 userdata->tileSize += value;
+			 // Zoom in
+			 else 
+			 {
+				 if (userdata->tileSize < biggestTileSize)
+				 {
+					 userdata->tileSize += value;
+				 }
+				 if (userdata->tileSize > biggestTileSize) // Check if tileSize too big
+				 {
+					 userdata->tileSize = biggestTileSize;
+				 }
+				CoordinateOffset.X = zoomToX * userdata->tileSize / oldTileSize;
+				CoordinateOffset.Y = zoomToY * userdata->tileSize / oldTileSize;
+
+			 }
 			 for each (Train^ tr in userdata->trainList)
 			 {
 				 tr->TileSize = userdata->tileSize;
 			 }
-
 		 }
 };
 }
