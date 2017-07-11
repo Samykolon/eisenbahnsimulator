@@ -43,15 +43,15 @@ namespace Eisenbahnsimulator {
 			{
 				MessageBox::Show("Test");
 				return;
-			}			
+			}
 		}
-		
+
 	};
 
 
 	public ref class MainFrame : public System::Windows::Forms::Form
 	{
-		
+
 	public:
 		MainFrame(void)
 		{
@@ -480,7 +480,7 @@ namespace Eisenbahnsimulator {
 #pragma endregion
 		Appdata^ appdata;
 		Userdata^ userdata;
-		Train^ SelectedTrain; 
+		Train^ SelectedTrain;
 		int SelectedTI = -1;    //Selected Trainindex - connected with the listbox
 		Boolean trackbarinuse = 0;  // Determines if user hovers over trackbar or not
 
@@ -542,7 +542,7 @@ namespace Eisenbahnsimulator {
 
 		int X = CalcTileCoord(e->X + CoordinateOffset.X);	//Calculates the logical tile coordinates the user clicks on
 		int Y = CalcTileCoord(e->Y + CoordinateOffset.Y);
-		
+
 		if (e->Button == System::Windows::Forms::MouseButtons::Left) {
 
 			if (userdata != nullptr) { //Checks if the user has created a TileMap
@@ -571,7 +571,7 @@ namespace Eisenbahnsimulator {
 							userdata->AddTrain(dynamic_cast<Train^>(train->Clone()));
 							CheckMessageBox();
 							textBox1->AppendText(train->Name + L" wurde erfolgreich hinzugefügt!\r\n");
-							
+
 
 						}
 
@@ -596,7 +596,7 @@ namespace Eisenbahnsimulator {
 					sRail->Switch();
 				}
 			}
-		} 
+		}
 
 		else if (e->Button == System::Windows::Forms::MouseButtons::Middle) {
 			if (userdata->map->GetTile(X, Y) != nullptr) {
@@ -619,9 +619,38 @@ namespace Eisenbahnsimulator {
 
 	}
 
+	public:	 Bitmap^ RotateImage(Image^ image, Point offset, float angle)
+	{
+		if (image == nullptr)
+			throw gcnew ArgumentNullException("image");
+
+		//create a new empty bitmap to hold rotated image
+		Bitmap^ rotatedBmp = gcnew Bitmap(image->Width, image->Height);
+		rotatedBmp->SetResolution(image->HorizontalResolution, image->VerticalResolution);
+
+		//make a graphics object from the empty bitmap
+		Graphics^ g = Graphics::FromImage(rotatedBmp);
+
+		//Put the rotation point in the center of the image
+		g->TranslateTransform(offset.X, offset.Y);
+
+		//rotate the image
+		g->RotateTransform(angle);
+
+		//move the image back
+		g->TranslateTransform(-offset.X, -offset.Y);
+
+		//draw passed in image onto graphics object
+		g->DrawImage(image, Point(0, 0));
+
+		return rotatedBmp;
+	}
+
+
+
+
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  paintEventArgs) { //Draws everything
-
-
+		
 		if (userdata != nullptr) { //If a TileMap has been created
 			int maxXTile = Math::Min(userdata->map->Width, CalcTileCoord(panel1->Width - 2)); //Calculate the number of tiles that need to be drawn on the panel
 			int maxYTile = Math::Min(userdata->map->Height, CalcTileCoord(panel1->Height - 2));
@@ -633,38 +662,22 @@ namespace Eisenbahnsimulator {
 
 			for (int i = 0; i < userdata->map->GetCount(); i++)
 			{
-
 				TileObject^ toBeDrawn = userdata->map->TileAt(i);
-				//TODO: Check if the tile is out of range	
-				/*if (toBeDrawn->Position.X > CoordinateOffset.X &&
-					toBeDrawn->Position.Y > CoordinateOffset.Y &&
-					toBeDrawn->Position.X < maxXTile + CoordinateOffset.X &&
-					toBeDrawn->Position.Y < maxXTile + CoordinateOffset.Y)
-				{*/
-					graphics->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath),
+				//TODO: Check if the tile is out of range				
+				graphics->DrawImage(appdata->getImageFromPath(toBeDrawn->ImagePath),
 					(toBeDrawn->Position.X - 1) * userdata->tileSize,
 					(toBeDrawn->Position.Y - 1) * userdata->tileSize,
-						userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
-									
-			}			
-
-
-			Pen^ redPen = gcnew Pen(Color::Red);
-			for each (Train^ train in userdata->trainList) { //Draw all trains' current poses
-				//MessageBox::Show(train->CurrentPose.X + " " + train->CurrentPose.Y);
-
-				Image^ trainPic = Image::FromFile(train->ImagePath); //Is garbage collected
-				graphics->InterpolationMode = Drawing2D::InterpolationMode::HighQualityBicubic;
-				float halfSize = userdata->tileSize / 2.0; //Assume the image is quadratic
-				graphics->TranslateTransform(train->CurrentPose.X - halfSize, train->CurrentPose.Y - halfSize);
-				graphics->RotateTransform(-train->CurrentPose.Orientation);
-				
-				graphics->DrawImage(trainPic, -halfSize, - halfSize, (float)userdata->tileSize, (float)userdata->tileSize);
-				graphics->ResetTransform();
-				//graphics->DrawImage(trainPic, (float)train->CurrentPose.X, (float)train->CurrentPose.Y, (float)userdata->tileSize, (float)userdata->tileSize);
+					userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
 			}
 			
-			
+			for each (Train^ train in userdata->trainList) { //Draw all trains' current poses
+				Image^ trainPic = Image::FromFile(train->ImagePath); //Is garbage collected
+				float halfSize = userdata->tileSize / 2.0;
+				trainPic = (RotateImage(trainPic, Point(halfSize, halfSize), -train->CurrentPose.Orientation));
+				graphics->DrawImage(trainPic, (float)train->CurrentPose.X - halfSize, (float)train->CurrentPose.Y -halfSize, (float)userdata->tileSize, (float)userdata->tileSize);			
+			}
+
+
 		}
 	}
 	private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) {
@@ -684,137 +697,137 @@ namespace Eisenbahnsimulator {
 		if (SelectedTrain != nullptr && trackbarinuse == 0)
 			if (SelectedTrain->SpeedLimit == SelectedTrain->MaximumSpeed)
 				trackBar2->Value = SelectedTrain->MaximumSpeed * 10;
-			//else
-				//trackBar2->Value = SelectedTrain->CurrentSpeed * 10; 
+		//else
+			//trackBar2->Value = SelectedTrain->CurrentSpeed * 10; 
 
 
 	}
 
-private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	userdata->trainList->Remove(SelectedTrain);
-	updateTrainList(userdata, appdata, listBox1);
-	if (listBox1->Items->Count < 1)
-		listBox1->Text = "Liste der vorhandenen Züge";
-	
+		userdata->trainList->Remove(SelectedTrain);
+		updateTrainList(userdata, appdata, listBox1);
+		if (listBox1->Items->Count < 1)
+			listBox1->Text = "Liste der vorhandenen Züge";
 
-}
-private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	for each (Train^ train in userdata->trainList)
-	{
-		if (train->Name != nullptr) {
-			train->SpeedLimit = 0;
+	}
+	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 
+		for each (Train^ train in userdata->trainList)
+		{
+			if (train->Name != nullptr) {
+				train->SpeedLimit = 0;
+
+			}
 		}
-	}
-	if (listBox1->Items->Count > 0 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
-		CheckMessageBox();
-		textBox1->AppendText(L"Alle Züge wurden gestoppt!\r\n");
-	}
-	else {
-		CheckMessageBox();
-		textBox1->AppendText(L"Keine Züge vorhanden!\r\n");
-	}
-
-	//SelectedTrain->SpeedLimit = 0;
-}
-private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
-
-	if (SelectedTrain != nullptr)
-			SelectedTrain->SpeedLimit = trackBar2->Value / 10;
-}
-private: System::Void radioButton4_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-	
-	if (SelectedTrain != nullptr) {
-		if (radioButton4->Checked == true) {
-			SelectedTrain->DrivesForward = 0;
-			//SelectedTrain->MaximumSpeed = -30;
+		if (listBox1->Items->Count > 0 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
+			CheckMessageBox();
+			textBox1->AppendText(L"Alle Züge wurden gestoppt!\r\n");
 		}
 		else {
-			SelectedTrain->DrivesForward = 1;
-			//SelectedTrain->MaximumSpeed *= -1;
+			CheckMessageBox();
+			textBox1->AppendText(L"Keine Züge vorhanden!\r\n");
 		}
-		SelectedTrain->SwitchDirection(); //Change the train's direction by 180 degrees
-		Rail^ currentRail = dynamic_cast<Rail^>(SelectedTrain->Tile);
-		if (currentRail != nullptr) {
-			if (currentRail->EndDirections == Directions::NorthSouth || currentRail->EndDirections == Directions::WestEast) {
-				SelectedTrain->TileProgress = 4 - SelectedTrain->TileProgress;
+
+		//SelectedTrain->SpeedLimit = 0;
+	}
+	private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
+
+		if (SelectedTrain != nullptr)
+			SelectedTrain->SpeedLimit = trackBar2->Value / 10;
+	}
+	private: System::Void radioButton4_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+
+		if (SelectedTrain != nullptr) {
+			if (radioButton4->Checked == true) {
+				SelectedTrain->DrivesForward = 0;
+				//SelectedTrain->MaximumSpeed = -30;
 			}
 			else {
-				SelectedTrain->TileProgress = 3.57079632679 - SelectedTrain->TileProgress;
+				SelectedTrain->DrivesForward = 1;
+				//SelectedTrain->MaximumSpeed *= -1;
+			}
+			SelectedTrain->SwitchDirection(); //Change the train's direction by 180 degrees
+			Rail^ currentRail = dynamic_cast<Rail^>(SelectedTrain->Tile);
+			if (currentRail != nullptr) {
+				if (currentRail->EndDirections == Directions::NorthSouth || currentRail->EndDirections == Directions::WestEast) {
+					SelectedTrain->TileProgress = 4 - SelectedTrain->TileProgress;
+				}
+				else {
+					SelectedTrain->TileProgress = 3.57079632679 - SelectedTrain->TileProgress;
+				}
 			}
 		}
 	}
-}
-private: System::Void trackBar2_MouseEnter(System::Object^  sender, System::EventArgs^  e) {   
+	private: System::Void trackBar2_MouseEnter(System::Object^  sender, System::EventArgs^  e) {
 
-	trackbarinuse = 1;
-}
-private: System::Void trackBar2_MouseLeave(System::Object^  sender, System::EventArgs^  e) {
-
-	trackbarinuse = 0;
-}
-private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
-
-	if (listBox1->Items->Count == 1 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
-		SelectedTI = 0;   // If there is no train there yet
+		trackbarinuse = 1;
 	}
-	else if (listBox1->Items->Count > 1) {
-		SelectedTI = listBox1->SelectedIndex;
-	}
-	else {
-		listBox1->Text = "Liste der vorhandenen Züge";
-		return;
-	}
+	private: System::Void trackBar2_MouseLeave(System::Object^  sender, System::EventArgs^  e) {
 
-	if (SelectedTI > -1)
-	{
-		SelectedTrain = userdata->trainList[SelectedTI];
+		trackbarinuse = 0;
+	}
+	private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+
+		if (listBox1->Items->Count == 1 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
+			SelectedTI = 0;   // If there is no train there yet
+		}
+		else if (listBox1->Items->Count > 1) {
+			SelectedTI = listBox1->SelectedIndex;
+		}
+		else {
+			listBox1->Text = "Liste der vorhandenen Züge";
+			return;
+		}
+
+		if (SelectedTI > -1)
+		{
+			SelectedTrain = userdata->trainList[SelectedTI];
 			trackBar2->Maximum = SelectedTrain->MaximumSpeed * 10;
 			trackBar2->Value = SelectedTrain->CurrentSpeed * 10;
 
 
-		if (SelectedTrain->DrivesForward == 1)   // Forward and backward Direction 
-			radioButton2->Checked = true;
-		else
-			radioButton4->Checked = true;
-	}
+			if (SelectedTrain->DrivesForward == 1)   // Forward and backward Direction 
+				radioButton2->Checked = true;
+			else
+				radioButton4->Checked = true;
+		}
 
-}
-private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	}
+	private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-	{
-		System::IO::FileStream^ fs = System::IO::File::Create(saveFileDialog1->FileName);
-		BinaryFormatter^ bf = gcnew BinaryFormatter();
-		if (userdata != nullptr) {
-			bf->Serialize(fs, userdata);
-		} 
-		fs->Close();
-		CheckMessageBox();
-		textBox1->AppendText(L"Schienennetz wurde erfolgreich gespeichert!\r\n");
-	}
-	
-	
-}
-private: System::Void ladenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+		if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		{
+			System::IO::FileStream^ fs = System::IO::File::Create(saveFileDialog1->FileName);
+			BinaryFormatter^ bf = gcnew BinaryFormatter();
+			if (userdata != nullptr) {
+				bf->Serialize(fs, userdata);
+			}
+			fs->Close();
+			CheckMessageBox();
+			textBox1->AppendText(L"Schienennetz wurde erfolgreich gespeichert!\r\n");
+		}
 
-	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-	{
-		System::IO::FileStream^ fs = System::IO::File::OpenRead(openFileDialog1->FileName);
-		BinaryFormatter^ bf = gcnew BinaryFormatter();
-		userdata = (Userdata^)bf->Deserialize(fs);
-		fs->Close();
-		panel1->Invalidate();
-		updateTrainList(userdata, appdata, listBox1);
-		CheckMessageBox();
-		textBox1->AppendText(L"Schienennetz wurde erfolgreich geladen!\r\n");
+
 	}
+	private: System::Void ladenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+
+		if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		{
+			System::IO::FileStream^ fs = System::IO::File::OpenRead(openFileDialog1->FileName);
+			BinaryFormatter^ bf = gcnew BinaryFormatter();
+			userdata = (Userdata^)bf->Deserialize(fs);
+			fs->Close();
+			panel1->Invalidate();
+			updateTrainList(userdata, appdata, listBox1);
+			CheckMessageBox();
+			textBox1->AppendText(L"Schienennetz wurde erfolgreich geladen!\r\n");
+		}
 	}
-private: System::Void MainFrame_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
-	panel1->Focus();
-	MessageBox::Show("Test");
-}
-};
+	private: System::Void MainFrame_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+		panel1->Focus();
+		MessageBox::Show("Test");
+	}
+	};
 }
