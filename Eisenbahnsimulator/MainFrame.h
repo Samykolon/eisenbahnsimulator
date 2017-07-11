@@ -466,7 +466,7 @@ namespace Eisenbahnsimulator {
 			this->ShowIcon = false;
 			this->Text = L"Eisenbahnsimulator";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
-			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainFrame::MainFrame_KeyPress);
+			// this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainFrame::MainFrame_KeyPress);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->groupBox1->ResumeLayout(false);
@@ -798,18 +798,6 @@ namespace Eisenbahnsimulator {
 
 	}
 	private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-
-		if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-		{
-			System::IO::FileStream^ fs = System::IO::File::Create(saveFileDialog1->FileName);
-			BinaryFormatter^ bf = gcnew BinaryFormatter();
-			if (userdata != nullptr) {
-				bf->Serialize(fs, userdata);
-			}
-			fs->Close();
-			CheckMessageBox();
-			textBox1->AppendText(L"Schienennetz wurde erfolgreich gespeichert!\r\n");
-		}
 
 	saveFileDialog1->DefaultExt = L".mpd";
 	saveFileDialog1->AddExtension;
