@@ -16,6 +16,7 @@ namespace Eisenbahnsimulator {
 	{
 	public:
 		property String^ Background;
+		property Boolean PreviewEnabled;
 		Settings(void)
 		{
 			InitializeComponent();
@@ -23,10 +24,11 @@ namespace Eisenbahnsimulator {
 			//TODO: Konstruktorcode hier hinzufügen.
 			//
 		}
-		Settings(String^ _backgroundpath)
+		Settings(String^ _backgroundpath, Boolean _previewenabled)
 		{
 			InitializeComponent();
 			Background = _backgroundpath;
+			PreviewEnabled = _previewenabled;
 
 		}
 
@@ -46,6 +48,9 @@ namespace Eisenbahnsimulator {
 
 	private: System::Windows::Forms::Button^  button1;
 	private: ComboxExtended::ImagedComboBox^  imagedComboBox1;
+	private: System::Windows::Forms::GroupBox^  groupBox1;
+	private: System::Windows::Forms::RadioButton^  radioButton2;
+	private: System::Windows::Forms::RadioButton^  radioButton1;
 
 	private:
 		/// <summary>
@@ -63,6 +68,10 @@ namespace Eisenbahnsimulator {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->imagedComboBox1 = (gcnew ComboxExtended::ImagedComboBox());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
+			this->radioButton1 = (gcnew System::Windows::Forms::RadioButton());
+			this->groupBox1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -89,17 +98,53 @@ namespace Eisenbahnsimulator {
 			this->imagedComboBox1->DrawMode = System::Windows::Forms::DrawMode::OwnerDrawVariable;
 			this->imagedComboBox1->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->imagedComboBox1->FormattingEnabled = true;
-			this->imagedComboBox1->Location = System::Drawing::Point(12, 30);
+			this->imagedComboBox1->Location = System::Drawing::Point(12, 32);
 			this->imagedComboBox1->Name = L"imagedComboBox1";
 			this->imagedComboBox1->Size = System::Drawing::Size(208, 21);
 			this->imagedComboBox1->TabIndex = 3;
 			this->imagedComboBox1->DropDownClosed += gcnew System::EventHandler(this, &Settings::imagedComboBox1_DropDownClosed);
+			// 
+			// groupBox1
+			// 
+			this->groupBox1->Controls->Add(this->radioButton2);
+			this->groupBox1->Controls->Add(this->radioButton1);
+			this->groupBox1->Location = System::Drawing::Point(12, 64);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(208, 58);
+			this->groupBox1->TabIndex = 5;
+			this->groupBox1->TabStop = false;
+			this->groupBox1->Text = L"Preview ein/aus";
+			// 
+			// radioButton2
+			// 
+			this->radioButton2->AutoSize = true;
+			this->radioButton2->Location = System::Drawing::Point(145, 25);
+			this->radioButton2->Name = L"radioButton2";
+			this->radioButton2->RightToLeft = System::Windows::Forms::RightToLeft::No;
+			this->radioButton2->Size = System::Drawing::Size(43, 17);
+			this->radioButton2->TabIndex = 1;
+			this->radioButton2->TabStop = true;
+			this->radioButton2->Text = L"Aus";
+			this->radioButton2->UseVisualStyleBackColor = true;
+			// 
+			// radioButton1
+			// 
+			this->radioButton1->AutoSize = true;
+			this->radioButton1->Location = System::Drawing::Point(16, 25);
+			this->radioButton1->Name = L"radioButton1";
+			this->radioButton1->Size = System::Drawing::Size(40, 17);
+			this->radioButton1->TabIndex = 0;
+			this->radioButton1->TabStop = true;
+			this->radioButton1->Text = L"Ein";
+			this->radioButton1->UseVisualStyleBackColor = true;
+			this->radioButton1->CheckedChanged += gcnew System::EventHandler(this, &Settings::radioButton1_CheckedChanged);
 			// 
 			// Settings
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(232, 261);
+			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->imagedComboBox1);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label1);
@@ -111,6 +156,8 @@ namespace Eisenbahnsimulator {
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Einstellungen";
 			this->Load += gcnew System::EventHandler(this, &Settings::Settings_Load);
+			this->groupBox1->ResumeLayout(false);
+			this->groupBox1->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -153,6 +200,11 @@ namespace Eisenbahnsimulator {
 
 		}
 
+		if (PreviewEnabled == true)
+			radioButton1->Checked = true;
+		else
+			radioButton2->Checked = true;
+
 	}
 private: System::Void imagedComboBox1_DropDownClosed(System::Object^  sender, System::EventArgs^  e) {
 
@@ -166,6 +218,13 @@ private: System::Void imagedComboBox1_DropDownClosed(System::Object^  sender, Sy
 		Background = L"Rails/snow_background.png";
 	else 
 		Background = L"Rails/sandstone_background.png";
+}
+private: System::Void radioButton1_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+
+	if (radioButton1->Checked == true)
+		PreviewEnabled = true;
+	else
+		PreviewEnabled = false;
 }
 };
 }

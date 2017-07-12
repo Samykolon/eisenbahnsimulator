@@ -482,6 +482,7 @@ namespace Eisenbahnsimulator {
 		Train^ SelectedTrain;  //Selected Train
 		int SelectedTI = -1;    //Selected Trainindex - connected with the listbox
 		Boolean trackbarinuse = 0;  // Determines if user hovers over trackbar or not
+		Boolean prewiewenabled = true;
 
 		int selectedItem;	//Number of selected toolbox item
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
@@ -757,7 +758,10 @@ namespace Eisenbahnsimulator {
 					}
 				}
 
+				if(prewiewenabled == true)
 				graphics->DrawRectangle(penRed, (X - 1) * userdata->tileSize, (Y - 1) * userdata->tileSize, userdata->tileSize, userdata->tileSize);
+				
+
 
 			}
 		}
@@ -1052,10 +1056,11 @@ private: System::Void toolStripMenuItem1_Click(System::Object^  sender, System::
 }
 private: System::Void einstellungenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	Settings^ s = gcnew Settings(userdata->map->BackgroundPath);
+	Settings^ s = gcnew Settings(userdata->map->BackgroundPath, prewiewenabled);
 	if (s->ShowDialog(this) == ::DialogResult::OK)
 	{
 		userdata->map->BackgroundPath = s->Background;
+		prewiewenabled = s->PreviewEnabled;
 		panel1->Invalidate();
 		
 
