@@ -77,7 +77,7 @@ Pose Rail::getPose(Direction startDirection, double tileProgress)
 	case Directions::NorthEast:
 		if (startDirection == Direction::North) {
 			if (tileProgress < 1) {
-				return Pose((position.X - 1)  + 0.5 * 1.0, (position.Y - 1) * 1 + tileProgress / 4.0 * 1.0, 270);
+				return Pose((position.X - 1) + 0.5 * 1.0, (position.Y - 1) * 1 + tileProgress / 4.0 * 1.0, 270);
 			}
 			else if (tileProgress < 2.57079632679) {
 				double phi = (tileProgress - 1); //phi in radian

@@ -29,6 +29,8 @@ protected:
 	Boolean hasAlreadyStopped;
 	Pose currentPose; //A pose that describes the train's current position on the panel, coordinates and orientation
 public:
+	property int X;
+	property int Y;
 	property Direction GoalDirection;
 	property double TileProgress;	
 	property TrainType Type;
