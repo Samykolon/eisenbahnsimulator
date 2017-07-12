@@ -19,9 +19,7 @@ protected:
 public:
 	//TODO: Make virtual?
 	TileObject(String^ _imagePath, String^ _id_name); 
-
-	virtual void Tick(double time);
-
+	
 	virtual Object ^Clone();
 
 	virtual property Point Position

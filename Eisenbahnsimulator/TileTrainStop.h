@@ -9,6 +9,5 @@ public:
 	
 		
 public:
-	TrainStop(Directions dir, double waitTime,  String^ imagePath, String^ name);	
-	void Tick(double time) override;
+	TrainStop(Directions dir, double waitTime,  String^ imagePath, String^ name);		
 };

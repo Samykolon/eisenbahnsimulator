@@ -615,7 +615,7 @@ namespace Eisenbahnsimulator {
 					railSw->Switch(userdata->trainList);
 					for each (Train^ train in userdata->trainList) //Set trains that had been stopped by the railroad switches' status in motion again
 					{
-						if (train->X == railSw->Position.X && train->Y == railSw->Position.Y && train->CurrentSpeed == 0 && railSw->LeadsTo(Train::FindOppositeDirection(train->GoalDirection))){
+						if (train->X == railSw->Position.X && train->Y == railSw->Position.Y && train->CurrentSpeed == 0 && railSw->LeadsTo(Train::FindOppositeDirection(train->GoalDirection))) {
 							train->setOnRail(railSw, train->GoalDirection);
 							train->SpeedLimit = train->MaximumSpeed;
 						}
@@ -768,13 +768,7 @@ namespace Eisenbahnsimulator {
 		Int32 passedTicks = Environment::TickCount - lastTc;
 		lastTc = Environment::TickCount;
 		double passedTime = passedTicks / 1000.0;
-
-		for (int i = 0; i < userdata->map->GetCount(); i++)
-		{
-
-			userdata->map->TileAt(i)->Tick(passedTime); //Let time pass for all objects		
-
-		}
+			
 		for each (Train^ train in userdata->trainList)
 		{
 			train->Tick(passedTime, userdata->map);

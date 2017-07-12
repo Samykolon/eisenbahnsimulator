@@ -13,7 +13,7 @@ String^ TileObject::ImagePath::get()
 	return imagePath;
 }
 
-void TileObject::ImagePath::set(String^ _imagePath) 
+void TileObject::ImagePath::set(String^ _imagePath)
 {
 	imagePath = _imagePath;
 }
@@ -25,11 +25,6 @@ Point TileObject::Position::get()
 
 void TileObject::Position::set(Point _position) {
 	position = _position;
-}
-
-void TileObject::Tick(double time)
-{
-
 }
 
 Object ^TileObject::Clone()
