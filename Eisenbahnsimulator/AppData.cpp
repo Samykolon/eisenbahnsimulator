@@ -52,8 +52,8 @@ Appdata::Appdata()
 	tiles->Add(L"House3", gcnew Decoration(DecoType::House, L"Rails/House3.png", "House3"));
 	tiles->Add(L"Station", gcnew Decoration(DecoType::House, L"Rails/Station1.png", "Station"));
 
-	tiles->Add(L"Tile_Rail_Stop_East_West", gcnew TrainStop(Directions::EastWest, 100000, L"Rails/Rail_Stop_Hor.png", L"Tile_Rail_Stop_East_West"));
-	tiles->Add(L"Tile_Rail_Stop_North_South", gcnew TrainStop(Directions::NorthSouth, 100000, L"Rails/Rail_Stop_Vert.png", L"Tile_Rail_Stop_North_South"));
+	tiles->Add(L"Tile_Rail_Stop_East_West", gcnew TrainStop(Directions::EastWest, 25000, L"Rails/Rail_Stop_Hor.png", L"Tile_Rail_Stop_East_West"));
+	tiles->Add(L"Tile_Rail_Stop_North_South", gcnew TrainStop(Directions::NorthSouth, 25000, L"Rails/Rail_Stop_Vert.png", L"Tile_Rail_Stop_North_South"));
 
 	// Create Categories for Toolbox
 	List<CategoryItem>^ categoryRails = gcnew List<CategoryItem>;
