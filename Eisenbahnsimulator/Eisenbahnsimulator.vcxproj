@@ -189,6 +189,7 @@
   <ItemGroup>
     <Image Include="Rails\Bush.png" />
     <Image Include="Rails\Conifer.png" />
+    <Image Include="Rails\ESIcon.ico" />
     <Image Include="Rails\FoliageTree.png" />
     <Image Include="Rails\grass.png" />
     <Image Include="Rails\House.png" />

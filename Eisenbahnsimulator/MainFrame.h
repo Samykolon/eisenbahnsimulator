@@ -157,6 +157,7 @@ namespace Eisenbahnsimulator {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainFrame::typeid));
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->dateiToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->neuToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -313,7 +314,6 @@ namespace Eisenbahnsimulator {
 			// 
 			// listViewSelectElements
 			// 
-			this->listViewSelectElements->Activation = System::Windows::Forms::ItemActivation::OneClick;
 			this->listViewSelectElements->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->listViewSelectElements->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
@@ -449,12 +449,12 @@ namespace Eisenbahnsimulator {
 			// 
 			this->contextMenuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->toolStripMenuItem1 });
 			this->contextMenuStrip1->Name = L"contextMenuStrip1";
-			this->contextMenuStrip1->Size = System::Drawing::Size(153, 48);
+			this->contextMenuStrip1->Size = System::Drawing::Size(147, 26);
 			// 
 			// toolStripMenuItem1
 			// 
 			this->toolStripMenuItem1->Name = L"toolStripMenuItem1";
-			this->toolStripMenuItem1->Size = System::Drawing::Size(152, 22);
+			this->toolStripMenuItem1->Size = System::Drawing::Size(146, 22);
 			this->toolStripMenuItem1->Text = L"Name ändern";
 			this->toolStripMenuItem1->Click += gcnew System::EventHandler(this, &MainFrame::toolStripMenuItem1_Click);
 			// 
@@ -469,12 +469,12 @@ namespace Eisenbahnsimulator {
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->menuStrip1);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->KeyPreview = true;
 			this->MainMenuStrip = this->menuStrip1;
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->MinimumSize = System::Drawing::Size(602, 489);
 			this->Name = L"MainFrame";
-			this->ShowIcon = false;
 			this->Text = L"Eisenbahnsimulator";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->menuStrip1->ResumeLayout(false);

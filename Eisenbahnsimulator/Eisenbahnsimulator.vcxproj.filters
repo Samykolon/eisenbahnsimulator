@@ -115,6 +115,9 @@
     <EmbeddedResource Include="NewDialog.resx">
       <Filter>Ressourcendateien</Filter>
     </EmbeddedResource>
+    <EmbeddedResource Include="EditName.resx">
+      <Filter>Ressourcendateien</Filter>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Rails\grass.png">
@@ -319,6 +322,9 @@
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Rails\Rail_Stop_Hor.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\ESIcon.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>
