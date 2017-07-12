@@ -76,7 +76,7 @@ void Train::setOnRail(Rail ^ _rail)
 	else
 	{
 		throw gcnew System::Exception("Wrong track... " + "This shouldn't happen");
-	}
+	}	
 	TileProgress = 1;
 	Tile = _rail;
 	StartDirection = startDirection;
@@ -90,12 +90,12 @@ void Train::setOnRail(Rail ^ newRail, Direction _startDir)
 	hasAlreadyStopped = false;
 	if (newRail == nullptr) { //Rail is empty
 		Tile = newRail; 
-		MaxSpeed = Speed = 0; //Train is stuck
+		speedLimit = Speed = 0; //Train is stuck
 		return;
 	}
 	else if (!(newRail->LeadsTo(FindOppositeDirection(_startDir)))) {//Do nothing if the rail isn't connecting properly
 		Tile = newRail;
-		MaxSpeed = Speed = 0; //Train is stuck
+		speedLimit = Speed = 0; //Train is stuck
 		return;
 		
 	}
@@ -259,7 +259,7 @@ void Train::Tick(double _time, Map^ map)
 
 	Rail^ rail = dynamic_cast<Rail^>(Tile);	//Previous/current rail
 	Pose newPose;
-	if (rail != nullptr && MaxSpeed != 0) { //If the train is on a rail and actually able to drive
+	if (rail != nullptr && speedLimit != 0) { //If the train is on a rail and actually able to drive
 		if (rail->IsGreen)
 		{
 			if (Speed < MaxSpeed && Speed < SpeedLimit) { //Accelerate train
@@ -286,15 +286,23 @@ void Train::Tick(double _time, Map^ map)
 				{
 				case Direction::East:
 					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X + 1, Tile->Position.Y)); //Fetch next tile
+					X = Tile->Position.X + 1;
+					Y = Tile->Position.Y;
 					break;
 				case Direction::North:
 					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X, Tile->Position.Y - 1));
+					X = Tile->Position.X;
+					Y = Tile->Position.Y - 1;
 					break;
 				case Direction::West:
 					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X - 1, Tile->Position.Y));
+					X = Tile->Position.X - 1;
+					Y = Tile->Position.Y;
 					break;
 				case Direction::South:
 					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X, Tile->Position.Y + 1));
+					X = Tile->Position.X;
+					Y = Tile->Position.Y + 1;
 					break;
 				default:
 					break;

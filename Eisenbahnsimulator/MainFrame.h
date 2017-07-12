@@ -535,7 +535,7 @@ namespace Eisenbahnsimulator {
 					userdata->map = gcnew Map(sizeX, sizeY); //Create new map
 					panel1->Invalidate(); //Draw main map
 					textBox1->AppendText(L"Neue Arbeitsfläche wurde erfolgreich erstellt!!\r\n");
-					
+
 				}
 			}
 			timer->Start();
@@ -576,6 +576,15 @@ namespace Eisenbahnsimulator {
 					{
 						TileObject ^temp = static_cast<TileObject^>(appdata->getTile(selectedItemKey)->Clone());
 						userdata->map->SetTile(temp, X, Y);
+						for each (Train^ train in userdata->trainList) { //Set stuck trains on new tile
+							if (train->X == X && train->Y == Y) {
+								Rail^ newRail = dynamic_cast<Rail^>(temp);
+								if (newRail != nullptr && newRail->LeadsTo(Train::FindOppositeDirection(train->GoalDirection))) {
+									train->setOnRail(newRail, train->GoalDirection);
+									train->SpeedLimit = train->MaximumSpeed;
+								}
+							}
+						}
 					}
 					else if (appdata->isTrain(selectedItemKey))
 					{
@@ -610,6 +619,13 @@ namespace Eisenbahnsimulator {
 				RailSwitch^ railSw = dynamic_cast<RailSwitch^>(currentTile);
 				if (railSw != nullptr) {
 					railSw->Switch(userdata->trainList);
+					for each (Train^ train in userdata->trainList) //Set trains that had been stopped by the railroad switches' status in motion again
+					{
+						if (train->X == railSw->Position.X && train->Y == railSw->Position.Y && train->CurrentSpeed == 0 && railSw->LeadsTo(Train::FindOppositeDirection(train->GoalDirection))) {
+							train->setOnRail(railSw, train->GoalDirection);
+							train->SpeedLimit = train->MaximumSpeed;
+						}
+					}
 				}
 				else {
 					SignalRail^ sRail = dynamic_cast<SignalRail^>(currentTile);
@@ -627,7 +643,7 @@ namespace Eisenbahnsimulator {
 		}
 
 		else if (e->Button == System::Windows::Forms::MouseButtons::Middle) {
-			
+
 			xWhenMiddleButtonPressed = e->X;
 			yWhenMiddleButtonPressed = e->Y;
 			// delete function in Mouse up event
@@ -652,7 +668,7 @@ namespace Eisenbahnsimulator {
 
 		//create a new empty bitmap to hold rotated image
 		Bitmap^ rotatedBmp = gcnew Bitmap(userdata->tileSize, userdata->tileSize);
-		rotatedBmp->SetResolution(image->HorizontalResolution* userdata->tileSize/ image->Width , image->VerticalResolution* userdata->tileSize / image->Height);
+		rotatedBmp->SetResolution(image->HorizontalResolution* userdata->tileSize / image->Width, image->VerticalResolution* userdata->tileSize / image->Height);
 
 		//make a graphics object from the empty bitmap
 		Graphics^ g = Graphics::FromImage(rotatedBmp);
@@ -676,7 +692,7 @@ namespace Eisenbahnsimulator {
 
 
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  paintEventArgs) { //Draws everything
-		
+
 		if (userdata != nullptr) { //If a TileMap has been created
 
 			int X = CalcTileCoord(x + CoordinateOffset.X);	//Calculates the logical tile coordinates the user clicks on
@@ -712,14 +728,14 @@ namespace Eisenbahnsimulator {
 					(toBeDrawn->Position.Y - 1) * userdata->tileSize,
 					userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
 			}
-			
+
 			for each (Train^ train in userdata->trainList) { //Draw all trains' current poses
 				Image^ trainPic = Image::FromFile(train->ImagePath); //Is garbage collected
 				float halfSize = userdata->tileSize / 2.0;
 				trainPic = (RotateImage(trainPic, Point(halfSize, halfSize), -train->CurrentPose.Orientation));
-				graphics->DrawImage(trainPic, (float)train->CurrentPose.X - halfSize, (float)train->CurrentPose.Y -halfSize, (float)userdata->tileSize, (float)userdata->tileSize);			
+				graphics->DrawImage(trainPic, (float)train->CurrentPose.X - halfSize, (float)train->CurrentPose.Y - halfSize, (float)userdata->tileSize, (float)userdata->tileSize);
 			}
-			
+
 			Pen^ penRed = gcnew Pen(Color::Green);
 			// Highlights the tile over which the mouse is over
 			if (mouseOverPanel)
@@ -758,13 +774,7 @@ namespace Eisenbahnsimulator {
 		Int32 passedTicks = Environment::TickCount - lastTc;
 		lastTc = Environment::TickCount;
 		double passedTime = passedTicks / 1000.0;
-		
-		for (int i = 0; i < userdata->map->GetCount(); i++)
-		{
-
-			userdata->map->TileAt(i)->Tick(passedTime); //Let time pass for all objects		
-
-		}
+			
 		for each (Train^ train in userdata->trainList)
 		{
 			train->Tick(passedTime, userdata->map);
@@ -778,11 +788,11 @@ namespace Eisenbahnsimulator {
 		//else
 			//trackBar2->Value = SelectedTrain->CurrentSpeed * 10; 
 		static int count = 0;
-		count += 60* passedTime;
+		count += 60 * passedTime;
 		if (count >= 60)
 		{
 			count = 0;
-			textBox1->AppendText(L"Framerate: " + 1/ passedTime + "\r\n");
+			textBox1->AppendText(L"Framerate: " + 1 / passedTime + "\r\n");
 		}
 
 	}
@@ -881,24 +891,24 @@ namespace Eisenbahnsimulator {
 	}
 	private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
-	saveFileDialog1->DefaultExt = L".mpd";
-	saveFileDialog1->AddExtension;
-	saveFileDialog1->Filter = L"Map-Datei (*.mpd)|*.mpd";
-	
-	if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-	{
-		System::IO::FileStream^ fs = System::IO::File::Create(saveFileDialog1->FileName);
-		BinaryFormatter^ bf = gcnew BinaryFormatter();
-		if (userdata != nullptr) {
-			bf->Serialize(fs, userdata);
-		} 
-		fs->Close();
-		CheckMessageBox();
-		textBox1->AppendText(L"Schienennetz wurde erfolgreich gespeichert!\r\n");
+		saveFileDialog1->DefaultExt = L".mpd";
+		saveFileDialog1->AddExtension;
+		saveFileDialog1->Filter = L"Map-Datei (*.mpd)|*.mpd";
+
+		if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+		{
+			System::IO::FileStream^ fs = System::IO::File::Create(saveFileDialog1->FileName);
+			BinaryFormatter^ bf = gcnew BinaryFormatter();
+			if (userdata != nullptr) {
+				bf->Serialize(fs, userdata);
+			}
+			fs->Close();
+			CheckMessageBox();
+			textBox1->AppendText(L"Schienennetz wurde erfolgreich gespeichert!\r\n");
+		}
+
+
 	}
-	
-	
-}
 	private: System::Void ladenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
 		openFileDialog1->FileName = "";
@@ -926,6 +936,7 @@ namespace Eisenbahnsimulator {
 
 	}
 	private: System::Void panel1_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+		if (Math::Abs(e->X - xWhenMiddleButtonPressed) < 10 && Math::Abs(e->Y - yWhenMiddleButtonPressed) < 10) return; //Don't move when the user just tried to delete		
 		int deltaX = e->X - x;
 		int deltaY = e->Y - y;
 		x = e->X;
@@ -934,77 +945,77 @@ namespace Eisenbahnsimulator {
 		{
 			CoordinateOffset.X -= deltaX;
 			CoordinateOffset.Y -= deltaY;
-			
+
 			if (CoordinateOffset.X < 0) CoordinateOffset.X = 0;
 			if (CoordinateOffset.Y < 0) CoordinateOffset.Y = 0;
 			if (CoordinateOffset.X > userdata->map->Width * userdata->tileSize) CoordinateOffset.X = userdata->map->Width * userdata->tileSize;
 			if (CoordinateOffset.Y > userdata->map->Height * userdata->tileSize) CoordinateOffset.Y = userdata->map->Height * userdata->tileSize;
 		}
 	}
-private: System::Void panel1_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
-	int X = CalcTileCoord(e->X + CoordinateOffset.X);	//Calculates the logical tile coordinates the user clicks on
-	int Y = CalcTileCoord(e->Y + CoordinateOffset.Y);
-	if (e->Button == System::Windows::Forms::MouseButtons::Middle)
-	{
-		// delete tile if not moved
-		if (e->X == xWhenMiddleButtonPressed && e->Y == yWhenMiddleButtonPressed)
+	private: System::Void panel1_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+		int X = CalcTileCoord(e->X + CoordinateOffset.X);	//Calculates the logical tile coordinates the user clicks on
+		int Y = CalcTileCoord(e->Y + CoordinateOffset.Y);
+		if (e->Button == System::Windows::Forms::MouseButtons::Middle)
 		{
-			if (userdata->map->GetTile(X, Y) != nullptr) {
-				TileObject^ obj = userdata->map->GetTile(X, Y);
-				userdata->map->DeleteTile(obj, X, Y);
-				panel1->Invalidate();
+			// delete tile if not moved
+			if (Math::Abs(e->X - xWhenMiddleButtonPressed) < 15 && Math::Abs(e->Y - yWhenMiddleButtonPressed) < 15)
+			{
+				if (userdata->map->GetTile(X, Y) != nullptr) {
+					TileObject^ obj = userdata->map->GetTile(X, Y);
+					userdata->map->DeleteTile(obj, X, Y);
+					panel1->Invalidate();
+				}
 			}
 		}
 	}
+	private: System::Void panel1_MouseEnter(System::Object^  sender, System::EventArgs^  e) {
+		mouseOverPanel = true;
 	}
-private: System::Void panel1_MouseEnter(System::Object^  sender, System::EventArgs^  e) {
-	mouseOverPanel = true;
-}
-private: System::Void panel1_MouseLeave(System::Object^  sender, System::EventArgs^  e) {
-	mouseOverPanel = false;
-}
-		 private: System::Void panel1_MouseWheel(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-
-			 int oldTileSize = userdata->tileSize;
-			 int value = (e->Delta) / 10;
-			 int smallesTileSize = 56; // Zoomed out
-			 int biggestTileSize = 180; // Zoomed in
-			// value = 0;
-			 // Zoom to
-			 int zoomToX = 0;
-			// int zoomToX = CoordinateOffset.X;
-			 int zoomToY = 0;
-			// int zoomToY = CoordinateOffset.Y;
+	private: System::Void panel1_MouseLeave(System::Object^  sender, System::EventArgs^  e) {
+		mouseOverPanel = false;
+	}
+	private: System::Void panel1_MouseWheel(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+		
+		int oldTileSize = userdata->tileSize;
+		int value = (e->Delta) / 10;
+		int smallesTileSize = 56; // Zoomed out
+		int biggestTileSize = 180; // Zoomed in
+	   // value = 0;
+		// Zoom to
+		int zoomToX = 0;
+		// int zoomToX = CoordinateOffset.X;
+		int zoomToY = 0;
+		// int zoomToY = CoordinateOffset.Y;
 
 
-			 // Zoom out
-			 if (value < 0)
-			 {
-				 if (userdata->tileSize > smallesTileSize)
-				 {
-					 userdata->tileSize += value;
-				 }
-				 if (userdata->tileSize < smallesTileSize) // Check if tileSize too small
-				 {
-					 userdata->tileSize = smallesTileSize;
-				 }
-				 CoordinateOffset.X = zoomToX * userdata->tileSize / oldTileSize;
-				 CoordinateOffset.Y = zoomToY * userdata->tileSize / oldTileSize;
+		 // Zoom out
+		if (value < 0)
+		{
+			if (userdata->tileSize > smallesTileSize)
+			{
+				userdata->tileSize += value;
+			}
+			if (userdata->tileSize < smallesTileSize) // Check if tileSize too small
+			{
+				userdata->tileSize = smallesTileSize;
+			}
+			CoordinateOffset.X = zoomToX * userdata->tileSize / oldTileSize;
+			CoordinateOffset.Y = zoomToY * userdata->tileSize / oldTileSize;
 
-			 }
-			 // Zoom in
-			 else 
-			 {
-				 if (userdata->tileSize < biggestTileSize)
-				 {
-					 userdata->tileSize += value;
-				 }
-				 if (userdata->tileSize > biggestTileSize) // Check if tileSize too big
-				 {
-					 userdata->tileSize = biggestTileSize;
-				 }
-				CoordinateOffset.X = zoomToX * userdata->tileSize / oldTileSize;
-				CoordinateOffset.Y = zoomToY * userdata->tileSize / oldTileSize;
+		}
+		// Zoom in
+		else
+		{
+			if (userdata->tileSize < biggestTileSize)
+			{
+				userdata->tileSize += value;
+			}
+			if (userdata->tileSize > biggestTileSize) // Check if tileSize too big
+			{
+				userdata->tileSize = biggestTileSize;
+			}
+			CoordinateOffset.X = zoomToX * userdata->tileSize / oldTileSize;
+			CoordinateOffset.Y = zoomToY * userdata->tileSize / oldTileSize;
 
 			 }
 			 for each (Train^ tr in userdata->trainList)
