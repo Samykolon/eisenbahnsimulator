@@ -165,10 +165,10 @@ namespace Eisenbahnsimulator {
 #pragma endregion
 
 		ComboxExtended::ComboBoxItem^ Gras = (gcnew ComboxExtended::ComboBoxItem("Gras", Image::FromFile(L"Rails/grass_background.png")));
-		ComboxExtended::ComboBoxItem^ Dirt = (gcnew ComboxExtended::ComboBoxItem("Dirt", Image::FromFile(L"Rails/dirt_background.png")));
-		ComboxExtended::ComboBoxItem^ Stone = (gcnew ComboxExtended::ComboBoxItem("Stone", Image::FromFile(L"Rails/stone_background.png")));
-		ComboxExtended::ComboBoxItem^ Snow = (gcnew ComboxExtended::ComboBoxItem("Snow", Image::FromFile(L"Rails/snow_background.png")));
-		ComboxExtended::ComboBoxItem^ Sandstone = (gcnew ComboxExtended::ComboBoxItem("Sandstone", Image::FromFile(L"Rails/sandstone_background.png")));
+		ComboxExtended::ComboBoxItem^ Dirt = (gcnew ComboxExtended::ComboBoxItem("Erde", Image::FromFile(L"Rails/dirt_background.png")));
+		ComboxExtended::ComboBoxItem^ Stone = (gcnew ComboxExtended::ComboBoxItem("Stein", Image::FromFile(L"Rails/stone_background.png")));
+		ComboxExtended::ComboBoxItem^ Snow = (gcnew ComboxExtended::ComboBoxItem("Schnee", Image::FromFile(L"Rails/snow_background.png")));
+		ComboxExtended::ComboBoxItem^ Sandstone = (gcnew ComboxExtended::ComboBoxItem("Sandstein", Image::FromFile(L"Rails/sandstone_background.png")));
 
 	private: System::Void Settings_Load(System::Object^  sender, System::EventArgs^  e) {
 

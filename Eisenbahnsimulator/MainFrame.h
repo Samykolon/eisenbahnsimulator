@@ -483,6 +483,7 @@ namespace Eisenbahnsimulator {
 		int SelectedTI = -1;    //Selected Trainindex - connected with the listbox
 		Boolean trackbarinuse = 0;  // Determines if user hovers over trackbar or not
 		Boolean prewiewenabled = true;
+		Boolean frameenabled = true;
 
 		int selectedItem;	//Number of selected toolbox item
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
@@ -731,37 +732,38 @@ namespace Eisenbahnsimulator {
 			}
 
 			Pen^ penRed = gcnew Pen(Color::Green);
-			// Highlights the tile over which the mouse is over
-			if (mouseOverPanel)
-			{
-				if (selectedItem != -1)
-				{
-					// Selected Toolbox item:
-					String^ categoryKey = appdata->getCategoryList()[ComboBoxCategorySelection->SelectedIndex];
-					String^ selectedItemKey = appdata->getCategory(categoryKey)[selectedItem].keyString;
-					String^ path = "";
-					// draw preview
-					if (appdata->isTile(selectedItemKey))
+			if (prewiewenabled == true) {
+			 // Highlights the tile over which the mouse is over
+				if (mouseOverPanel)
+				{				
+					if (selectedItem != -1)
 					{
-						path = appdata->getTile(selectedItemKey)->ImagePath;
+						// Selected Toolbox item:
+						String^ categoryKey = appdata->getCategoryList()[ComboBoxCategorySelection->SelectedIndex];
+						String^ selectedItemKey = appdata->getCategory(categoryKey)[selectedItem].keyString;
+						String^ path = "";
+						// draw preview
+						if (appdata->isTile(selectedItemKey))
+						{
+							path = appdata->getTile(selectedItemKey)->ImagePath;
+						}
+						if (appdata->isTrain(selectedItemKey))
+						{
+							path = appdata->getTrain(selectedItemKey)->ImagePath;
+						}
+						if (path != "")
+						{
+							graphics->DrawImage(appdata->getImageFromPath(path),
+								(X - 1) * userdata->tileSize,
+								(Y - 1) * userdata->tileSize,
+								userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
+						}
 					}
-					if (appdata->isTrain(selectedItemKey))
-					{
-						path = appdata->getTrain(selectedItemKey)->ImagePath;
-					}
-					if (path != "")
-					{
-						graphics->DrawImage(appdata->getImageFromPath(path),
-							(X - 1) * userdata->tileSize,
-							(Y - 1) * userdata->tileSize,
-							userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
-					}
+
+
+					graphics->DrawRectangle(penRed, (X - 1) * userdata->tileSize, (Y - 1) * userdata->tileSize, userdata->tileSize, userdata->tileSize);
+
 				}
-
-				if(prewiewenabled == true)
-				graphics->DrawRectangle(penRed, (X - 1) * userdata->tileSize, (Y - 1) * userdata->tileSize, userdata->tileSize, userdata->tileSize);
-				
-
 
 			}
 		}
