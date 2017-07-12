@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 
 
 namespace Eisenbahnsimulator {
@@ -11,7 +11,7 @@ namespace Eisenbahnsimulator {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Zusammenfassung fÅE EditName
+	/// Zusammenfassung f„Éª EditName
 	/// </summary>
 	public ref class EditName : public System::Windows::Forms::Form
 	{
@@ -23,7 +23,7 @@ namespace Eisenbahnsimulator {
 			InitializeComponent();
 			
 			//
-			//TODO: Konstruktorcode hier hinzufÅEen.
+			//TODO: Konstruktorcode hier hinzuf„Éªen.
 			//
 		}
 		EditName(String^ _name)
@@ -57,8 +57,8 @@ namespace Eisenbahnsimulator {
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Erforderliche Methode fÅE die DesignerunterstÅEzung.
-		/// Der Inhalt der Methode darf nicht mit dem Code-Editor ge‰ndert werden.
+		/// Erforderliche Methode f„Éª die Designerunterst„Éªzung.
+		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geËàÖdert werden.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -82,7 +82,7 @@ namespace Eisenbahnsimulator {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(259, 23);
 			this->button1->TabIndex = 1;
-			this->button1->Text = L"Name ‰ndern";
+			this->button1->Text = L"Name √§ndern";
 			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// EditName
@@ -97,7 +97,7 @@ namespace Eisenbahnsimulator {
 			this->MinimizeBox = false;
 			this->Name = L"EditName";
 			this->ShowIcon = false;
-			this->Text = L"Zugname ‰ndern";
+			this->Text = L"Zugname √§ndern";
 			this->Load += gcnew System::EventHandler(this, &EditName::EditName_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();

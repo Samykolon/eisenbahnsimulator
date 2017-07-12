@@ -38,4 +38,8 @@ public:
 		String^ get();
 		void set(String ^_imagePath);
 	}
+	virtual property bool isReserved
+	{
+		bool get();
+	}
 };

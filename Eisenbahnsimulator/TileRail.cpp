@@ -283,3 +283,8 @@ void TileRail::setFree()
 {
 	reserved = false;
 }
+
+bool TileRail::isReserved::get()
+{
+	return reserved;
+}

@@ -37,3 +37,8 @@ bool TileObject::isRail::get()
 {
 	return false;
 }
+
+bool TileObject::isReserved::get()
+{
+	return false;
+}

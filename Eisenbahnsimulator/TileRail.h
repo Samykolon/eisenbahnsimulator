@@ -31,4 +31,8 @@ public:
 	{
 		bool get() override;
 	}
+	property bool isReserved
+	{
+		bool get() override;
+	}
 };

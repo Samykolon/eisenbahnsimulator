@@ -567,16 +567,25 @@ namespace Eisenbahnsimulator {
 
 					if (appdata->isTile(selectedItemKey))
 					{
-						TileObject ^temp = static_cast<TileObject^>(appdata->getTile(selectedItemKey)->Clone());
-						userdata->map->SetTile(temp, X, Y);
-						for each (Train^ train in userdata->trainList) { //Set stuck trains on new tile
-							if (train->X == X && train->Y == Y) {
-								TileRail^ newRail = dynamic_cast<TileRail^>(temp);
-								if (newRail != nullptr && newRail->LeadsTo(FindOppositeDirection(train->GoalDirection))) {
-									train->setOnRail(userdata->map,newRail, train->GoalDirection);
-									train->SpeedLimit = train->MaximumSpeed;
+						TileObject ^to = userdata->map->GetTile(X, Y);
+						// Only place new tiles if old one is not reserved by train or nullptr
+						if (to == nullptr  || !userdata->map->GetTile(X, Y)->isReserved)
+						{
+							TileObject ^temp = static_cast<TileObject^>(appdata->getTile(selectedItemKey)->Clone());
+							userdata->map->SetTile(temp, X, Y);
+							for each (Train^ train in userdata->trainList) { //Set stuck trains on new tile
+								if (train->X == X && train->Y == Y) {
+									TileRail^ newRail = dynamic_cast<TileRail^>(temp);
+									if (newRail != nullptr && newRail->LeadsTo(FindOppositeDirection(train->GoalDirection))) {
+										train->setOnRail(userdata->map, newRail, train->GoalDirection);
+										train->SpeedLimit = train->MaximumSpeed;
+									}
 								}
 							}
+						}
+						else
+						{
+							textBox1->AppendText("Objekt konnte nicht platziert werden, da der Zug blockiert\r\n");
 						}
 					}
 					else if (appdata->isTrain(selectedItemKey))
@@ -598,8 +607,6 @@ namespace Eisenbahnsimulator {
 							{
 								textBox1->AppendText(L" Zug konnte nicht hinzugefügt werden!\r\n");
 							}
-
-
 						}
 
 						updateTrainList(userdata, appdata, listBox1);
@@ -615,14 +622,19 @@ namespace Eisenbahnsimulator {
 			if (selectedItem == -1)
 			{
 				TileObject^ currentTile = userdata->map->GetTile(X, Y);
+
 				RailSwitch^ railSw = dynamic_cast<RailSwitch^>(currentTile);
 				if (railSw != nullptr) {
-					railSw->Switch(userdata->trainList);
-					for each (Train^ train in userdata->trainList) //Set trains that had been stopped by the railroad switches' status in motion again
+					// Only change state of railSwitch if no train is on it
+					if (!currentTile->isReserved)
 					{
-						if (train->X == railSw->Position.X && train->Y == railSw->Position.Y && train->CurrentSpeed == 0 && railSw->LeadsTo(FindOppositeDirection(train->GoalDirection))) {
-							train->setOnRail(userdata->map,railSw, train->GoalDirection);
-							train->SpeedLimit = train->MaximumSpeed;
+						railSw->Switch(userdata->trainList);
+						for each (Train^ train in userdata->trainList) //Set trains that had been stopped by the railroad switches' status in motion again
+						{
+							if (train->X == railSw->Position.X && train->Y == railSw->Position.Y && train->CurrentSpeed == 0 && railSw->LeadsTo(FindOppositeDirection(train->GoalDirection))) {
+								train->setOnRail(userdata->map, railSw, train->GoalDirection);
+								train->SpeedLimit = train->MaximumSpeed;
+							}
 						}
 					}
 				}
@@ -961,8 +973,14 @@ namespace Eisenbahnsimulator {
 			{
 				if (userdata->map->GetTile(X, Y) != nullptr) {
 					TileObject^ obj = userdata->map->GetTile(X, Y);
-					userdata->map->DeleteTile(obj, X, Y);
-					panel1->Invalidate();
+
+					// Only delete tile if no train is on it -> not reserved
+					if (!obj->isReserved)
+					{
+						userdata->map->DeleteTile(obj, X, Y);
+						panel1->Invalidate();
+					}
+
 				}
 			}
 		}
@@ -1041,6 +1059,7 @@ private: System::Void listBox1_MouseDown(System::Object^  sender, System::Window
 }
 private: System::Void toolStripMenuItem1_Click(System::Object^  sender, System::EventArgs^  e) {
 
+	if (SelectedTrain == nullptr) return;
 	EditName^ en = gcnew EditName(SelectedTrain->Name);
 
 	if (en->ShowDialog(this) == ::DialogResult::OK) { //User pressed OK

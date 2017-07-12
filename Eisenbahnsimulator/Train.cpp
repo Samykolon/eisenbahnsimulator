@@ -191,6 +191,7 @@ void Train::freeRails()
 
 void Train::SwitchDirection()
 {
+	rails->Reverse();
 	Direction temp = StartDirection;
 	StartDirection = GoalDirection;
 	GoalDirection = temp;
