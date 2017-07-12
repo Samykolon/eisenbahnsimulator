@@ -23,12 +23,13 @@ protected:
 	double Speed;
 	double MaxSpeed;
 	double speedLimit;
-	Direction StartDirection;
+	
 	Boolean drivesforward;
 	double waitingTimeLeft;
 	Boolean hasAlreadyStopped;
 	Pose currentPose; //A pose that describes the train's current position on the panel, coordinates and orientation
 public:
+	property Direction StartDirection;
 	property int X;
 	property int Y;
 	property Direction GoalDirection;

@@ -613,6 +613,13 @@ namespace Eisenbahnsimulator {
 				RailSwitch^ railSw = dynamic_cast<RailSwitch^>(currentTile);
 				if (railSw != nullptr) {
 					railSw->Switch(userdata->trainList);
+					for each (Train^ train in userdata->trainList) //Set trains that had been stopped by the railroad switches' status in motion again
+					{
+						if (train->X == railSw->Position.X && train->Y == railSw->Position.Y && train->CurrentSpeed == 0 && railSw->LeadsTo(Train::FindOppositeDirection(train->GoalDirection))){
+							train->setOnRail(railSw, train->GoalDirection);
+							train->SpeedLimit = train->MaximumSpeed;
+						}
+					}
 				}
 				else {
 					SignalRail^ sRail = dynamic_cast<SignalRail^>(currentTile);

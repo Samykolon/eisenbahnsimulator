@@ -14,7 +14,7 @@ void RailSwitch::Switch(List<Train^>^ trains)
 	//Check if no train is on the same tile
 	for each (Train^ tr in trains)
 	{
-		if (tr->Tile == this && tr->TileProgress > 0.2) {
+		if (tr->Tile == this && tr->CurrentSpeed > 0) {
 			return;
 		}
 	}
