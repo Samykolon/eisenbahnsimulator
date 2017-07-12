@@ -34,24 +34,7 @@ namespace Eisenbahnsimulator {
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
-
-	/*public ref class ExtendedListView : public System::Windows::Forms::ListView
-	{
-	public:
-		ExtendedListView();
-
-		virtual void KeyPress(KeyEventArgs e) override
-		{
-			if (e.KeyCode == Keys::W || e.KeyCode == Keys::A || e.KeyCode == Keys::S || e.KeyCode == Keys::D)
-			{
-				MessageBox::Show("Test");
-				return;
-			}
-		}
-
-	}; */
-
-
+		
 	public ref class MainFrame : public System::Windows::Forms::Form
 	{
 
@@ -542,6 +525,7 @@ namespace Eisenbahnsimulator {
 					userdata->trainList->Clear();
 					updateTrainList(userdata, appdata, listBox1);
 					panel1->Invalidate(); //Draw main map
+					CheckMessageBox();
 					textBox1->AppendText(L"Neue Arbeitsfläche wurde erfolgreich erstellt!!\r\n");
 					
 
@@ -794,8 +778,7 @@ namespace Eisenbahnsimulator {
 		if (SelectedTrain != nullptr && trackbarinuse == 0)
 			if (SelectedTrain->SpeedLimit == SelectedTrain->MaximumSpeed)
 				trackBar2->Value = SelectedTrain->MaximumSpeed * 10;
-		//else
-			//trackBar2->Value = SelectedTrain->CurrentSpeed * 10; 
+
 		static int count = 0;
 		count += 60 * passedTime;
 		if (count >= 60)
@@ -833,7 +816,6 @@ namespace Eisenbahnsimulator {
 			textBox1->AppendText(L"Keine Züge vorhanden!\r\n");
 		}
 
-		//SelectedTrain->SpeedLimit = 0;
 	}
 	private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
 
@@ -845,11 +827,9 @@ namespace Eisenbahnsimulator {
 		if (SelectedTrain != nullptr) {
 			if (radioButton4->Checked == true) {
 				SelectedTrain->DrivesForward = 0;
-				//SelectedTrain->MaximumSpeed = -30;
 			}
 			else {
 				SelectedTrain->DrivesForward = 1;
-				//SelectedTrain->MaximumSpeed *= -1;
 			}
 			SelectedTrain->SwitchDirection(); //Change the train's direction by 180 degrees
 			Rail^ currentRail = dynamic_cast<Rail^>(SelectedTrain->Tile);
@@ -989,7 +969,7 @@ namespace Eisenbahnsimulator {
 		int value = (e->Delta) / 10;
 		int smallesTileSize = 56; // Zoomed out
 		int biggestTileSize = 180; // Zoomed in
-	   // value = 0;
+	    // value = 0;
 		// Zoom to
 		int zoomToX = 0;
 		// int zoomToX = CoordinateOffset.X;

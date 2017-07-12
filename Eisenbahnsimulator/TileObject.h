@@ -17,9 +17,8 @@ protected:
 	String^ id_name;
 	Point position;
 public:
-	//TODO: Make virtual?
-	TileObject(String^ _imagePath, String^ _id_name); 
-	
+	TileObject(String^ _imagePath, String^ _id_name);
+
 	virtual Object ^Clone();
 
 	virtual property Point Position
