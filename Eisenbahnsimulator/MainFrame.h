@@ -829,7 +829,7 @@ namespace Eisenbahnsimulator {
 	private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
 
 		if (SelectedTrain != nullptr)
-			SelectedTrain->SpeedLimit = trackBar2->Value / 10;
+			SelectedTrain->SpeedLimit = trackBar2->Value / 10.0;
 	}
 	private: System::Void radioButton4_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 
