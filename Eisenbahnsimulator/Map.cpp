@@ -1,9 +1,10 @@
 ﻿#include "Map.h"
 
-Map::Map(int _height, int _width)
+Map::Map(int _height, int _width, String ^_backgroundPath)
 {
 	Height = _height;
 	Width = _width;
+	BackgroundPath = _backgroundPath;
 	TMap = gcnew List<TileObject^>(_height * _width);
 }
 

@@ -14,7 +14,7 @@ public ref class Map
 	int Height; //Height of the tile map
 	int Width;	//Width of the tile map
 	
-	Map(int _height, int _width); //Construct the tilemap
+	Map(int _height, int _width, String ^_backgroundPath); //Construct the tilemap
 
 		
 	TileObject^ GetTile(int posX, int posY);//Returns Object at position x, y
