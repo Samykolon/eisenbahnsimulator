@@ -785,13 +785,13 @@ namespace Eisenbahnsimulator {
 			if (SelectedTrain->SpeedLimit == SelectedTrain->MaximumSpeed)
 				trackBar2->Value = SelectedTrain->MaximumSpeed * 10;
 
-		static int count = 0;
+		/* static int count = 0;
 		count += 60 * passedTime;
 		if (count >= 60)
 		{
 			count = 0;
 			textBox1->AppendText(L"Framerate: " + 1 / passedTime + "\r\n");
-		}
+		} */           //Framerate
 
 	}
 

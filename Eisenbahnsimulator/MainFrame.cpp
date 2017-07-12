@@ -12,6 +12,7 @@ void Main(array<String^>^ args)
 
 	Eisenbahnsimulator::MainFrame form;
 	Application::Run(%form);
+	
 }
 
 int Eisenbahnsimulator::MainFrame::CalcTileCoord(int pixCoord)
