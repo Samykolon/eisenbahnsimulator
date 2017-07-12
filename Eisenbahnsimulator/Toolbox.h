@@ -44,8 +44,11 @@ void updateTrainList(Userdata^ _userdata, Appdata^ _appdata, ListBox^ _listBox)
 	{
 		if (train->Name != nullptr) {
 			_listBox->Items->Add(train->Name);						
-		
 		}
+	}
+	if (_userdata->trainList->Count == 0)
+	{
+		_listBox->Items->Add(L"Keine Züge vorhanden");
 	}
 		
 

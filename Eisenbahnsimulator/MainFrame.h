@@ -810,13 +810,12 @@ namespace Eisenbahnsimulator {
 	}
 
 	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-		SelectedTrain->freeRails();
-		userdata->trainList->Remove(SelectedTrain);
-		updateTrainList(userdata, appdata, listBox1);
-		if (listBox1->Items->Count < 1)
-			listBox1->Text = "Liste der vorhandenen Züge";
-
-
+		if (SelectedTrain != nullptr)
+		{
+			SelectedTrain->freeRails();
+			userdata->trainList->Remove(SelectedTrain);
+			updateTrainList(userdata, appdata, listBox1);
+		}
 	}
 	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
 
@@ -824,10 +823,9 @@ namespace Eisenbahnsimulator {
 		{
 			if (train->Name != nullptr) {
 				train->SpeedLimit = 0;
-
 			}
 		}
-		if (listBox1->Items->Count > 0 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
+		if (SelectedTrain != nullptr) {
 			CheckMessageBox();
 			textBox1->AppendText(L"Alle Züge wurden gestoppt!\r\n");
 		}
@@ -872,31 +870,23 @@ namespace Eisenbahnsimulator {
 		trackbarinuse = 0;
 	}
 	private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+		SelectedTI = listBox1->SelectedIndex;
+		if(SelectedTI != -1)
 
-		if (listBox1->Items->Count == 1 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
-			SelectedTI = -1;   // If there is no train there yet
-		}
-		else if (listBox1->Items->Count > 1) {
-			SelectedTI = listBox1->SelectedIndex;
-		}
-		else {
-			listBox1->Text = "Liste der vorhandenen Züge";
-			return;
-		}
-
-		if (SelectedTI > -1)
+		if (userdata->trainList->Count > 0)
 		{
 			SelectedTrain = userdata->trainList[SelectedTI];
 			trackBar2->Maximum = SelectedTrain->MaximumSpeed * 10;
 			trackBar2->Value = SelectedTrain->CurrentSpeed * 10;
-
-
 			if (SelectedTrain->DrivesForward == 1)   // Forward and backward Direction 
 				radioButton2->Checked = true;
 			else
 				radioButton4->Checked = true;
 		}
-
+		else // No trains placed
+		{
+			SelectedTrain = nullptr;
+		}
 	}
 	private: System::Void speichernToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 
