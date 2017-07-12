@@ -127,6 +127,9 @@
     <EmbeddedResource Include="EditName.resx">
       <Filter>Ressourcendateien</Filter>
     </EmbeddedResource>
+    <EmbeddedResource Include="Settings.resx">
+      <Filter>Ressourcendateien</Filter>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Rails\grass.png">
@@ -358,6 +361,21 @@
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Rails\Unbenannt-1.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\SteamTrain2.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\DieselTrain1.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\ElectricTrain1.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\SteamTrain3.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\DieselTrain2.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>

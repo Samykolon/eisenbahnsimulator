@@ -200,8 +200,11 @@
   <ItemGroup>
     <Image Include="Rails\Bush.png" />
     <Image Include="Rails\Conifer.png" />
+    <Image Include="Rails\DieselTrain1.png" />
+    <Image Include="Rails\DieselTrain2.png" />
     <Image Include="Rails\dirt.png" />
     <Image Include="Rails\dirt_background.png" />
+    <Image Include="Rails\ElectricTrain1.png" />
     <Image Include="Rails\ESIcon.ico" />
     <Image Include="Rails\FoliageTree.png" />
     <Image Include="Rails\grass.png" />
@@ -271,6 +274,8 @@
     <Image Include="Rails\snow.png" />
     <Image Include="Rails\snow_background.png" />
     <Image Include="Rails\Station1.png" />
+    <Image Include="Rails\SteamTrain2.png" />
+    <Image Include="Rails\SteamTrain3.png" />
     <Image Include="Rails\stone_background.png" />
     <Image Include="Rails\Switch_Blue.png" />
     <Image Include="Rails\Switch_Yellow.png" />
