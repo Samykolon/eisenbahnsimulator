@@ -522,15 +522,14 @@ namespace Eisenbahnsimulator {
 					MessageBox::Show(L"Beide Zahlen müssen größer als 0 sein.");
 				}
 				else {
-					userdata->map->BackgroundPath = L"Rails/grass_background.png";
 					userdata->map = gcnew Map(sizeX, sizeY); //Create new map
+					userdata->map->BackgroundPath = L"Rails/grass_background.png";
 					userdata->trainList->Clear();
 					updateTrainList(userdata, appdata, listBox1);
 					panel1->Invalidate(); //Draw main map
 					CheckMessageBox();
 					textBox1->AppendText(L"Neue Arbeitsfläche wurde erfolgreich erstellt!!\r\n");
 					
-
 				}
 			}
 			timer->Start();
