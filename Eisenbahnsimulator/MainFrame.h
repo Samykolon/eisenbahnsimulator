@@ -17,6 +17,7 @@
 
 #include "AppData.h"
 #include "UserData.h"
+#include "Settings.h"
 
 namespace Eisenbahnsimulator {
 
@@ -57,9 +58,11 @@ namespace Eisenbahnsimulator {
 	public:
 		MainFrame(void)
 		{
+
 			InitializeComponent();
 			appdata = gcnew Appdata();
 			userdata = gcnew Userdata(100, 100); // Creates also map
+			userdata->map->BackgroundPath = L"Rails/grass_background.png";
 			timer->Start();
 			// loadCategories
 			{
@@ -84,6 +87,7 @@ namespace Eisenbahnsimulator {
 			//
 
 			selectedItem = -1;
+
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::AllPaintingInWmPaint, true);
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::DoubleBuffer, true);
 			CoordinateOffset = Point(0, 0);
@@ -255,8 +259,9 @@ namespace Eisenbahnsimulator {
 			// einstellungenToolStripMenuItem
 			// 
 			this->einstellungenToolStripMenuItem->Name = L"einstellungenToolStripMenuItem";
-			this->einstellungenToolStripMenuItem->Size = System::Drawing::Size(145, 22);
+			this->einstellungenToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->einstellungenToolStripMenuItem->Text = L"Einstellungen";
+			this->einstellungenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::einstellungenToolStripMenuItem_Click);
 			// 
 			// hilfeToolStripMenuItem
 			// 
@@ -491,7 +496,7 @@ namespace Eisenbahnsimulator {
 #pragma endregion
 		Appdata^ appdata;
 		Userdata^ userdata;
-		Train^ SelectedTrain;
+		Train^ SelectedTrain;  //Selected Train
 		int SelectedTI = -1;    //Selected Trainindex - connected with the listbox
 		Boolean trackbarinuse = 0;  // Determines if user hovers over trackbar or not
 
@@ -532,9 +537,13 @@ namespace Eisenbahnsimulator {
 					MessageBox::Show(L"Beide Zahlen müssen größer als 0 sein.");
 				}
 				else {
+					userdata->map->BackgroundPath = L"Rails/grass_background.png";
 					userdata->map = gcnew Map(sizeX, sizeY); //Create new map
+					userdata->trainList->Clear();
+					updateTrainList(userdata, appdata, listBox1);
 					panel1->Invalidate(); //Draw main map
 					textBox1->AppendText(L"Neue Arbeitsfläche wurde erfolgreich erstellt!!\r\n");
+					
 
 				}
 			}
@@ -713,7 +722,7 @@ namespace Eisenbahnsimulator {
 			{
 				for (int i2 = 0; i2 < repeatY; i2++)
 				{
-					graphics->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), CoordinateOffset.X - CoordinateOffset.X%userdata->tileSize + sizeX*i, CoordinateOffset.Y - CoordinateOffset.Y%userdata->tileSize + sizeY*i2, sizeX, sizeY); //Draw grass - what is better?
+					graphics->DrawImage(appdata->getImageFromPath(userdata->map->BackgroundPath), CoordinateOffset.X - CoordinateOffset.X%userdata->tileSize + sizeX*i, CoordinateOffset.Y - CoordinateOffset.Y%userdata->tileSize + sizeY*i2, sizeX, sizeY); //Draw grass - what is better?
 				}
 
 			}
@@ -1059,6 +1068,18 @@ private: System::Void toolStripMenuItem1_Click(System::Object^  sender, System::
 		}
 	}
 	timer->Start();
+
+}
+private: System::Void einstellungenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	Settings^ s = gcnew Settings(userdata->map->BackgroundPath);
+	if (s->ShowDialog(this) == ::DialogResult::OK)
+	{
+		userdata->map->BackgroundPath = s->Background;
+		panel1->Invalidate();
+		
+
+	}
 
 }
 };

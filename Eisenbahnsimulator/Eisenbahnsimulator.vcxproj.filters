@@ -57,6 +57,9 @@
     <ClCompile Include="EditName.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Settings.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrame.h">
@@ -108,6 +111,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -330,6 +336,30 @@
     <Image Include="Rails\ESIcon.ico">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="Rails\dirt.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\dirt_background.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\sandstone.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\sandstone_background.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\snow.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\snow_background.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\stone_background.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Rails\Unbenannt-1.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ToolboxItems.txt" />
@@ -338,5 +368,8 @@
     <ResourceCompile Include="Icon.rc">
       <Filter>Ressourcendateien</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ImagedComboBox.exe" />
   </ItemGroup>
 </Project>
