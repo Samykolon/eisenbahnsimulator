@@ -930,6 +930,7 @@ namespace Eisenbahnsimulator {
 
 	}
 	private: System::Void panel1_MouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) {
+		if (Math::Abs(e->X - xWhenMiddleButtonPressed) < 10 && Math::Abs(e->Y - yWhenMiddleButtonPressed) < 10) return; //Don't move when the user just tried to delete		
 		int deltaX = e->X - x;
 		int deltaY = e->Y - y;
 		x = e->X;
@@ -951,7 +952,7 @@ namespace Eisenbahnsimulator {
 		if (e->Button == System::Windows::Forms::MouseButtons::Middle)
 		{
 			// delete tile if not moved
-			if (e->X == xWhenMiddleButtonPressed && e->Y == yWhenMiddleButtonPressed)
+			if (Math::Abs(e->X - xWhenMiddleButtonPressed) < 15 && Math::Abs(e->Y - yWhenMiddleButtonPressed) < 15)
 			{
 				if (userdata->map->GetTile(X, Y) != nullptr) {
 					TileObject^ obj = userdata->map->GetTile(X, Y);
@@ -968,7 +969,7 @@ namespace Eisenbahnsimulator {
 		mouseOverPanel = false;
 	}
 	private: System::Void panel1_MouseWheel(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
-
+		
 		int oldTileSize = userdata->tileSize;
 		int value = (e->Delta) / 10;
 		int smallesTileSize = 56; // Zoomed out
