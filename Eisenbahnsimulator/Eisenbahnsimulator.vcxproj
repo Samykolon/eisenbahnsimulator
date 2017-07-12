@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppData.cpp" />
+    <ClCompile Include="EditName.cpp" />
     <ClCompile Include="Pose.cpp" />
     <ClCompile Include="TileDecoration.cpp" />
     <ClCompile Include="MainFrame.cpp" />
@@ -152,6 +153,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BetterPanel.h" />
+    <ClInclude Include="EditName.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Pose.h" />
     <ClInclude Include="TileDecoration.h" />
     <ClInclude Include="AppData.h" />
@@ -172,6 +176,9 @@
     <ClInclude Include="UserData.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="EditName.resx">
+      <DependentUpon>EditName.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainFrame.resx">
       <DependentUpon>MainFrame.h</DependentUpon>
     </EmbeddedResource>

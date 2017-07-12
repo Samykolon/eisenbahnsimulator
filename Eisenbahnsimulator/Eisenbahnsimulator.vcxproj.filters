@@ -54,6 +54,9 @@
     <ClCompile Include="Pose.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="EditName.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrame.h">
@@ -99,6 +102,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Pose.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="EditName.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
