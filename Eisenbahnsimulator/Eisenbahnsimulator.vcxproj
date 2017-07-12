@@ -116,6 +116,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies />
+      <EntryPointSymbol>Main</EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,6 +131,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Reference Include="ImagedComboBox">
+      <HintPath>ImagedComboBox.exe</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -139,6 +144,7 @@
     <ClCompile Include="AppData.cpp" />
     <ClCompile Include="EditName.cpp" />
     <ClCompile Include="Pose.cpp" />
+    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="TileDecoration.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -157,6 +163,10 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Pose.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Settings.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="TileDecoration.h" />
     <ClInclude Include="AppData.h" />
     <ClInclude Include="MainFrame.h">
@@ -185,10 +195,19 @@
     <EmbeddedResource Include="NewDialog.resx">
       <DependentUpon>NewDialog.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Rails\Bush.png" />
     <Image Include="Rails\Conifer.png" />
+    <Image Include="Rails\DieselTrain1.png" />
+    <Image Include="Rails\DieselTrain2.png" />
+    <Image Include="Rails\dirt.png" />
+    <Image Include="Rails\dirt_background.png" />
+    <Image Include="Rails\ElectricTrain1.png" />
+    <Image Include="Rails\ESIcon.ico" />
     <Image Include="Rails\FoliageTree.png" />
     <Image Include="Rails\grass.png" />
     <Image Include="Rails\House.png" />
@@ -248,16 +267,30 @@
     <Image Include="Rails\Rail_Switch_TopRight_C.png" />
     <Image Include="Rails\Rail_Switch_TopRight_No.png" />
     <Image Include="Rails\Rail_Switch_TopRight_Yes.png" />
+    <Image Include="Rails\sandstone.png" />
+    <Image Include="Rails\sandstone_background.png" />
     <Image Include="Rails\Signal_None.png" />
     <Image Include="Rails\Signal_SGreen.png" />
     <Image Include="Rails\Signal_SRed.png" />
     <Image Include="Rails\Signal_Standart.png" />
+    <Image Include="Rails\snow.png" />
+    <Image Include="Rails\snow_background.png" />
     <Image Include="Rails\Station1.png" />
+    <Image Include="Rails\SteamTrain2.png" />
+    <Image Include="Rails\SteamTrain3.png" />
+    <Image Include="Rails\stone_background.png" />
     <Image Include="Rails\Switch_Blue.png" />
     <Image Include="Rails\Switch_Yellow.png" />
+    <Image Include="Rails\Unbenannt-1.png" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ToolboxItems.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ImagedComboBox.exe" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

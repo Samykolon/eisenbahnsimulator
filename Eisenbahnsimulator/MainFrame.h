@@ -17,6 +17,7 @@
 
 #include "AppData.h"
 #include "UserData.h"
+#include "Settings.h"
 
 namespace Eisenbahnsimulator {
 
@@ -33,33 +34,18 @@ namespace Eisenbahnsimulator {
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
-
-	/*public ref class ExtendedListView : public System::Windows::Forms::ListView
-	{
-	public:
-		ExtendedListView();
-
-		virtual void KeyPress(KeyEventArgs e) override
-		{
-			if (e.KeyCode == Keys::W || e.KeyCode == Keys::A || e.KeyCode == Keys::S || e.KeyCode == Keys::D)
-			{
-				MessageBox::Show("Test");
-				return;
-			}
-		}
-
-	}; */
-
-
+		
 	public ref class MainFrame : public System::Windows::Forms::Form
 	{
 
 	public:
 		MainFrame(void)
 		{
+
 			InitializeComponent();
 			appdata = gcnew Appdata();
 			userdata = gcnew Userdata(100, 100); // Creates also map
+			userdata->map->BackgroundPath = L"Rails/grass_background.png";
 			timer->Start();
 			// loadCategories
 			{
@@ -84,6 +70,7 @@ namespace Eisenbahnsimulator {
 			//
 
 			selectedItem = -1;
+
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::AllPaintingInWmPaint, true);
 			static_cast<BetterPanel^>(panel1)->SetStyle(ControlStyles::DoubleBuffer, true);
 			CoordinateOffset = Point(0, 0);
@@ -157,6 +144,7 @@ namespace Eisenbahnsimulator {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainFrame::typeid));
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->dateiToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->neuToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -254,8 +242,9 @@ namespace Eisenbahnsimulator {
 			// einstellungenToolStripMenuItem
 			// 
 			this->einstellungenToolStripMenuItem->Name = L"einstellungenToolStripMenuItem";
-			this->einstellungenToolStripMenuItem->Size = System::Drawing::Size(145, 22);
+			this->einstellungenToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->einstellungenToolStripMenuItem->Text = L"Einstellungen";
+			this->einstellungenToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainFrame::einstellungenToolStripMenuItem_Click);
 			// 
 			// hilfeToolStripMenuItem
 			// 
@@ -313,7 +302,6 @@ namespace Eisenbahnsimulator {
 			// 
 			// listViewSelectElements
 			// 
-			this->listViewSelectElements->Activation = System::Windows::Forms::ItemActivation::OneClick;
 			this->listViewSelectElements->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->listViewSelectElements->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
@@ -449,12 +437,12 @@ namespace Eisenbahnsimulator {
 			// 
 			this->contextMenuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->toolStripMenuItem1 });
 			this->contextMenuStrip1->Name = L"contextMenuStrip1";
-			this->contextMenuStrip1->Size = System::Drawing::Size(153, 48);
+			this->contextMenuStrip1->Size = System::Drawing::Size(147, 26);
 			// 
 			// toolStripMenuItem1
 			// 
 			this->toolStripMenuItem1->Name = L"toolStripMenuItem1";
-			this->toolStripMenuItem1->Size = System::Drawing::Size(152, 22);
+			this->toolStripMenuItem1->Size = System::Drawing::Size(146, 22);
 			this->toolStripMenuItem1->Text = L"Name ändern";
 			this->toolStripMenuItem1->Click += gcnew System::EventHandler(this, &MainFrame::toolStripMenuItem1_Click);
 			// 
@@ -469,12 +457,12 @@ namespace Eisenbahnsimulator {
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->menuStrip1);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->KeyPreview = true;
 			this->MainMenuStrip = this->menuStrip1;
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->MinimumSize = System::Drawing::Size(602, 489);
 			this->Name = L"MainFrame";
-			this->ShowIcon = false;
 			this->Text = L"Eisenbahnsimulator";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->menuStrip1->ResumeLayout(false);
@@ -491,9 +479,11 @@ namespace Eisenbahnsimulator {
 #pragma endregion
 		Appdata^ appdata;
 		Userdata^ userdata;
-		Train^ SelectedTrain;
+		Train^ SelectedTrain;  //Selected Train
 		int SelectedTI = -1;    //Selected Trainindex - connected with the listbox
 		Boolean trackbarinuse = 0;  // Determines if user hovers over trackbar or not
+		Boolean prewiewenabled = true;
+		Boolean frameenabled = true;
 
 		int selectedItem;	//Number of selected toolbox item
 		int CalcTileCoord(int pixCoord); //Calculates tile coordinate out of pixel coordinate
@@ -532,9 +522,14 @@ namespace Eisenbahnsimulator {
 					MessageBox::Show(L"Beide Zahlen müssen größer als 0 sein.");
 				}
 				else {
+					userdata->map->BackgroundPath = L"Rails/grass_background.png";
 					userdata->map = gcnew Map(sizeX, sizeY); //Create new map
+					userdata->trainList->Clear();
+					updateTrainList(userdata, appdata, listBox1);
 					panel1->Invalidate(); //Draw main map
+					CheckMessageBox();
 					textBox1->AppendText(L"Neue Arbeitsfläche wurde erfolgreich erstellt!!\r\n");
+					
 
 				}
 			}
@@ -719,7 +714,7 @@ namespace Eisenbahnsimulator {
 			{
 				for (int i2 = 0; i2 < repeatY; i2++)
 				{
-					graphics->DrawImage(appdata->getImageFromPath(L"Rails/grass_background.png"), CoordinateOffset.X - CoordinateOffset.X%userdata->tileSize + sizeX*i, CoordinateOffset.Y - CoordinateOffset.Y%userdata->tileSize + sizeY*i2, sizeX, sizeY); //Draw grass - what is better?
+					graphics->DrawImage(appdata->getImageFromPath(userdata->map->BackgroundPath), CoordinateOffset.X - CoordinateOffset.X%userdata->tileSize + sizeX*i, CoordinateOffset.Y - CoordinateOffset.Y%userdata->tileSize + sizeY*i2, sizeX, sizeY); //Draw grass - what is better?
 				}
 
 			}
@@ -752,35 +747,39 @@ namespace Eisenbahnsimulator {
 
 			}
 
-			Pen^ penGreen = gcnew Pen(Color::Green);
-			// Highlights the tile over which the mouse is over
-			if (mouseOverPanel)
-			{
-				if (selectedItem != -1)
-				{
-					// Selected Toolbox item:
-					String^ categoryKey = appdata->getCategoryList()[ComboBoxCategorySelection->SelectedIndex];
-					String^ selectedItemKey = appdata->getCategory(categoryKey)[selectedItem].keyString;
-					String^ path = "";
-					// draw preview
-					if (appdata->isTile(selectedItemKey))
+			Pen^ penRed = gcnew Pen(Color::Green);
+			if (prewiewenabled == true) {
+			 // Highlights the tile over which the mouse is over
+				if (mouseOverPanel)
+				{				
+					if (selectedItem != -1)
 					{
-						path = appdata->getTile(selectedItemKey)->ImagePath;
+						// Selected Toolbox item:
+						String^ categoryKey = appdata->getCategoryList()[ComboBoxCategorySelection->SelectedIndex];
+						String^ selectedItemKey = appdata->getCategory(categoryKey)[selectedItem].keyString;
+						String^ path = "";
+						// draw preview
+						if (appdata->isTile(selectedItemKey))
+						{
+							path = appdata->getTile(selectedItemKey)->ImagePath;
+						}
+						if (appdata->isTrain(selectedItemKey))
+						{
+							path = appdata->getTrain(selectedItemKey)->ImagePath;
+						}
+						if (path != "")
+						{
+							graphics->DrawImage(appdata->getImageFromPath(path),
+								(X - 1) * userdata->tileSize,
+								(Y - 1) * userdata->tileSize,
+								userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
+						}
 					}
-					if (appdata->isTrain(selectedItemKey))
-					{
-						path = appdata->getTrain(selectedItemKey)->ImagePath;
-					}
-					if (path != "")
-					{
-						graphics->DrawImage(appdata->getImageFromPath(path),
-							(X - 1) * userdata->tileSize,
-							(Y - 1) * userdata->tileSize,
-							userdata->tileSize, userdata->tileSize); //Draws all tiles in the tile map
-					}
-				}
 
-				graphics->DrawRectangle(penGreen, (X - 1) * userdata->tileSize, (Y - 1) * userdata->tileSize, userdata->tileSize, userdata->tileSize);
+
+					graphics->DrawRectangle(penRed, (X - 1) * userdata->tileSize, (Y - 1) * userdata->tileSize, userdata->tileSize, userdata->tileSize);
+
+				}
 
 			}
 		}
@@ -801,15 +800,14 @@ namespace Eisenbahnsimulator {
 		if (SelectedTrain != nullptr && trackbarinuse == 0)
 			if (SelectedTrain->SpeedLimit == SelectedTrain->MaximumSpeed)
 				trackBar2->Value = SelectedTrain->MaximumSpeed * 10;
-		//else
-			//trackBar2->Value = SelectedTrain->CurrentSpeed * 10; 
-		static int count = 0;
+
+		/* static int count = 0;
 		count += 60 * passedTime;
 		if (count >= 60)
 		{
 			count = 0;
 			textBox1->AppendText(L"Framerate: " + 1 / passedTime + "\r\n");
-		}
+		} */           //Framerate
 
 	}
 
@@ -840,23 +838,20 @@ namespace Eisenbahnsimulator {
 			textBox1->AppendText(L"Keine Züge vorhanden!\r\n");
 		}
 
-		//SelectedTrain->SpeedLimit = 0;
 	}
 	private: System::Void trackBar2_Scroll(System::Object^  sender, System::EventArgs^  e) {
 
 		if (SelectedTrain != nullptr)
-			SelectedTrain->SpeedLimit = trackBar2->Value / 10;
+			SelectedTrain->SpeedLimit = trackBar2->Value / 10.0;
 	}
 	private: System::Void radioButton4_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 
 		if (SelectedTrain != nullptr) {
 			if (radioButton4->Checked == true) {
 				SelectedTrain->DrivesForward = 0;
-				//SelectedTrain->MaximumSpeed = -30;
 			}
 			else {
 				SelectedTrain->DrivesForward = 1;
-				//SelectedTrain->MaximumSpeed *= -1;
 			}
 			SelectedTrain->SwitchDirection(); //Change the train's direction by 180 degrees
 			TileRail^ currentRail = SelectedTrain->Rail;
@@ -996,7 +991,7 @@ namespace Eisenbahnsimulator {
 		int value = (e->Delta) / 10;
 		int smallesTileSize = 56; // Zoomed out
 		int biggestTileSize = 180; // Zoomed in
-	   // value = 0;
+	    // value = 0;
 		// Zoom to
 		int zoomToX = 0;
 		// int zoomToX = CoordinateOffset.X;
@@ -1075,6 +1070,19 @@ private: System::Void toolStripMenuItem1_Click(System::Object^  sender, System::
 		}
 	}
 	timer->Start();
+
+}
+private: System::Void einstellungenToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+
+	Settings^ s = gcnew Settings(userdata->map->BackgroundPath, prewiewenabled);
+	if (s->ShowDialog(this) == ::DialogResult::OK)
+	{
+		userdata->map->BackgroundPath = s->Background;
+		prewiewenabled = s->PreviewEnabled;
+		panel1->Invalidate();
+		
+
+	}
 
 }
 };
