@@ -578,9 +578,9 @@ namespace Eisenbahnsimulator {
 						userdata->map->SetTile(temp, X, Y);
 						for each (Train^ train in userdata->trainList) { //Set stuck trains on new tile
 							if (train->X == X && train->Y == Y) {
-								Rail^ newRail = dynamic_cast<Rail^>(temp);
-								if (newRail != nullptr && newRail->LeadsTo(Train::FindOppositeDirection(train->GoalDirection))) {
-									train->setOnRail(newRail, train->GoalDirection);
+								TileRail^ newRail = dynamic_cast<TileRail^>(temp);
+								if (newRail != nullptr && newRail->LeadsTo(FindOppositeDirection(train->GoalDirection))) {
+									train->setOnRail(userdata->map,newRail, train->GoalDirection);
 									train->SpeedLimit = train->MaximumSpeed;
 								}
 							}
@@ -588,17 +588,23 @@ namespace Eisenbahnsimulator {
 					}
 					else if (appdata->isTrain(selectedItemKey))
 					{
-						Rail^ currentRail = dynamic_cast<Rail^>(userdata->map->GetTile(X, Y)); //Tries to cast the object into a Rail
+						TileRail^ currentRail = dynamic_cast<TileRail^>(userdata->map->GetTile(X, Y)); //Tries to cast the object into a Rail
 						if (currentRail != nullptr)
 						{
-							Train ^train = appdata->getTrain(selectedItemKey);
+							Train ^train = dynamic_cast<Train^>(appdata->getTrain(selectedItemKey)->Clone()); // Create Copy
 							train->TileSize = userdata->tileSize;
-							train->setOnRail(currentRail);
-							train->DrivesForward = 1;    // set Direction to "Forward"
+							if (train->setOnRail(userdata->map, currentRail))
+							{
+								train->DrivesForward = 1;    // set Direction to "Forward"
 
-							userdata->AddTrain(dynamic_cast<Train^>(train->Clone()));
-							CheckMessageBox();
-							textBox1->AppendText(train->Name + L" wurde erfolgreich hinzugefügt!\r\n");
+								userdata->AddTrain(train);
+								CheckMessageBox();
+								textBox1->AppendText(train->Name + L" wurde erfolgreich hinzugefügt!\r\n");
+							}
+							else
+							{
+								textBox1->AppendText(L" Zug konnte nicht hinzugefügt werden!\r\n");
+							}
 
 
 						}
@@ -621,8 +627,8 @@ namespace Eisenbahnsimulator {
 					railSw->Switch(userdata->trainList);
 					for each (Train^ train in userdata->trainList) //Set trains that had been stopped by the railroad switches' status in motion again
 					{
-						if (train->X == railSw->Position.X && train->Y == railSw->Position.Y && train->CurrentSpeed == 0 && railSw->LeadsTo(Train::FindOppositeDirection(train->GoalDirection))) {
-							train->setOnRail(railSw, train->GoalDirection);
+						if (train->X == railSw->Position.X && train->Y == railSw->Position.Y && train->CurrentSpeed == 0 && railSw->LeadsTo(FindOppositeDirection(train->GoalDirection))) {
+							train->setOnRail(userdata->map,railSw, train->GoalDirection);
 							train->SpeedLimit = train->MaximumSpeed;
 						}
 					}
@@ -734,9 +740,19 @@ namespace Eisenbahnsimulator {
 				float halfSize = userdata->tileSize / 2.0;
 				trainPic = (RotateImage(trainPic, Point(halfSize, halfSize), -train->CurrentPose.Orientation));
 				graphics->DrawImage(trainPic, (float)train->CurrentPose.X - halfSize, (float)train->CurrentPose.Y - halfSize, (float)userdata->tileSize, (float)userdata->tileSize);
+
+				// Draw Rectangle arround reserved rails
+				/*
+				Pen^ penRed = gcnew Pen(Color::Red);
+
+				for each(TileRail^ rail in train->rails)
+				{
+					graphics->DrawRectangle(penRed, (rail->Position.X - 1) * userdata->tileSize, (rail->Position.Y - 1) * userdata->tileSize, userdata->tileSize, userdata->tileSize);
+				}*/
+
 			}
 
-			Pen^ penRed = gcnew Pen(Color::Green);
+			Pen^ penGreen = gcnew Pen(Color::Green);
 			// Highlights the tile over which the mouse is over
 			if (mouseOverPanel)
 			{
@@ -764,7 +780,7 @@ namespace Eisenbahnsimulator {
 					}
 				}
 
-				graphics->DrawRectangle(penRed, (X - 1) * userdata->tileSize, (Y - 1) * userdata->tileSize, userdata->tileSize, userdata->tileSize);
+				graphics->DrawRectangle(penGreen, (X - 1) * userdata->tileSize, (Y - 1) * userdata->tileSize, userdata->tileSize, userdata->tileSize);
 
 			}
 		}
@@ -798,7 +814,7 @@ namespace Eisenbahnsimulator {
 	}
 
 	private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) {
-
+		SelectedTrain->freeRails();
 		userdata->trainList->Remove(SelectedTrain);
 		updateTrainList(userdata, appdata, listBox1);
 		if (listBox1->Items->Count < 1)
@@ -843,7 +859,7 @@ namespace Eisenbahnsimulator {
 				//SelectedTrain->MaximumSpeed *= -1;
 			}
 			SelectedTrain->SwitchDirection(); //Change the train's direction by 180 degrees
-			Rail^ currentRail = dynamic_cast<Rail^>(SelectedTrain->Tile);
+			TileRail^ currentRail = SelectedTrain->Rail;
 			if (currentRail != nullptr) {
 				if (currentRail->EndDirections == Directions::NorthSouth || currentRail->EndDirections == Directions::WestEast) {
 					SelectedTrain->TileProgress = 4 - SelectedTrain->TileProgress;
@@ -865,7 +881,7 @@ namespace Eisenbahnsimulator {
 	private: System::Void listBox1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 
 		if (listBox1->Items->Count == 1 && (listBox1->Items[0]->ToString() != "Liste der vorhandenen Züge")) {
-			SelectedTI = 0;   // If there is no train there yet
+			SelectedTI = -1;   // If there is no train there yet
 		}
 		else if (listBox1->Items->Count > 1) {
 			SelectedTI = listBox1->SelectedIndex;

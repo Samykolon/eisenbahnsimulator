@@ -2,7 +2,7 @@
 #include "TileRail.h"
 
 [Serializable]
-public ref class SignalRail : Rail { //A rail with a signal
+public ref class SignalRail : TileRail { //A rail with a signal
 private:
 		
 	String ^imagePath1, ^imagePath2;

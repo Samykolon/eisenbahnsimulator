@@ -1,48 +1,39 @@
 ﻿#include "Train.h"
 
-Direction Train::FindOppositeDirection(Direction dir)
-{
-	switch (dir)
-	{
-	case Direction::East:
-		return Direction::West;
-		break;
-	case Direction::North:
-		return Direction::South;
-		break;
-	case Direction::West:
-		return Direction::East;
-		break;
-	case Direction::South:
-		return Direction::North;
-		break;
-	default:
-		break;
-	}
-	return Direction();
-}
-
-inline Train::Train(TrainType typ, String^ _name, String^ _imagePath, int _maxSpeed)//, Direction start, Direction goal, Rail^ to, String^ _imagePath, int tileSize)
+inline Train::Train(TrainType _type, String^ _name, String^ _imagePath, int _maxSpeed)
 {
 	imagePath = _imagePath;
-	Type = typ;
+	Type = _type;
 	Name = _name;
 	MaxSpeed = _maxSpeed;
 	Speed = 0;
 	SpeedLimit = _maxSpeed;
-	/*Tile = to;
-	StartDirection = start;
-	GoalDirection = goal;
-	CurrentPose = to->Drive(start, 1, tileSize);*/
+	rails = gcnew List<TileRail^>;
+	stuck = false;
 }
 
-void Train::setOnRail(Rail ^ _rail)
+Object ^ Train::Clone()
 {
-	if (_rail == nullptr) return;
+	Train ^trainClone = static_cast<Train^>(MemberwiseClone());
+	trainClone->Name = gcnew String(Name);
+	trainClone->rails = gcnew List<TileRail^>;
+	return trainClone;
+}
+
+Object ^ Train::Clone(String ^ _name)
+{
+	Train^ trainClone = static_cast<Train^>(Clone());
+	trainClone->Name = _name;
+	trainClone->rails = gcnew List<TileRail^>;
+	return trainClone;
+}
+
+bool Train::setOnRail(Map^ map, TileRail ^ _rail)
+{
+	if (_rail == nullptr) return false;
 
 	Direction startDirection;
 	Direction goalDirection;
-	//Find startDirection
 	if (_rail->LeadsTo(Direction::East))
 	{
 		startDirection = Direction::East;
@@ -59,116 +50,165 @@ void Train::setOnRail(Rail ^ _rail)
 	{
 		throw gcnew System::Exception("Wrong track... " + "This shouldn't happen");
 	}
-
-	//Find goalDirection
-	if (_rail->LeadsTo(Direction::North) && startDirection != Direction::North)
+	if(!setOnRail(map, _rail, startDirection))
 	{
-		goalDirection = Direction::North;
+		for each(TileRail^ rail in rails)
+		{
+			rail->setFree();
+		}
+		return false;
 	}
-	else if (_rail->LeadsTo(Direction::West) && startDirection != Direction::West)
-	{
-		goalDirection = Direction::West;
-	}
-	else if (_rail->LeadsTo(Direction::South) && startDirection != Direction::South)
-	{
-		goalDirection = Direction::South;
-	}
-	else
-	{
-		throw gcnew System::Exception("Wrong track... " + "This shouldn't happen");
-	}	
-	TileProgress = 1;
-	Tile = _rail;
-	StartDirection = startDirection;
-	GoalDirection = goalDirection;
-	CurrentPose = _rail->getPose(StartDirection, TileProgress);
-	//Windows::Forms::MessageBox::Show(CurrentPose.X + " " + CurrentPose.Y + " " + StartDirection.ToString() + " " + tileSize);
+	stuck = false;
+	return true;
 }
 
-void Train::setOnRail(Rail ^ newRail, Direction _startDir)
+bool Train::setOnRail(Map^ map, TileRail ^ _newRail, Direction _startDir)
 {
 	hasAlreadyStopped = false;
-	if (newRail == nullptr) { //Rail is empty
-		Tile = newRail; 
-		speedLimit = Speed = 0; //Train is stuck
-		return;
-	}
-	else if (!(newRail->LeadsTo(FindOppositeDirection(_startDir)))) {//Do nothing if the rail isn't connecting properly
-		Tile = newRail;
-		speedLimit = Speed = 0; //Train is stuck
-		return;
-		
-	}
-	else {
-		
-		TileProgress = 0;
-		StartDirection = FindOppositeDirection(_startDir);
-		Tile = newRail;
-		CurrentPose = newRail->getPose(StartDirection, TileProgress);
+	
+	Direction dispose;
+	// The rail after the new one
+	TileRail ^newRail2 = nextRail(map, _newRail, _startDir, dispose);
+	TileRail ^newRail3 = nextRail(map, _newRail, FindOppositeDirection(_startDir), dispose);
 
-		switch (newRail->EndDirections)
+	// stop when nullptr
+
+	if (_newRail == nullptr || newRail2 == nullptr || newRail3 == nullptr)
+	{
+		rail = _newRail;
+		speedLimit = Speed = 0; //Train is stuck
+		return false;
+	}
+
+
+	// try to reserve previous rail if not already reserved
+	if (!rails->Contains(newRail2))
+	{
+		if (!newRail2->reserve())
 		{
-		case Directions::NorthSouth:
-			if (StartDirection == Direction::North) {
-				GoalDirection = Direction::South;
+			stuck = true;
+			Speed = 0; //Train is stuck
+			return false;
+		}
+		rails->Add(newRail2);
+	}
+	// try to reserve current rail if not already reserved
+	if (!rails->Contains(_newRail))
+	{
+		if (!_newRail->reserve()) 
+		{
+			stuck = true;
+			Speed = 0; //Train is stuck
+			return false;
+		}
+		rails->Add(_newRail);
+	}
+	// try to reserve next rail if not already reserved
+	if (!rails->Contains(newRail3))
+	{
+		if (!newRail3->reserve()) 
+		{
+			stuck = true;
+			Speed = 0; //Train is stuck
+			return false;
+		}
+		rails->Add(newRail3);
+	}
+
+	if (rails->Count > 3)
+	{
+		rails[0]->setFree();
+		rails->RemoveAt(0);
+	}
+
+	//Do nothing if the rail isn't connecting properly
+	/*
+	if (!(_newRail->LeadsTo(FindOppositeDirection(_startDir)))) {
+		rail = _newRail;
+		speedLimit = Speed = 0; //Train is stuck
+		return false;
+	}*/
+
+	TileProgress = 0;
+	StartDirection = FindOppositeDirection(_startDir);
+	rail = _newRail;
+	CurrentPose = _newRail->getPose(StartDirection, TileProgress);
+	GoalDirection = _newRail->EndDirection(StartDirection);
+	stuck = false;
+	return true;
+}
+
+void Train::Tick(double _time, Map^ map)
+{
+	if (rail == nullptr) return; // Not placed on a tile yet/drove into an empty tile
+	if (hasAlreadyStopped == true && waitingTimeLeft > 0) {
+		waitingTimeLeft -= 10000 * _time;
+		return;
+	} else if (hasAlreadyStopped == false && TileProgress > 2 && rail->GetType() == TrainStop::typeid) { //Train stops to wait for passengers
+		waitingTimeLeft = static_cast<TrainStop^>(rail)->WaitingTime;
+		hasAlreadyStopped = true;
+		return;
+	}
+
+	Pose newPose;
+	if (rail != nullptr && speedLimit != 0) { //If the train is on a rail and actually able to drive
+		if (rail->IsGreen)
+		{
+			if (Speed < MaxSpeed && Speed < SpeedLimit) { //Accelerate train
+				Speed += _time*2;
 			}
-			else
-				GoalDirection = Direction::North;
-			break;
-		case Directions::WestEast:
-			if (StartDirection == Direction::West) {
-				GoalDirection = Direction::East;
+			else if (Speed > SpeedLimit)
+				Speed -= _time*2;
+
+			// Change Tileprogress if not stuck
+			if(!stuck)
+				TileProgress += Speed*_time;
+		}
+		newPose = rail->getPose(StartDirection, TileProgress);
+
+		if (newPose.X != -1) { //Train is on the same tile 
+			CurrentPose = newPose;   //Give train its newest pose;
+
+		}
+		else { //Need to fetch new tile			
+			//TileProgress = 0;
+			Direction newStartDir;
+			TileRail^ newRail = nextRail(map, rail, StartDirection, newStartDir);
+			if (newRail != nullptr)
+			{
+				setOnRail(map, newRail, GoalDirection);
 			}
-			else
-				GoalDirection = Direction::West;
-			break;
-		case Directions::WestNorth:
-			if (StartDirection == Direction::West) {
-				GoalDirection = Direction::North;
-			}
-			else
-				GoalDirection = Direction::West;
-			break;
-		case Directions::WestSouth:
-			if (StartDirection == Direction::West) {
-				GoalDirection = Direction::South;
-			}
-			else
-				GoalDirection = Direction::West;
-			break;
-		case Directions::NorthEast:
-			if (StartDirection == Direction::North) {
-				GoalDirection = Direction::East;
-			}
-			else
-				GoalDirection = Direction::North;
-			break;
-		case Directions::SouthEast:
-			if (StartDirection == Direction::East) {
-				GoalDirection = Direction::South;
-			}
-			else
-				GoalDirection = Direction::East;
-			break;
-		default:
-			break;
 		}
 	}
-
+}
+void Train::freeRails()
+{
+	for each(TileRail^ rail in rails)
+		rail->setFree();
+	rails->Clear();
 }
 
-Object ^ Train::Clone()
+
+void Train::SwitchDirection()
 {
-	Train ^trainClone = static_cast<Train^>(MemberwiseClone());
-	trainClone->Name = gcnew String(Name);
-	return trainClone;
+	Direction temp = StartDirection;
+	StartDirection = GoalDirection;
+	GoalDirection = temp;
 }
 
-Object ^ Train::Clone(String ^ _name)
+Pose Train::CurrentPose::get()
 {
-	Train^ trainClone = static_cast<Train^>(Clone());
-	trainClone->Name = _name;
-	return trainClone;
+	return currentPose*tileSize;
+}
+
+void Train::CurrentPose::set(Pose _pose)
+{
+	currentPose = _pose;
+}
+
+TileRail ^Train::Rail::get()
+{
+	return rail;
 }
 
 String^ Train::Name::get()
@@ -241,95 +281,46 @@ void Train::CurrentSpeed::set(double _speed)
 	Speed = _speed;
 }
 
-void Train::Tick(double _time, Map^ map)
+TileRail^ nextRail(Map^ _map, TileRail^ _currentRail, Direction _startDir, Direction% _newStartDir)
 {
-	//String^ fileName = "textfile.txt";
-	//IO::StreamWriter^ sw = IO::File::AppendText(fileName);
-	//sw->WriteLine(Tile->Position.X.ToString() + " " + Tile->Position.Y.ToString());
+	if (_currentRail == nullptr) return nullptr;
 
-	if (Tile == nullptr) return; // Not placed on a tile yet/drove into an empty tile
-	if (hasAlreadyStopped == true && waitingTimeLeft > 0) {
-		waitingTimeLeft -= 10000 * _time;
-		return;
-	} else if (hasAlreadyStopped == false && TileProgress > 2 && Tile->GetType() == TrainStop::typeid) { //Train stops to wait for passengers
-		waitingTimeLeft = static_cast<TrainStop^>(Tile)->WaitingTime;
-		hasAlreadyStopped = true;
-		return;
+	// position of current rail
+	int _currentRailX = _currentRail->Position.X;
+	int _currentRailY = _currentRail->Position.Y;
+
+	// goal direction of current rail
+	Direction goalDir = _currentRail->EndDirection(_startDir);
+
+	// start direction of next rail
+	_newStartDir = FindOppositeDirection(goalDir);
+
+	// init position of next rail
+	int _nextRailX = _currentRailX;
+	int _nextRailY = _currentRailY;
+
+	switch (goalDir)
+	{
+	case Direction::East:
+		_nextRailX += 1;
+		break;
+	case Direction::North:
+		_nextRailY -= 1;
+		break;
+	case Direction::West:
+		_nextRailX -= 1;
+		break;
+	case Direction::South:
+		_nextRailY += 1;
+		break;
 	}
 
-	Rail^ rail = dynamic_cast<Rail^>(Tile);	//Previous/current rail
-	Pose newPose;
-	if (rail != nullptr && speedLimit != 0) { //If the train is on a rail and actually able to drive
-		if (rail->IsGreen)
-		{
-			if (Speed < MaxSpeed && Speed < SpeedLimit) { //Accelerate train
-				Speed += _time*2;
-			}
-			else if (Speed > SpeedLimit)
-				Speed -= _time*2;
+	// get tile at next position
+	TileObject ^tile = _map->GetTile(_nextRailX, _nextRailY);
 
-			TileProgress += Speed*_time;
-		}
-		newPose = rail->getPose(StartDirection, TileProgress);
+	// Check if tile not nullpointer and that tile is a Rail
+	if (tile == nullptr) return nullptr;
+	if (!tile->isRail) return nullptr;
 
-		if (newPose.X != -1) { //Train is on the same tile 
-			//Windows::Forms::MessageBox::Show(newPose.X.ToString() + "TileProgress " + TileProgress);
-			CurrentPose = newPose;   //Give train its newest pose;
-
-		}
-		else { //Need to fetch new tile			
-			TileProgress = 0;
-			if (!(rail->Position.X == 0 && GoalDirection == Direction::West || rail->Position.X > map->Width && GoalDirection == Direction::East || rail->Position.Y == 0 && GoalDirection == Direction::North || rail->Position.Y > map->Height && GoalDirection == Direction::South)) { //Check if the train leaves the map boundaries
-
-				//sw->WriteLine("Old: " + Tile->Position.X + " " + Tile->Position.Y + "\ntileProgress: " + TileProgress + "\nStartdirection " + StartDirection.ToString() + "\nGoalDirection: " + GoalDirection.ToString() + "\n Enddirections:" + static_cast<Rail^>(Tile)->EndDirections.ToString());
-				switch (GoalDirection) //Set correct new rail depending on goaldirection
-				{
-				case Direction::East:
-					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X + 1, Tile->Position.Y)); //Fetch next tile
-					X = Tile->Position.X + 1;
-					Y = Tile->Position.Y;
-					break;
-				case Direction::North:
-					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X, Tile->Position.Y - 1));
-					X = Tile->Position.X;
-					Y = Tile->Position.Y - 1;
-					break;
-				case Direction::West:
-					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X - 1, Tile->Position.Y));
-					X = Tile->Position.X - 1;
-					Y = Tile->Position.Y;
-					break;
-				case Direction::South:
-					rail = dynamic_cast<Rail^>(map->GetTile(Tile->Position.X, Tile->Position.Y + 1));
-					X = Tile->Position.X;
-					Y = Tile->Position.Y + 1;
-					break;
-				default:
-					break;
-				}
-
-
-				setOnRail(rail, GoalDirection); //Sets the train on the rail, initializes its new variables, sets new Pose, resets tileProgress
-				//sw->WriteLine("New: " + Tile->Position.X + " " + Tile->Position.Y + "\ntileProgress: " + TileProgress + "\nStartdirection " + StartDirection.ToString() + "\nGoalDirection: " + GoalDirection.ToString() + "\n Enddirections:" + static_cast<Rail^>(Tile)->EndDirections.ToString());
-			}
-		}
-	}
-	//sw->Close();
-}
-
-void Train::SwitchDirection()
-{
-	Direction temp = StartDirection;
-	StartDirection = GoalDirection;
-	GoalDirection = temp;
-}
-
-Pose Train::CurrentPose::get()
-{
-	return currentPose*tileSize;
-}
-
-void Train::CurrentPose::set(Pose _pose)
-{
-	currentPose = _pose;
+	return dynamic_cast<TileRail^>(tile);
 }

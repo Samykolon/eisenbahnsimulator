@@ -20,14 +20,16 @@ protected:
 	String^ imagePath;
 		//A number between 0 and 2+pi/2 (curve) or 4 that determines the location of the train on the tile
 	int tileSize;
-	double Speed;
-	double MaxSpeed;
-	double speedLimit;
+	double Speed;	// Current Speed
+	double MaxSpeed; // Maximal speed the train can drive
+	double speedLimit; // 
 	
 	Boolean drivesforward;
 	double waitingTimeLeft;
 	Boolean hasAlreadyStopped;
 	Pose currentPose; //A pose that describes the train's current position on the panel, coordinates and orientation
+	TileRail^ rail;		// Determines the tile location and the type of object the Train is driving on
+	bool stuck;
 public:
 	property Direction StartDirection;
 	property int X;
@@ -35,12 +37,14 @@ public:
 	property Direction GoalDirection;
 	property double TileProgress;	
 	property TrainType Type;
-	TileObject^ Tile;		// Determines the tile location and the type of object the Train is driving on
-	static Direction FindOppositeDirection(Direction dir);
+
+	List <TileRail^>^ rails;
+	void freeRails();
+
 public:
 	Train(TrainType typ, String ^ nm, String^ _imagePath, int _maxSpeed);//, Direction start, Direction goal, Rail ^ to, String^ _imagePath, int tileSize);
-	void setOnRail(Rail^ _rail); //Initializes the train's pose, directions, tileprogress
-	void setOnRail(Rail^ newRail, Direction startDir); //Initializes the train's directions coming from another rail
+	bool setOnRail(Map^ map, TileRail^ _rail); //Initializes the train's pose, directions, tileprogress
+	bool setOnRail(Map^ map, TileRail^ newRail, Direction startDir); //Initializes the train's directions coming from another rail
 #pragma region Properties
 	property String^ ImagePath
 	{
@@ -85,6 +89,11 @@ public:
 		Pose get();
 		void set(Pose pose);
 	}
+	property TileRail^ Rail
+	{
+		TileRail^ get();
+	}
+
 
 #pragma endregion
 	virtual Object ^Clone();
@@ -94,3 +103,5 @@ public:
 	void SwitchDirection();
 
 };
+
+TileRail^ nextRail(Map^ _map, TileRail^ _currentRail, Direction _startDir, Direction% _newStartDir);

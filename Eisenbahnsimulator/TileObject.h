@@ -3,7 +3,7 @@ using namespace System;
 using namespace System::Drawing;
 
 ref class TileObject;
-ref class Rail;
+ref class TileRail;
 ref class SignalRail;
 ref class TrainStop;
 ref class RailSwitch;
@@ -20,6 +20,11 @@ public:
 	//TODO: Make virtual?
 	TileObject(String^ _imagePath, String^ _id_name); 
 	
+	property bool isRail
+	{
+		virtual bool get();
+	}
+
 	virtual Object ^Clone();
 
 	virtual property Point Position

@@ -32,3 +32,8 @@ Object ^TileObject::Clone()
 	TileObject ^temp = static_cast<TileObject^>(MemberwiseClone());
 	return temp;
 }
+
+bool TileObject::isRail::get()
+{
+	return false;
+}

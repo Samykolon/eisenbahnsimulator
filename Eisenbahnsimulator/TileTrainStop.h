@@ -2,7 +2,7 @@
 #include "TileRail.h"
 
 [Serializable]
-public ref class TrainStop : Rail { //A train stop
+public ref class TrainStop : TileRail { //A train stop
 public:
 	property double WaitingTime;
 	property double TimeLeft;

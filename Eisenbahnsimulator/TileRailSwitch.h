@@ -3,7 +3,7 @@
 #include "Train.h"
 
 [Serializable]
-public ref class RailSwitch : Rail{	
+public ref class RailSwitch : TileRail{	
 public:
 	Boolean IsStraight;	//The direction currently enabled
 	Direction StraightSwitchDirection; //Straight direction, can be enabled or disabled

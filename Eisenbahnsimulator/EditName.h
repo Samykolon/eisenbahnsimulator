@@ -11,7 +11,7 @@ namespace Eisenbahnsimulator {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Zusammenfassung für EditName
+	/// Zusammenfassung fE EditName
 	/// </summary>
 	public ref class EditName : public System::Windows::Forms::Form
 	{
@@ -23,7 +23,7 @@ namespace Eisenbahnsimulator {
 			InitializeComponent();
 			
 			//
-			//TODO: Konstruktorcode hier hinzufügen.
+			//TODO: Konstruktorcode hier hinzufEen.
 			//
 		}
 		EditName(String^ _name)
@@ -57,7 +57,7 @@ namespace Eisenbahnsimulator {
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Erforderliche Methode für die Designerunterstützung.
+		/// Erforderliche Methode fE die DesignerunterstEzung.
 		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
 		/// </summary>
 		void InitializeComponent(void)

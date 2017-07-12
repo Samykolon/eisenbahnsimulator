@@ -1,11 +1,11 @@
 ﻿#include "TileRailSwitch.h"
 
-RailSwitch::RailSwitch(Directions railDir, Direction switchDir, Direction straightSwitch, String^ imagePath, String^ name) : Rail(railDir, imagePath, name) {
+RailSwitch::RailSwitch(Directions railDir, Direction switchDir, Direction straightSwitch, String^ imagePath, String^ name) : TileRail(railDir, imagePath, name) {
 	//TODO: Check if the switch direction and the rail directions are the same?
 	//TODO: Assign correct images
 	SwitchDirection = switchDir;
 	StraightSwitchDirection = straightSwitch;
-	FixedDirection = Train::FindOppositeDirection(straightSwitch);
+	FixedDirection = FindOppositeDirection(straightSwitch);
 	IsStraight = true;
 }
 
@@ -14,7 +14,7 @@ void RailSwitch::Switch(List<Train^>^ trains)
 	//Check if no train is on the same tile
 	for each (Train^ tr in trains)
 	{
-		if (tr->Tile == this && tr->CurrentSpeed > 0) {
+		if (tr->Rail == this && tr->CurrentSpeed > 0) {
 			return;
 		}
 	}

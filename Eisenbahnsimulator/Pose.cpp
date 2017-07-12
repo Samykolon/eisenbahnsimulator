@@ -27,3 +27,25 @@ Directions AddDirections(Direction d1, Direction d2)
 		throw gcnew System::Exception("Direction definition error");
 	
 }
+
+Direction FindOppositeDirection(Direction dir)
+{
+	switch (dir)
+	{
+	case Direction::East:
+		return Direction::West;
+		break;
+	case Direction::North:
+		return Direction::South;
+		break;
+	case Direction::West:
+		return Direction::East;
+		break;
+	case Direction::South:
+		return Direction::North;
+		break;
+	default:
+		break;
+	}
+	return Direction();
+};

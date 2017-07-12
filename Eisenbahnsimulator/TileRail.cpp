@@ -2,7 +2,7 @@
 
 using namespace System;
 
-inline Boolean Rail::LeadsTo(Direction dir)
+inline Boolean TileRail::LeadsTo(Direction dir)
 {
 	switch (dir)
 	{
@@ -41,36 +41,75 @@ inline Boolean Rail::LeadsTo(Direction dir)
 	return Boolean();
 }
 
-inline Rail::Rail(Directions _dir, String^ imagePath, String^ name) :TileObject(imagePath, name)
-{/*
-	switch (_dir)
+Direction TileRail::EndDirection(Direction _startDir)
+{
+	switch (EndDirections)
 	{
-	case Directions::NorthEast:
-		ImagePath = L"Rail_Curve_RightTop.png";
-		break;
 	case Directions::NorthSouth:
-		ImagePath = L"Rail_Normal_Vert.png";
+		if (_startDir == Direction::North) {
+			return Direction::South;
+		}
+		else
+			return Direction::North;
 		break;
-	case Directions::NorthWest:
-		ImagePath = L"Rail_Curve_LeftTop.png";
+	case Directions::WestEast:
+		if (_startDir == Direction::West) {
+			return Direction::East;
+		}
+		else
+			return Direction::West;
 		break;
-	case Directions::EastSouth:
-		ImagePath = L"Rail_Curve_RightBottom.png";
+	case Directions::WestNorth:
+		if (_startDir == Direction::West) {
+			return Direction::North;
+		}
+		else
+			return Direction::West;
 		break;
-	case Directions::EastWest:
-		ImagePath = L"Rail_Normal_Hor.png";
+	case Directions::WestSouth:
+		if (_startDir == Direction::West) {
+			return Direction::South;
+		}
+		else
+			return Direction::West;
 		break;
-	case Directions::SouthWest:
-		ImagePath = L"Rail_Curve_LeftBottom.png";
+	case Directions::NorthEast:
+		if (_startDir == Direction::North) {
+			return Direction::East;
+		}
+		else
+			return Direction::North;
+		break;
+	case Directions::SouthEast:
+		if (_startDir == Direction::East) {
+			return Direction::South;
+		}
+		else
+			return Direction::East;
 		break;
 	default:
 		break;
-	}*/
+	}
+	return _startDir;
+}
+
+bool TileRail::reserve() // returns true if successful, false if failed
+{
+	if (!reserved)
+	{
+		reserved = true;
+		return true;
+	}
+	return false;
+}
+
+inline TileRail::TileRail(Directions _dir, String^ imagePath, String^ name) :TileObject(imagePath, name)
+{
 	isGreen = true;
 	EndDirections = _dir;
 }
 
-Pose Rail::getPose(Direction startDirection, double tileProgress)
+Pose TileRail::getPose(Direction startDirection, double tileProgress)
 {
 	switch (EndDirections)
 	{
@@ -230,7 +269,17 @@ Pose Rail::getPose(Direction startDirection, double tileProgress)
 
 }
 
-bool Rail::IsGreen::get()
+bool TileRail::IsGreen::get()
 {
 	return isGreen;
+}
+
+bool TileRail::isRail::get()
+{
+	return true;
+}
+
+void TileRail::setFree()
+{
+	reserved = false;
 }

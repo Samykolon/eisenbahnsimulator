@@ -11,7 +11,11 @@ public enum class Directions { //Two cardinal directions
 
 public enum class Direction { East, North, West, South }; //One cardinal direction
 
+
 Directions AddDirections(Direction d1, Direction d2); //Returns Directions for two directions
+Direction FindOppositeDirection(Direction dir);
+
+
 
 [Serializable]
 public value class Pose {
@@ -49,3 +53,4 @@ public:
 		return pose;
 	}
 };
+
