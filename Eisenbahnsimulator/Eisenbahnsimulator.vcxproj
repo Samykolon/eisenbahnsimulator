@@ -157,6 +157,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Pose.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="TileDecoration.h" />
     <ClInclude Include="AppData.h" />
     <ClInclude Include="MainFrame.h">
@@ -259,6 +260,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ToolboxItems.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Icon.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
