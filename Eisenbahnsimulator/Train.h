@@ -7,7 +7,7 @@ ref class Train; //Forward declaration because of classes including each other
 
 #include "AppData.h"
 #include "TileTrainStop.h"
-
+#include "TileRailSwitch.h"
 
 using namespace System;
 

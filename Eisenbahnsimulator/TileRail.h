@@ -13,7 +13,7 @@ protected:
 
 public:
 	Directions EndDirections; //The directions of both rail ends
-	Boolean LeadsTo(Direction dir); //Returns true if the Rail leads to the specified direction
+	virtual Boolean LeadsTo(Direction dir); //Returns true if the Rail leads to the specified direction
 
 	Direction EndDirection(Direction _startDir);
 

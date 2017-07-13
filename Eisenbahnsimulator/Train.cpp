@@ -322,6 +322,15 @@ TileRail^ nextRail(Map^ _map, TileRail^ _currentRail, Direction _startDir, Direc
 	// Check if tile not nullpointer and that tile is a Rail
 	if (tile == nullptr) return nullptr;
 	if (!tile->isRail) return nullptr;
+	// Check if rail leads to startDirection
+	TileRail ^rail = dynamic_cast<TileRail^>(tile);
+	if (rail != nullptr)
+	{
+		if (!rail->LeadsTo(_startDir))
+		{
+			return nullptr;
+		}
+	}
 
 	return dynamic_cast<TileRail^>(tile);
 }

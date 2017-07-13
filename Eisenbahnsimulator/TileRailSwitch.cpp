@@ -103,3 +103,12 @@ void RailSwitch::Switch(List<Train^>^ trains)
 	}
 }
 
+Boolean RailSwitch::LeadsTo(Direction dir)
+{
+	if (dir == FixedDirection || (IsStraight && dir == StraightSwitchDirection) || (!IsStraight && dir == SwitchDirection))
+	{
+		return true;
+	}
+	return false;
+}
+
