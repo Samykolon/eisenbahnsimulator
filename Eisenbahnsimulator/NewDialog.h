@@ -44,7 +44,7 @@ namespace Eisenbahnsimulator {
 
 
 	private: System::Windows::Forms::Label^  label2;
-	private: System::Windows::Forms::Label^  label3;
+
 	public:
 			 String^ XText;
 			 String^ YText;
@@ -69,15 +69,15 @@ namespace Eisenbahnsimulator {
 			this->XBox = (gcnew System::Windows::Forms::TextBox());
 			this->YBox = (gcnew System::Windows::Forms::TextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// CreateButton
 			// 
 			this->CreateButton->DialogResult = System::Windows::Forms::DialogResult::OK;
-			this->CreateButton->Location = System::Drawing::Point(12, 117);
+			this->CreateButton->Location = System::Drawing::Point(16, 123);
+			this->CreateButton->Margin = System::Windows::Forms::Padding(4);
 			this->CreateButton->Name = L"CreateButton";
-			this->CreateButton->Size = System::Drawing::Size(82, 23);
+			this->CreateButton->Size = System::Drawing::Size(100, 28);
 			this->CreateButton->TabIndex = 0;
 			this->CreateButton->Text = L"Erstellen";
 			this->CreateButton->UseVisualStyleBackColor = true;
@@ -85,9 +85,10 @@ namespace Eisenbahnsimulator {
 			// CancelButton
 			// 
 			this->CancelButton->DialogResult = System::Windows::Forms::DialogResult::Cancel;
-			this->CancelButton->Location = System::Drawing::Point(118, 117);
+			this->CancelButton->Location = System::Drawing::Point(240, 123);
+			this->CancelButton->Margin = System::Windows::Forms::Padding(4);
 			this->CancelButton->Name = L"CancelButton";
-			this->CancelButton->Size = System::Drawing::Size(75, 23);
+			this->CancelButton->Size = System::Drawing::Size(100, 28);
 			this->CancelButton->TabIndex = 1;
 			this->CancelButton->Text = L"Abbrechen";
 			this->CancelButton->UseVisualStyleBackColor = true;
@@ -95,26 +96,29 @@ namespace Eisenbahnsimulator {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(43, 22);
+			this->label1->Location = System::Drawing::Point(13, 20);
+			this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(121, 13);
+			this->label1->Size = System::Drawing::Size(164, 17);
 			this->label1->TabIndex = 2;
 			this->label1->Text = L"Größe der Arbeitsfläche:";
 			// 
 			// XBox
 			// 
-			this->XBox->Location = System::Drawing::Point(12, 62);
+			this->XBox->Location = System::Drawing::Point(16, 76);
+			this->XBox->Margin = System::Windows::Forms::Padding(4);
 			this->XBox->Name = L"XBox";
-			this->XBox->Size = System::Drawing::Size(82, 20);
+			this->XBox->Size = System::Drawing::Size(100, 22);
 			this->XBox->TabIndex = 3;
 			this->XBox->Text = L"100";
 			this->XBox->TextChanged += gcnew System::EventHandler(this, &NewDialog::XBox_TextChanged);
 			// 
 			// YBox
 			// 
-			this->YBox->Location = System::Drawing::Point(118, 62);
+			this->YBox->Location = System::Drawing::Point(240, 80);
+			this->YBox->Margin = System::Windows::Forms::Padding(4);
 			this->YBox->Name = L"YBox";
-			this->YBox->Size = System::Drawing::Size(75, 20);
+			this->YBox->Size = System::Drawing::Size(100, 22);
 			this->YBox->TabIndex = 4;
 			this->YBox->Text = L"100";
 			this->YBox->TextChanged += gcnew System::EventHandler(this, &NewDialog::YBox_TextChanged);
@@ -122,33 +126,28 @@ namespace Eisenbahnsimulator {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(100, 65);
+			this->label2->Location = System::Drawing::Point(172, 80);
+			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(12, 13);
+			this->label2->Size = System::Drawing::Size(14, 17);
 			this->label2->TabIndex = 5;
 			this->label2->Text = L"x";
 			// 
-			// label3
-			// 
-			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(199, 65);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(46, 13);
-			this->label3->TabIndex = 6;
-			this->label3->Text = L"Kacheln";
-			// 
 			// NewDialog
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(277, 164);
-			this->Controls->Add(this->label3);
+			this->ClientSize = System::Drawing::Size(353, 172);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->YBox);
 			this->Controls->Add(this->XBox);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->CancelButton);
 			this->Controls->Add(this->CreateButton);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+			this->Margin = System::Windows::Forms::Padding(4);
+			this->MaximizeBox = false;
+			this->MinimizeBox = false;
 			this->Name = L"NewDialog";
 			this->ShowIcon = false;
 			this->Text = L"Neue Strecke anlegen...";
