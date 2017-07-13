@@ -75,7 +75,6 @@ bool Train::setOnRail(Map^ map, TileRail ^ _newRail, Direction _startDir)
 
 	if (_newRail == nullptr || newRail2 == nullptr || newRail3 == nullptr)
 	{
-		rail = _newRail;
 		speedLimit = Speed = 0; //Train is stuck
 		return false;
 	}
@@ -163,9 +162,21 @@ void Train::Tick(double _time, Map^ map)
 			// Change Tileprogress if not stuck
 			if(!stuck)
 				TileProgress += Speed*_time;
+			if (stuck)
+				Speed = 0;
 		}
 		newPose = rail->getPose(StartDirection, TileProgress);
 
+		if (stuck)
+		{
+			Direction newStartDir;
+			TileRail^ newRail = nextRail(map, rail, StartDirection, newStartDir);
+			if (newRail != nullptr)
+			{
+				setOnRail(map, newRail, GoalDirection);
+			}
+		}
+		else
 		if (newPose.X != -1) { //Train is on the same tile 
 			CurrentPose = newPose;   //Give train its newest pose;
 
@@ -189,12 +200,24 @@ void Train::freeRails()
 }
 
 
-void Train::SwitchDirection()
+void Train::SwitchDirection(Map^ map)
 {
 	rails->Reverse();
-	Direction temp = StartDirection;
-	StartDirection = GoalDirection;
-	GoalDirection = temp;
+	if (!stuck)
+	{
+		TileProgress = 3.57079632679 - TileProgress;
+		Direction temp = StartDirection;
+		StartDirection = GoalDirection;
+		GoalDirection = temp;
+	}
+	else
+	{
+		// Place new
+		freeRails();
+		setOnRail(map, rail, GoalDirection);
+		stuck = false;
+	}
+
 }
 
 Pose Train::CurrentPose::get()
@@ -326,6 +349,7 @@ TileRail^ nextRail(Map^ _map, TileRail^ _currentRail, Direction _startDir, Direc
 	TileRail ^rail = dynamic_cast<TileRail^>(tile);
 	if (rail != nullptr)
 	{
+		// rail not properly connected to the next one
 		if (!rail->LeadsTo(_startDir))
 		{
 			return nullptr;

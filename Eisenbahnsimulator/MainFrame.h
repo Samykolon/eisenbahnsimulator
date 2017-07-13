@@ -747,13 +747,13 @@ namespace Eisenbahnsimulator {
 				graphics->DrawImage(trainPic, (float)train->CurrentPose.X - halfSize, (float)train->CurrentPose.Y - halfSize, (float)userdata->tileSize, (float)userdata->tileSize);
 
 				// Draw Rectangle arround reserved rails
-				/*
+				
 				Pen^ penRed = gcnew Pen(Color::Red);
 
 				for each(TileRail^ rail in train->rails)
 				{
 					graphics->DrawRectangle(penRed, (rail->Position.X - 1) * userdata->tileSize, (rail->Position.Y - 1) * userdata->tileSize, userdata->tileSize, userdata->tileSize);
-				}*/
+				}
 
 			}
 
@@ -861,14 +861,14 @@ namespace Eisenbahnsimulator {
 			else {
 				SelectedTrain->DrivesForward = 1;
 			}
-			SelectedTrain->SwitchDirection(); //Change the train's direction by 180 degrees
+			SelectedTrain->SwitchDirection(userdata->map); //Change the train's direction by 180 degrees
 			TileRail^ currentRail = SelectedTrain->Rail;
 			if (currentRail != nullptr) {
 				if (currentRail->EndDirections == Directions::NorthSouth || currentRail->EndDirections == Directions::WestEast) {
-					SelectedTrain->TileProgress = 4 - SelectedTrain->TileProgress;
+				//	SelectedTrain->TileProgress = 4 - SelectedTrain->TileProgress;
 				}
 				else {
-					SelectedTrain->TileProgress = 3.57079632679 - SelectedTrain->TileProgress;
+				//	SelectedTrain->TileProgress = 3.57079632679 - SelectedTrain->TileProgress;
 				}
 			}
 		}

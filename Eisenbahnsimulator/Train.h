@@ -30,12 +30,13 @@ protected:
 	Pose currentPose; //A pose that describes the train's current position on the panel, coordinates and orientation
 	TileRail^ rail;		// Determines the tile location and the type of object the Train is driving on
 	bool stuck;
+	double TileProgress;
+
 public:
 	property Direction StartDirection;
 	property int X;
 	property int Y;
 	property Direction GoalDirection;
-	property double TileProgress;	
 	property TrainType Type;
 
 	List <TileRail^>^ rails;
@@ -100,7 +101,7 @@ public:
 	virtual Object ^Clone(String ^_name);
 
 	void Tick(double _time, Map^ map); //Updates the train's pose
-	void SwitchDirection();
+	void SwitchDirection(Map^ map);
 
 };
 
