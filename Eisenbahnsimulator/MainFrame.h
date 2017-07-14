@@ -874,16 +874,22 @@ namespace Eisenbahnsimulator {
 
 		if (SelectedTI > -1)
 		{
-			if (userdata->trainList[SelectedTI] != nullptr) {
-				SelectedTrain = userdata->trainList[SelectedTI];
-				trackBar2->Maximum = SelectedTrain->MaximumSpeed * 10;
-				trackBar2->Value = SelectedTrain->CurrentSpeed * 10;
+			try {
+				if (userdata->trainList[SelectedTI] != nullptr) {
+					SelectedTrain = userdata->trainList[SelectedTI];
+					trackBar2->Maximum = SelectedTrain->MaximumSpeed * 10;
+					trackBar2->Value = SelectedTrain->CurrentSpeed * 10;
 
 
-				if (SelectedTrain->DrivesForward == 1)   // Forward and backward Direction 
-					radioButton2->Checked = true;
-				else
-					radioButton4->Checked = true;
+					if (SelectedTrain->DrivesForward == 1)   // Forward and backward Direction 
+						radioButton2->Checked = true;
+					else
+						radioButton4->Checked = true;
+				}
+			}
+			catch (Exception^ ex)
+			{
+				
 			}
 		}
 
